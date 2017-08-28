@@ -2,7 +2,12 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+<<<<<<< HEAD
     android:layout_height="match_parent">
+=======
+    android:layout_height="match_parent"
+    >
+>>>>>>> 2f5d428392ab004ae11cd1873ec68d9aff78f145
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,15 +26,24 @@
             android:id="@+id/tabsBills"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+<<<<<<< HEAD
             app:tabGravity="fill"
             app:tabMode="fixed" />
+=======
+            app:tabMode="fixed"
+            app:tabGravity="fill"/>
+>>>>>>> 2f5d428392ab004ae11cd1873ec68d9aff78f145
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpagerBills"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+<<<<<<< HEAD
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+=======
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"  >
+>>>>>>> 2f5d428392ab004ae11cd1873ec68d9aff78f145
 
     </android.support.v4.view.ViewPager>
 

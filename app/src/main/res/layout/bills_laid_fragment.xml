@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
     xmlns:arc="http://schemas.android.com/apk/res-auto"
     android:id="@+id/coordinate"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+=======
+    android:layout_height="match_parent"
+    android:id="@+id/coordinate"
+    xmlns:arc="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent">
+>>>>>>> 2f5d428392ab004ae11cd1873ec68d9aff78f145
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/BillsLaidRv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+<<<<<<< HEAD
         android:scrollbars="vertical" />
+=======
+        android:scrollbars="vertical"
+        ></android.support.v7.widget.RecyclerView>
+>>>>>>> 2f5d428392ab004ae11cd1873ec68d9aff78f145
 
 </android.support.design.widget.CoordinatorLayout>

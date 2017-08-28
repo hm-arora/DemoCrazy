@@ -15,7 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+<<<<<<< HEAD
 import com.example.anmol.democrazy.adapters.BillsLaidAdapter;
+=======
+import com.example.anmol.democrazy.Adapter.BillsLaidAdapter;
+>>>>>>> 2f5d428392ab004ae11cd1873ec68d9aff78f145
 import com.example.anmol.democrazy.R;
 
 @SuppressLint("ValidFragment")
