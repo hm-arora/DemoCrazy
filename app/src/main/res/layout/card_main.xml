@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView android:layout_height="400dp"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:elevation="2dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:id="@+id/RelativeCardMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ImageViewMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/TextViewMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bills"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:gravity="center"
+            android:background="@drawable/back"
+            android:layout_centerInParent="true"
+            android:textSize="35dp"/>
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>
