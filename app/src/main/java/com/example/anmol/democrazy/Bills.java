@@ -9,10 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-<<<<<<< HEAD
 import android.view.MenuItem;
-=======
->>>>>>> 2f5d428392ab004ae11cd1873ec68d9aff78f145
 import android.view.View;
 
 import com.example.anmol.democrazy.fragments.BillsLaid;
@@ -39,7 +36,6 @@ public class Bills extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bills_main);
 
-<<<<<<< HEAD
         // Initiate views
         initViews();
         // Set Toolbar
@@ -63,33 +59,6 @@ public class Bills extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbarBills);
         viewPager = (ViewPager) findViewById(R.id.viewpagerBills);
         tabLayout = (TabLayout) findViewById(R.id.tabsBills);
-=======
-        toolbar = (Toolbar) findViewById(R.id.toolbarBills);
-
-        toolbar.setTitle("Bills");
-
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        viewPager = (ViewPager) findViewById(R.id.viewpagerBills);
-        viewPager.setPageTransformer(false, new ViewPager.PageTransformer() {
-            @Override
-            public void transformPage(View page, float position) {
-
-
-                final float normalizedposition = Math.abs(Math.abs(position) - 1);
-                page.setScaleX(normalizedposition);
-                //  page.setRotationX(position * -100);
-                page.setRotationY(position * -90);
-
-            }
-        });
-        setupViewPager(viewPager);
-        tabLayout = (TabLayout) findViewById(R.id.tabsBills);
-        tabLayout.setupWithViewPager(viewPager);
-
->>>>>>> 2f5d428392ab004ae11cd1873ec68d9aff78f145
 
     }
 
@@ -131,7 +100,6 @@ public class Bills extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
 
-<<<<<<< HEAD
     }
 
     @Override
@@ -144,8 +112,5 @@ public class Bills extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-=======
-
->>>>>>> 2f5d428392ab004ae11cd1873ec68d9aff78f145
     }
 }

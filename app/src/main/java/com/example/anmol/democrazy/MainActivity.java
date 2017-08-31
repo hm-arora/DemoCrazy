@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-<<<<<<< HEAD
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,33 +30,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     Toolbar toolbar;
     private NavigationView navigationView;
-=======
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import com.example.anmol.democrazy.Adapter.RecyclerAdapterMain;
-
-
-public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
-
-
-    DrawerLayout drawer;
-    RecyclerView rv;
-    RecyclerView.LayoutManager layoutManager;
-    RecyclerView.Adapter adapter;
-    Menu menu;
-
-    private int itemToResize;
-    private int TotalItemsInView=0;
->>>>>>> 2f5d428392ab004ae11cd1873ec68d9aff78f145
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-<<<<<<< HEAD
         // Used to initialize views
         initViews();
 
@@ -78,39 +56,12 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         layoutManager = new LinearLayoutManager(MainActivity.this);
         adapter = new RecyclerAdapterMain(MainActivity.this);
         // rv.addItemDecoration(new OverlappingDecoration());
-=======
-
-        Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
-
-        setSupportActionBar(toolbar);
-
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar,R.string.open_drawer,R.string.close_drawer);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(MainActivity.this);
-
-        menu=navigationView.getMenu();
-
-        View navHeader = navigationView.getHeaderView(0);
-
-
-        /////////////Recycler View///////////////////
-        rv= (RecyclerView) findViewById(R.id.RecyclerView);
-        layoutManager=new LinearLayoutManager(MainActivity.this);
-        adapter=new RecyclerAdapterMain(MainActivity.this);
-       // rv.addItemDecoration(new OverlappingDecoration());
->>>>>>> 2f5d428392ab004ae11cd1873ec68d9aff78f145
         rv.setLayoutManager(layoutManager);
         rv.setAdapter(adapter);
 
 
     }
 
-<<<<<<< HEAD
     private void setToolbar() {
         if (toolbar != null)
             setSupportActionBar(toolbar);
@@ -127,28 +78,17 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     @Override
     public void onBackPressed() {
         // Used to close drawer if active on back button
-=======
-    @Override
-    public void onBackPressed() {
->>>>>>> 2f5d428392ab004ae11cd1873ec68d9aff78f145
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
     }
-<<<<<<< HEAD
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         return true;
-=======
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-       return true;
->>>>>>> 2f5d428392ab004ae11cd1873ec68d9aff78f145
     }
 
     @Override

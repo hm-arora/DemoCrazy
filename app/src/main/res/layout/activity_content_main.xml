@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-<<<<<<< HEAD
-=======
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
->>>>>>> 2f5d428392ab004ae11cd1873ec68d9aff78f145
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -12,18 +7,12 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBar"
         android:layout_width="match_parent"
-<<<<<<< HEAD
         android:layout_height="wrap_content">
-=======
-        android:layout_height="wrap_content"
-        >
->>>>>>> 2f5d428392ab004ae11cd1873ec68d9aff78f145
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-<<<<<<< HEAD
             android:background="?attr/colorPrimary" />
 
     </android.support.design.widget.AppBarLayout>
@@ -35,12 +24,5 @@
         android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
-=======
-            android:background="?attr/colorPrimary"/>
-
-    </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/activity_contents"/>
->>>>>>> 2f5d428392ab004ae11cd1873ec68d9aff78f145
 
 </android.support.design.widget.CoordinatorLayout>
