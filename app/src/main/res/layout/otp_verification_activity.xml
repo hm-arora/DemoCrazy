@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+       android:paddingTop="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/OtpPassWord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter One Time Password(OTP)"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/OtpPassWordContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="One Time Password(OTP) has been sent toyour mobile ******6252,please enter the same here to login "
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            android:textStyle="normal"
+            android:layout_centerHorizontal="true"
+            android:gravity="fill_horizontal"
+            android:layout_below="@id/OtpPassWord"
+            android:paddingTop="50dp"/>
+
+
+        <EditText
+            android:id="@+id/OtpEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="OTP"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="5dp"
+            android:background="@drawable/otp_edit_text"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_below="@id/OtpPassWordContent"
+            />
+
+
+        <TextView
+            android:id="@+id/TryAgainOTP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/OtpEditText"
+            android:textColor="#fff"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:layout_alignParentRight="true"
+            android:text="Try Again"
+            android:textStyle="bold"/>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/OtpEditText"
+            android:textColor="#fff"
+            android:paddingTop="10dp"
+            android:paddingRight="5dp"
+           android:layout_toLeftOf="@id/TryAgainOTP"
+            android:text="Not Get Sms ?"
+            android:textStyle="normal"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOGIN"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:textSize="20dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textStyle="bold"
+            android:layout_below="@id/TryAgainOTP"
+            android:background="@color/colorAccent" />
+
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         if (id==R.id.LoginActivity){
-            Intent i=new Intent(MainActivity.this,LoginActivity.class);
+            Intent i=new Intent(MainActivity.this,OTPVerification.class);
             startActivity(i);
         }
 

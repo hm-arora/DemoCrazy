@@ -20,6 +20,7 @@
         </activity>
         <activity android:name=".Bills"></activity>
         <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".OTPVerification"></activity>
     </application>
 
 </manifest>
