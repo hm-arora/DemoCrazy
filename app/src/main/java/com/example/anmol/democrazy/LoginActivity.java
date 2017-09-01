@@ -39,10 +39,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                 String number=editText.getText().toString();
+                String number=editText.getText().toString();
 
                 PhoneNumber phoneNumber=new PhoneNumber(number,LoginActivity.this);
                 phoneNumber.sendNumber();
+
+
+
 
             }
         });

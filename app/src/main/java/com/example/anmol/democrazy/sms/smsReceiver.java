@@ -26,6 +26,8 @@ public class smsReceiver extends BroadcastReceiver {
 
         final Bundle bundle = intent.getExtras();
 
+        Intent intent1=new Intent("smsReceiver");
+
         try {
 
             if (bundle != null) {
@@ -45,6 +47,17 @@ public class smsReceiver extends BroadcastReceiver {
 
                     // Message
                     String message = currentMessage.getDisplayMessageBody();
+
+                    // Sending Phone Number
+                    intent1.putExtra("phoneNumber",phoneNumber);
+
+                    // Sending Message OTP
+                    intent1.putExtra("message",message);
+
+
+                    // Sending Broad cast whosoever want to receive this Broadcast will get it like OTP Verification will receive
+                    // it
+                    context.sendBroadcast(intent1);
 
                     int duration = Toast.LENGTH_LONG;
                     Toast toast = Toast.makeText(context,
