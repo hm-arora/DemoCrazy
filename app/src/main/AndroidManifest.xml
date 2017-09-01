@@ -21,6 +21,7 @@
         <activity android:name=".Bills"></activity>
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".OTPVerification"></activity>
+        <activity android:name=".navigation.AboutUs"></activity>
     </application>
 
 </manifest>

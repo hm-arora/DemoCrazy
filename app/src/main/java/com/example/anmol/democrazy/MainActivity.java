@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.anmol.democrazy.adapters.RecyclerAdapterMain;
+import com.example.anmol.democrazy.navigation.AboutUs;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -108,10 +109,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-
+        // Login Click
         if (id==R.id.LoginActivity){
             Intent i=new Intent(MainActivity.this,OTPVerification.class);
             startActivity(i);
+        }
+
+        // Share App Click
+        else if (id==R.id.ShareApp){
+            Intent share = new Intent(Intent.ACTION_SEND);
+            share.setType("text/plain");
+            share.putExtra(Intent.EXTRA_TEXT, "Democrazy App link on Google Play Store");
+            startActivity(Intent.createChooser(share, "Share using"));
+        }
+
+        else if(id==R.id.AboutUs){
+
+            Intent i=new Intent(MainActivity.this, AboutUs.class);
+            startActivity(i);
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

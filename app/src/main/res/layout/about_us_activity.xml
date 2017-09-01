@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <ImageView
+                    android:id="@+id/AboutUsImage"
+                    android:background="@drawable/logo"
+                    android:layout_width="300dp"
+                    android:layout_height="200dp"
+                    android:layout_centerHorizontal="true"/>
+
+
+                <RelativeLayout
+                    android:id="@+id/TopRelAboutUs"
+                    android:layout_below="@id/AboutUsImage"
+                    android:layout_width="300dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_height="wrap_content">
+
+                         <TextView
+
+                             android:id="@+id/TitleAboutPage"
+                             android:layout_width="wrap_content"
+                             android:text="DemoCrazy"
+                             android:textColor="#fff"
+                             android:textStyle="bold"
+                             android:textSize="40sp"
+                             android:paddingTop="10dp"
+                             android:layout_centerHorizontal="true"
+                             android:layout_height="wrap_content"
+
+                              />
+
+                    <RelativeLayout
+                        android:layout_alignParentRight="true"
+                        android:layout_width="140dp"
+                        android:layout_below="@id/TitleAboutPage"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/SubTitleoneAboutPage"
+                            android:layout_width="150dp"
+                            android:text="For the people....."
+                            android:textColor="#fff"
+                            android:textStyle="bold"
+                            android:paddingTop="10dp"
+                            android:textSize="15sp"
+                            android:layout_alignParentRight="true"
+                            android:layout_height="wrap_content"
+                            />
+
+
+                        <TextView
+                            android:id="@+id/SubTitletwoAboutPage"
+                            android:layout_width="150dp"
+                            android:text="By the people....."
+                            android:layout_below="@id/SubTitleoneAboutPage"
+                            android:textColor="#fff"
+                            android:textStyle="bold"
+                            android:paddingTop="10dp"
+                            android:textSize="15sp"
+                            android:layout_height="wrap_content"
+                            />
+
+                        <TextView
+                            android:id="@+id/SubTitlethreeAboutPage"
+                            android:layout_width="150dp"
+                            android:text="To the people....."
+                            android:layout_below="@id/SubTitletwoAboutPage"
+                            android:textColor="#fff"
+                            android:textStyle="bold"
+                            android:paddingTop="10dp"
+                            android:textSize="15sp"
+                            android:layout_height="wrap_content"
+                            />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+
+
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_below="@id/TopRelAboutUs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <FrameLayout
+                        android:id="@+id/DividerAboutUs"
+                        android:background="@drawable/divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"></FrameLayout>
+
+                    <TextView
+                        android:id="@+id/AboutUsAboutUs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:text="About Us"
+                        android:textColor="#fff"
+                        android:textSize="30sp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@id/DividerAboutUs"/>
+
+
+                    <TextView
+                        android:id="@+id/ActualText"
+                        android:paddingTop="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:layout_below="@id/AboutUsAboutUs"
+                        android:textColor="#fff"
+                        android:paddingBottom="10dp"
+                        android:gravity="fill_horizontal"
+                        />
+
+
+                    <FrameLayout
+                        android:id="@+id/DividerAboutUsone"
+                        android:background="@drawable/divider"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/ActualText"
+                        android:layout_height="2dp"></FrameLayout>
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+</LinearLayout>
