@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/loginlogo"
+        android:background="@drawable/logo"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:id="@+id/EnterPhNoLogin"
+        android:layout_below="@id/loginlogo"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter Your Phone Number"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_below="@id/EnterPhNoLogin"
+        android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/PhoneNumber"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="20dp"
+        android:inputType="phone"
+        android:hint="Phone Number"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/SubmitPhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:paddingLeft="20dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_below="@id/PhoneNumber"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:background="@color/colorAccent"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
