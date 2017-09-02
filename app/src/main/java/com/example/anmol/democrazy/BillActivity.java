@@ -10,7 +10,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.anmol.democrazy.fragments.BillsLaid;
 import com.example.anmol.democrazy.fragments.BillsPassed;
@@ -23,7 +22,7 @@ import java.util.List;
  * Created by anmol on 27/8/17.
  */
 
-public class Bills extends AppCompatActivity {
+public class BillActivity extends AppCompatActivity {
 
 
     private Toolbar toolbar;
@@ -50,7 +49,7 @@ public class Bills extends AppCompatActivity {
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("Bills");
+            getSupportActionBar().setTitle("BillActivity");
         } else
             throw new NullPointerException("Toolbar not initialized ");
     }
@@ -65,9 +64,9 @@ public class Bills extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new BillsLaid(Bills.this), "Bills Laid");
-        adapter.addFragment(new BillsPassed(Bills.this), "Bills Passed");
-        adapter.addFragment(new Ordiances(Bills.this), "Ordiances");
+        adapter.addFragment(new BillsLaid(BillActivity.this), "BillActivity Laid");
+        adapter.addFragment(new BillsPassed(BillActivity.this), "BillActivity Passed");
+        adapter.addFragment(new Ordiances(BillActivity.this), "Ordiances");
         viewPager.setAdapter(adapter);
     }
 

@@ -6,19 +6,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.anmol.democrazy.Bills;
+import com.example.anmol.democrazy.BillActivity;
+import com.example.anmol.democrazy.OpinionPollActivity;
 import com.example.anmol.democrazy.R;
 import com.squareup.picasso.Picasso;
 
 public class RecyclerAdapterMain extends RecyclerView.Adapter<RecyclerAdapterMain.ViewHolder> {
 
-    String s[] = {"Bills", "Financial Inclusions", "Opinion Polls"};
+    String s[] = {"BillActivity", "Financial Inclusions", "Opinion Polls"};
 
     String url[] = {"http://www.fdrindia.org/wp-content/uploads/2015/07/Parliament-of-India.png",
             "http://media.gettyimages.com/videos/indian-rupee-currency-bills-banknote-falling-video-id451311393?s=256x256"
@@ -68,9 +68,18 @@ public class RecyclerAdapterMain extends RecyclerView.Adapter<RecyclerAdapterMai
                 public void onClick(View view) {
                     int pos = getAdapterPosition();
 
-                    if (pos == 0) {
-                        Intent i = new Intent(ctx, Bills.class);
-                        ctx.startActivity(i);
+                    switch (pos) {
+                        case 0:
+                            Intent i = new Intent(ctx, BillActivity.class);
+                            ctx.startActivity(i);
+                            break;
+                        case 1:
+                            Toast.makeText(ctx, "Added soon...", Toast.LENGTH_SHORT).show();
+                            break;
+                        case 2:
+                            i = new Intent(ctx, OpinionPollActivity.class);
+                            ctx.startActivity(i);
+                            break;
                     }
 
                 }
