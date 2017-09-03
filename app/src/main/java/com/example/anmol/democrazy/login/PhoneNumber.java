@@ -14,6 +14,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +26,7 @@ public class PhoneNumber {
     RequestQueue rq;
     String phoneNumber;
 
-    private static final String URL="";
+    private static final String URL="http://139.59.86.83:4000/secure/otp/sendNew";
 
     public PhoneNumber(String phoneNumber,Context ctx){
 
@@ -32,7 +35,7 @@ public class PhoneNumber {
 
     }
 
-    public void sendNumber(){
+    public void sendNumber(final phNoCallback callback){
 
         rq=Volley.newRequestQueue(ctx);
 
@@ -43,6 +46,22 @@ public class PhoneNumber {
                     public void onResponse(String response) {
 
                         System.out.println(response);
+
+                        try {
+
+                            JSONObject jsonObject=new JSONObject(response);
+
+                            boolean status=jsonObject.getBoolean("status");
+
+                            String msg=jsonObject.getString("msg");
+
+                            callback.getResult(status,msg);
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
 
                     }
                 },
@@ -65,9 +84,9 @@ public class PhoneNumber {
 
     }
 
-//
-//    interface VolleyCallback{
-//        void getResult();
-//    }
+
+    public interface phNoCallback{
+        void getResult(boolean status,String msg);
+    }
 
 }

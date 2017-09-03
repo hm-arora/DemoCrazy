@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.anmol.democrazy.login.PhoneNumber;
 
@@ -41,9 +42,19 @@ public class LoginActivity extends AppCompatActivity {
 
                 String number=editText.getText().toString();
 
-                PhoneNumber phoneNumber=new PhoneNumber(number,LoginActivity.this);
-                phoneNumber.sendNumber();
+                Toast.makeText(getApplicationContext(),number,Toast.LENGTH_LONG).show();
 
+                PhoneNumber phoneNumber=new PhoneNumber(number,LoginActivity.this);
+                phoneNumber.sendNumber(new PhoneNumber.phNoCallback() {
+                    @Override
+                    public void getResult(boolean status, String msg) {
+
+                        if (status==true && msg.equals("message(s) queued")){
+                            Toast.makeText(getApplicationContext(),"OK",Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                });
 
 
 

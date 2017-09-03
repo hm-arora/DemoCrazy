@@ -19,6 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".BillActivity" />
+        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".navigation.AboutUs"></activity>
+        <activity android:name=".OTPVerification"></activity>
         <activity android:name=".OpinionPollActivity"></activity>
     </application>
 
