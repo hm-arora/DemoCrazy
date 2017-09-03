@@ -39,7 +39,7 @@ public class OpinionPollActivity extends AppCompatActivity {
     }
 
 
-    static class Adapter extends FragmentPagerAdapter {
+    private static class Adapter extends FragmentPagerAdapter {
         private List<Fragment> mFragments = new ArrayList<>();
 
         public Adapter(FragmentManager fm) {

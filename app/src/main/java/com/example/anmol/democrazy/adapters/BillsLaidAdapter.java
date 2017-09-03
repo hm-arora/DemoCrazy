@@ -8,13 +8,10 @@ import android.view.ViewGroup;
 
 import com.example.anmol.democrazy.R;
 
-/**
- * Created by anmol on 27/8/17.
- */
 
 public class BillsLaidAdapter extends RecyclerView.Adapter<BillsLaidAdapter.ViewHolder> {
 
-    Context ctx;
+    private Context ctx;
 
     public BillsLaidAdapter(Context ctx) {
 

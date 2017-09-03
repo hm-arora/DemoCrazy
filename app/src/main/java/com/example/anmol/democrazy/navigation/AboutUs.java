@@ -11,7 +11,7 @@ import com.example.anmol.democrazy.R;
 
 public class AboutUs extends AppCompatActivity {
 
-    TextView tx,tx1;
+    TextView tx;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

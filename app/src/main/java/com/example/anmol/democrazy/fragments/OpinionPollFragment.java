@@ -8,18 +8,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.example.anmol.democrazy.R;
 
-/**
- * Created by himanshu on 31/8/17.
- */
+
 
 public class OpinionPollFragment extends Fragment {
 
     private static final String QUE = "QUESTION";
-    private View view;
     TextView descTextView,quesTitletextView;
+
+    /**
+     * Used to initialize OpinionPollFragment object
+     * @param question add to object list
+     * @return OpinionPollFragment object
+     */
     public static OpinionPollFragment newInstance(String question){
         OpinionPollFragment opinionPollFragment = new OpinionPollFragment();
         Bundle args = new Bundle();
@@ -30,10 +32,10 @@ public class OpinionPollFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.opinion_poll_fragment,container,false);
+        View view = inflater.inflate(R.layout.opinion_poll_fragment, container, false);
         String question_text = getArguments().getString(QUE);
-        quesTitletextView = view.findViewById(R.id.ques_title);
-        descTextView = view.findViewById(R.id.text_ques);
+        quesTitletextView = (TextView) view.findViewById(R.id.ques_title);
+        descTextView = (TextView) view.findViewById(R.id.text_ques);
         descTextView.setText(question_text);
         descTextView.setTypeface(null, Typeface.BOLD);
         quesTitletextView.setTypeface(null, Typeface.BOLD);

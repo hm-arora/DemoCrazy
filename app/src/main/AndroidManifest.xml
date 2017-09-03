@@ -21,11 +21,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".BillActivity" />
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".navigation.AboutUs"></activity>
-        <activity android:name=".OTPVerification"></activity>
-        <activity android:name=".OpinionPollActivity"></activity>
-        <activity android:name=".UserDetails"></activity>
+        <activity android:name=".LoginActivity"/>
+        <activity android:name=".navigation.AboutUs"/>
+        <activity android:name=".OTPVerification"/>
+        <activity android:name=".OpinionPollActivity"/>
+        <activity android:name=".UserDetails"/>
         <receiver android:name=".sms.smsReceiver">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />

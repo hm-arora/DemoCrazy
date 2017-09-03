@@ -39,18 +39,15 @@ public class Ordiances extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.bills_laid_fragment, container, false);
+        View view = inflater.inflate(R.layout.bills_laid_fragment, container, false);
 
 
-        RecyclerView rv=v.findViewById(R.id.BillsLaidRv);
+        RecyclerView rv= (RecyclerView) view.findViewById(R.id.BillsLaidRv);
         RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(ctx);
         RecyclerView.Adapter adapter=new BillsLaidAdapter(ctx);
-
         rv.setLayoutManager(layoutManager);
         rv.setAdapter(adapter);
-
-
-        return v;
+        return view;
 
     }
 

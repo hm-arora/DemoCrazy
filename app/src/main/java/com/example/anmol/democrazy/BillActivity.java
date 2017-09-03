@@ -18,12 +18,7 @@ import com.example.anmol.democrazy.fragments.Ordiances;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by anmol on 27/8/17.
- */
-
 public class BillActivity extends AppCompatActivity {
-
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -61,7 +56,10 @@ public class BillActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * used to set up ViewPager
+     * @param viewPager ViewPagers's object
+     */
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new BillsLaid(BillActivity.this), "BillActivity Laid");
@@ -71,7 +69,7 @@ public class BillActivity extends AppCompatActivity {
     }
 
 
-    class ViewPagerAdapter extends FragmentPagerAdapter {
+    private class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 

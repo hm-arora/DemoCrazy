@@ -139,7 +139,7 @@ public class UserDetails extends AppCompatActivity {
 
 
 
-    // Submit Click
+    // submitButton Click
 
     public void SubmitClick(){
 
