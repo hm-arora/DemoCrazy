@@ -8,13 +8,151 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/textUserDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#fff"
             android:text="User Details"
             android:textSize="30sp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:layout_centerHorizontal="true"/>
+
+        <RelativeLayout
+            android:layout_below="@id/textUserDetails"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/FullNameUserDetail"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:paddingTop="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content">
+                
+                <EditText
+                    android:id="@+id/FullNameUserDetailEditText"
+                    android:hint="Full Name"
+                    android:inputType="text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/DatePicker"
+                android:background="@drawable/calendar"
+                android:layout_marginRight="20dp"
+                android:layout_below="@id/FullNameUserDetail"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentRight="true"/>
+
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/DOBUserDetail"
+                android:layout_width="300dp"
+                android:layout_below="@id/FullNameUserDetail"
+                android:layout_marginLeft="10dp"
+                android:paddingTop="20dp"
+                android:layout_toLeftOf="@id/DatePicker"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/DOBUserDetailEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="DOB"
+                    android:inputType="date"
+
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/EmailUserDetail"
+                android:layout_width="match_parent"
+                android:paddingTop="20dp"
+                android:layout_below="@id/DOBUserDetail"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/EmailUserDetailEditText"
+                    android:inputType="textEmailAddress"
+                    android:hint="Email Address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/PinCodeUserDetail"
+                android:layout_width="match_parent"
+                android:layout_below="@id/EmailUserDetail"
+                android:paddingTop="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/PinCodeUserDetailEditText"
+                    android:inputType="number"
+                    android:hint="Pin Code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <RadioGroup
+                android:orientation="horizontal"
+                android:id="@+id/RG"
+                android:layout_below="@id/PinCodeUserDetail"
+                android:layout_width="match_parent"
+                android:paddingLeft="60dp"
+                android:paddingTop="20dp"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/MUserDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Male"/>
+                 <RadioButton
+                    android:id="@+id/FUserDetails"
+                   android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Female"/>
+
+            </RadioGroup>
+
+
+            <Button
+                android:id="@+id/SubmitUserDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submit"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="30dp"
+                android:background="@color/colorAccent"
+                android:textSize="20sp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"/>
+
+        </RelativeLayout>
+
 
     </RelativeLayout>
 

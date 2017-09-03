@@ -56,6 +56,7 @@ public class OTPVerification extends AppCompatActivity {
                             // If user login first time
                             if (msg.equals("request other details")){
                                 Intent i=new Intent(OTPVerification.this,UserDetails.class);
+                                i.putExtra("PhoneNumber",phoneNumber);
                                 startActivity(i);
                             }
 
