@@ -1,5 +1,6 @@
 package com.example.anmol.democrazy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -40,17 +41,21 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String number=editText.getText().toString();
+                final String number=editText.getText().toString();
 
                 Toast.makeText(getApplicationContext(),number,Toast.LENGTH_LONG).show();
 
-                PhoneNumber phoneNumber=new PhoneNumber(number,LoginActivity.this);
+                final PhoneNumber phoneNumber=new PhoneNumber(number,LoginActivity.this);
                 phoneNumber.sendNumber(new PhoneNumber.phNoCallback() {
                     @Override
                     public void getResult(boolean status, String msg) {
 
                         if (status==true && msg.equals("message(s) queued")){
-                            Toast.makeText(getApplicationContext(),"OK",Toast.LENGTH_LONG).show();
+
+                            Intent i=new Intent(LoginActivity.this,OTPVerification.class);
+                            i.putExtra("PhoneNumber",number);
+                            startActivity(i);
+
                         }
 
                     }

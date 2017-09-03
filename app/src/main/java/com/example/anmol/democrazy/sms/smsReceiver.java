@@ -11,9 +11,7 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
-/**
- * Created by anmol on 1/9/17.
- */
+
 
 public class smsReceiver extends BroadcastReceiver {
 
@@ -58,11 +56,6 @@ public class smsReceiver extends BroadcastReceiver {
                     // Sending Broad cast whosoever want to receive this Broadcast will get it like OTP Verification will receive
                     // it
                     context.sendBroadcast(intent1);
-
-                    int duration = Toast.LENGTH_LONG;
-                    Toast toast = Toast.makeText(context,
-                            "senderNum: "+ senderNum + ", message: " + message, duration);
-                    toast.show();
 
                 }
             }

@@ -11,6 +11,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +24,7 @@ public class OTP {
     RequestQueue rq;
     String phoneNumber;
     String OTPNum;
-    private static final String URL="";
+    private static final String URL="http://139.59.86.83:4000/secure/loginNow";
 
     public OTP(String phoneNumber,String OTPNum,Context ctx){
         this.phoneNumber=phoneNumber;
@@ -30,7 +33,7 @@ public class OTP {
     }
 
 
-    public void sendOTP(){
+    public void sendOTP(final OTPCallback otpCallback){
 
         rq= Volley.newRequestQueue(ctx);
 
@@ -40,6 +43,22 @@ public class OTP {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+
+                        System.out.println(response);
+
+                        try {
+
+                            JSONObject jsonObject=new JSONObject(response);
+
+                            boolean status=jsonObject.getBoolean("status");
+                            String msg=jsonObject.getString("msg");
+
+                            otpCallback.getStatus(status,msg);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
 
                     }
                 },
@@ -62,11 +81,14 @@ public class OTP {
         };
 
 
-
         rq.add(stringRequest);
 
     }
 
+
+    public interface OTPCallback{
+        public void getStatus(boolean status,String msg);
+    }
 
 
 }
