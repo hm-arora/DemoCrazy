@@ -1,8 +1,5 @@
 package com.example.anmol.democrazy.login;
 
-
-// Sending Phone Number
-
 import android.content.Context;
 
 import com.android.volley.AuthFailureError;
@@ -12,7 +9,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.loopj.android.http.RequestParams;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,26 +16,28 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PhoneNumber {
+/**
+ * Created by anmol on 4/9/17.
+ */
+
+public class LogOut {
 
     Context ctx;
     RequestQueue rq;
-    String phoneNumber;
 
-    private static final String URL="http://139.59.86.83:4000/login/otp/sendNew";
+    private static final String URL="http://139.59.86.83:4000/login/secure/user/logout";
 
-    public PhoneNumber(String phoneNumber,Context ctx){
+    public LogOut(Context ctx){
 
-        this.phoneNumber=phoneNumber;
         this.ctx=ctx;
 
     }
 
-    public void sendNumber(final phNoCallback callback){
+    public void logoutUser(final LogOutInter logOutInter){
 
-        rq=Volley.newRequestQueue(ctx);
+        rq= Volley.newRequestQueue(ctx);
 
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL,
+        StringRequest stringRequest=new StringRequest(Request.Method.GET, URL,
 
                 new Response.Listener<String>() {
                     @Override
@@ -53,15 +51,11 @@ public class PhoneNumber {
 
                             boolean status=jsonObject.getBoolean("status");
 
-                            String msg=jsonObject.getString("msg");
-
-                            callback.getResult(status,msg);
-
+                            logOutInter.result(status);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
 
                     }
                 },
@@ -71,22 +65,27 @@ public class PhoneNumber {
                     public void onErrorResponse(VolleyError error) {
 
                     }
-                }){
+                }
+
+        ){
             @Override
-            protected Map<String,String> getParams() throws AuthFailureError {
-                Map<String,String> map=new HashMap<String,String>();
-                map.put("phone",phoneNumber);
-                return  map;
+            public Map<String, String> getHeaders() throws AuthFailureError {
+
+                loginKey l=new loginKey(ctx);
+                HashMap<String,String> map=new HashMap<>();
+                map.put("Cookie",l.getLoginKey());
+                return map;
+
             }
         };
+
 
         rq.add(stringRequest);
 
     }
 
-
-    public interface phNoCallback{
-        void getResult(boolean status,String msg);
+    public interface LogOutInter{
+        public void result(boolean status);
     }
 
 }

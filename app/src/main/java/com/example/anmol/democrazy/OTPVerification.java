@@ -60,6 +60,16 @@ public class OTPVerification extends AppCompatActivity {
                                 startActivity(i);
                             }
 
+                            else{
+
+                                System.out.println("JsonObjects");
+                                System.out.println(msg);
+
+                                Intent i=new Intent(OTPVerification.this,MainActivity.class);
+                                startActivity(i);
+
+                            }
+
                         }
 
                     }

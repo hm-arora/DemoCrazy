@@ -1,8 +1,5 @@
 package com.example.anmol.democrazy.login;
 
-
-// Sending Phone Number
-
 import android.content.Context;
 
 import com.android.volley.AuthFailureError;
@@ -12,7 +9,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.loopj.android.http.RequestParams;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,26 +16,23 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PhoneNumber {
+
+public class getUserDetails {
 
     Context ctx;
     RequestQueue rq;
-    String phoneNumber;
 
-    private static final String URL="http://139.59.86.83:4000/login/otp/sendNew";
+    private static final String URL="http://139.59.86.83:4000/login/secure/user/getDetails";
 
-    public PhoneNumber(String phoneNumber,Context ctx){
-
-        this.phoneNumber=phoneNumber;
+    public getUserDetails(Context ctx){
         this.ctx=ctx;
-
     }
 
-    public void sendNumber(final phNoCallback callback){
+    public void getDetails(final getDetailsofUser  getDetailsofUser){
 
-        rq=Volley.newRequestQueue(ctx);
+        rq= Volley.newRequestQueue(ctx);
 
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL,
+        StringRequest stringRequest=new StringRequest(Request.Method.GET, URL,
 
                 new Response.Listener<String>() {
                     @Override
@@ -48,20 +41,17 @@ public class PhoneNumber {
                         System.out.println(response);
 
                         try {
-
                             JSONObject jsonObject=new JSONObject(response);
+                             JSONObject jsonObject1=jsonObject.getJSONObject("msg");
+                             String email=jsonObject1.getString("email");
 
-                            boolean status=jsonObject.getBoolean("status");
+                            System.out.println("Email : "+email);
 
-                            String msg=jsonObject.getString("msg");
-
-                            callback.getResult(status,msg);
-
+                            getDetailsofUser.result(email);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
 
                     }
                 },
@@ -71,22 +61,28 @@ public class PhoneNumber {
                     public void onErrorResponse(VolleyError error) {
 
                     }
-                }){
+                }
+
+        ){
             @Override
-            protected Map<String,String> getParams() throws AuthFailureError {
-                Map<String,String> map=new HashMap<String,String>();
-                map.put("phone",phoneNumber);
-                return  map;
+            public Map<String, String> getHeaders() throws AuthFailureError {
+
+                loginKey l=new loginKey(ctx);
+                HashMap<String,String> map=new HashMap<>();
+                map.put("Cookie",l.getLoginKey());
+                return map;
+
             }
         };
+
 
         rq.add(stringRequest);
 
     }
 
-
-    public interface phNoCallback{
-        void getResult(boolean status,String msg);
+    public interface getDetailsofUser{
+        public void result(String response);
     }
+
 
 }

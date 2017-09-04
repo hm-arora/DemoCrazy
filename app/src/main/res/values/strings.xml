@@ -2,5 +2,7 @@
     <string name="app_name">DemoCrazy</string>
     <string name="open_drawer">OpenDrawer</string>
     <string name="close_drawer">CloseDrawer</string>
+    <string name="Login_key_File">com.example.anmol.events.PREFERENCE_FILE_KEY</string>
+    <string name="LOGIN_KEY">LOGIN_KEY</string>
     <string name="question">This is the question realted to any government whether central or state and user can vote this question whether the user likes this thing or not or don\'t know .Are you like this one or not ?</string>
 </resources>

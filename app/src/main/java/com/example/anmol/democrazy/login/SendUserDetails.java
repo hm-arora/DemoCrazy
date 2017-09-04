@@ -3,6 +3,7 @@ package com.example.anmol.democrazy.login;
 import android.content.Context;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -17,9 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by anmol on 3/9/17.
- */
+
 
 public class SendUserDetails {
 
@@ -27,14 +26,14 @@ public class SendUserDetails {
     RequestQueue rq;
     Context ctx;
 
-    private static final String URL="http://139.59.86.83:4000/secure/firstLogin/submitDetails";
+    private static final String URL="http://139.59.86.83:4000/login/secure/firstLogin/submitDetails";
 
     public SendUserDetails(List<String> list,Context ctx){
         this.list=list;
         this.ctx=ctx;
     }
 
-    public void sendDetails(){
+    public void sendDetails(final UserCallBack userCallBack){
 
         rq= Volley.newRequestQueue(ctx);
 
@@ -44,7 +43,18 @@ public class SendUserDetails {
                     @Override
                     public void onResponse(String response) {
 
-                        System.out.println(response);
+                        try {
+                            JSONObject jsonObject=new JSONObject(response);
+
+                            boolean status=jsonObject.getBoolean("status");
+
+                            userCallBack.getResult(status);
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
 
                     }
                 },
@@ -66,10 +76,41 @@ public class SendUserDetails {
                 map.put("phone",list.get(5));
                 return  map;
             }
+//
+//            @Override
+//            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+//
+//                loginKey loginKey=new loginKey(ctx);
+//                Map<String,String> params = new HashMap<String, String>();
+//                params.put("Content-Type","application/x-www-form-urlencoded");
+//                System.out.println("Key : "+loginKey.getLoginKey());
+//                params.put("Cookie",loginKey.getLoginKey());
+//
+//                return (Response<String>) params;
+//
+//            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+
+                loginKey loginKey=new loginKey(ctx);
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("Content-Type","application/x-www-form-urlencoded");
+                System.out.println("Key : "+loginKey.getLoginKey());
+                params.put("Cookie",loginKey.getLoginKey());
+                return params;
+            }
+
+
         };
 
         rq.add(stringRequest);
 
+    }
+
+
+    public interface UserCallBack{
+        public void getResult(boolean status);
     }
 
 

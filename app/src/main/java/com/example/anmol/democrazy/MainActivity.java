@@ -13,13 +13,23 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.example.anmol.democrazy.adapters.RecyclerAdapterMain;
+import com.example.anmol.democrazy.login.LogOut;
+import com.example.anmol.democrazy.login.getUserDetails;
+import com.example.anmol.democrazy.login.loginKey;
 import com.example.anmol.democrazy.navigation.AboutUs;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+
+    FrameLayout frameLayout;
 
     private DrawerLayout drawer;
     private RecyclerView rv;
@@ -51,9 +61,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView.setNavigationItemSelectedListener(MainActivity.this);
 
+
+        //Menu of Navigation View
         menu = navigationView.getMenu();
 
+        // Header of Navigation View
         View navHeader = navigationView.getHeaderView(0);
+
+        frameLayout= (FrameLayout) navHeader.findViewById(R.id.FrameNav);
+        final TextView login_text= (TextView) navHeader.findViewById(R.id.Login_text);
+
+        ////////////// GETTING USER DETAILS  ///////////////////
+        loginKey l=new loginKey(MainActivity.this);
+        String key=l.getLoginKey();
+        if (key!=""){
+
+            menu.findItem(R.id.LoginActivity).setTitle("LogOut");
+
+            frameLayout.setVisibility(View.VISIBLE);
+
+            getUserDetails g=new getUserDetails(MainActivity.this);
+
+            g.getDetails(new getUserDetails.getDetailsofUser() {
+                @Override
+                public void result(String response) {
+
+                    login_text.setText(response);
+
+                }
+            });
+
+        }
+
+
 
         layoutManager = new LinearLayoutManager(MainActivity.this);
         adapter = new RecyclerAdapterMain(MainActivity.this);
@@ -105,14 +145,43 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(final MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         // Login Click
         if (id==R.id.LoginActivity){
-            Intent i=new Intent(MainActivity.this,LoginActivity.class);
-            startActivity(i);
+
+            loginKey l=new loginKey(MainActivity.this);
+            if (l.getLoginKey()!=""){
+
+                LogOut logOut=new LogOut(MainActivity.this);
+
+                logOut.logoutUser(new LogOut.LogOutInter() {
+                    @Override
+                    public void result(boolean status) {
+
+                        System.out.println("status : "+status);
+
+                        if (status){
+
+                            // changing UI
+                            item.setTitle("login");
+                            frameLayout.setVisibility(View.GONE);
+
+                            // Deleting Cookie
+                            loginKey l=new loginKey(MainActivity.this,"");
+                            l.setLoginKey();
+
+                        }
+                    }
+                });
+
+            }
+            else{
+                Intent i=new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(i);
+            }
         }
 
         // Share App Click
@@ -133,6 +202,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+
     }
 
 

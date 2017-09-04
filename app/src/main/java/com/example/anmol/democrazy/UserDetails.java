@@ -3,6 +3,7 @@ package com.example.anmol.democrazy;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Build;
@@ -169,16 +170,33 @@ public class UserDetails extends AppCompatActivity {
                     list.add(pincode);
                     list.add(getIntent().getExtras().getString("PhoneNumber"));
 
+                    System.out.println(getIntent().getExtras().getString("PhoneNumber"));
+
+
+
                     //Send Data
-
-
                     SendUserDetails sendUserDetails=new SendUserDetails(list,UserDetails.this);
 
-                    sendUserDetails.sendDetails();
+                    sendUserDetails.sendDetails(new SendUserDetails.UserCallBack() {
+                        @Override
+                        public void getResult(boolean status) {
+
+                            if (status){
+
+                                //// Keep Track of opening Activity
+
+                                Intent i=new Intent(UserDetails.this,MainActivity.class);
+                                startActivity(i);
 
 
+                            }
+
+
+                        }
+                    });
 
                 }
+
                 else{
 
                     Toast.makeText(getApplicationContext(),"Please fill All Details",Toast.LENGTH_LONG).show();
