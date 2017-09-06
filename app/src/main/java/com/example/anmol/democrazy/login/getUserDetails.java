@@ -19,16 +19,16 @@ import java.util.Map;
 
 public class getUserDetails {
 
-    Context ctx;
-    RequestQueue rq;
+    private Context ctx;
+    private RequestQueue rq;
 
-    private static final String URL="http://139.59.86.83:4000/login/secure/user/getDetails";
+    private static final String URL = "http://139.59.86.83:4000/login/secure/user/getDetails";
 
     public getUserDetails(Context ctx){
         this.ctx=ctx;
     }
 
-    public void getDetails(final getDetailsofUser  getDetailsofUser){
+    public void getDetails(final getDetailsOfUser getDetailsOfUser){
 
         rq= Volley.newRequestQueue(ctx);
 
@@ -41,13 +41,11 @@ public class getUserDetails {
                         System.out.println(response);
 
                         try {
-                            JSONObject jsonObject=new JSONObject(response);
-                             JSONObject jsonObject1=jsonObject.getJSONObject("msg");
-                             String email=jsonObject1.getString("email");
-
-                            System.out.println("Email : "+email);
-
-                            getDetailsofUser.result(email);
+                            JSONObject jsonObject = new JSONObject(response);
+                             JSONObject jsonObject1 = jsonObject.getJSONObject("msg");
+                             String email = jsonObject1.getString("email");
+                             System.out.println("Email : "+email);
+                             getDetailsOfUser.result(email);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -67,22 +65,18 @@ public class getUserDetails {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
 
-                loginKey l=new loginKey(ctx);
+                LoginKey l=new LoginKey(ctx);
                 HashMap<String,String> map=new HashMap<>();
                 map.put("Cookie",l.getLoginKey());
                 return map;
 
             }
         };
-
-
         rq.add(stringRequest);
-
     }
 
-    public interface getDetailsofUser{
-        public void result(String response);
+    public interface getDetailsOfUser {
+        void result(String response);
     }
-
 
 }

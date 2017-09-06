@@ -3,7 +3,6 @@ package com.example.anmol.democrazy.login;
 import android.content.Context;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -19,43 +18,33 @@ import java.util.List;
 import java.util.Map;
 
 
-
 public class SendUserDetails {
 
-    List<String> list;
-    RequestQueue rq;
-    Context ctx;
+    private static final String URL = "http://139.59.86.83:4000/login/secure/firstLogin/submitDetails";
+    private List<String> list;
+    private Context ctx;
 
-    private static final String URL="http://139.59.86.83:4000/login/secure/firstLogin/submitDetails";
-
-    public SendUserDetails(List<String> list,Context ctx){
-        this.list=list;
-        this.ctx=ctx;
+    public SendUserDetails(List<String> list, Context ctx) {
+        this.list = list;
+        this.ctx = ctx;
     }
 
-    public void sendDetails(final UserCallBack userCallBack){
+    public void sendDetails(final UserCallBack userCallBack) {
 
-        rq= Volley.newRequestQueue(ctx);
-
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL,
+        RequestQueue rq = Volley.newRequestQueue(ctx);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
 
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
 
                         try {
-                            JSONObject jsonObject=new JSONObject(response);
-
-                            boolean status=jsonObject.getBoolean("status");
-
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean status = jsonObject.getBoolean("status");
                             userCallBack.getResult(status);
-
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-
                     }
                 },
 
@@ -64,27 +53,27 @@ public class SendUserDetails {
                     public void onErrorResponse(VolleyError error) {
 
                     }
-                }){
+                }) {
             @Override
-            protected Map<String,String> getParams() throws AuthFailureError {
-                Map<String,String> map=new HashMap<String,String>();
-                map.put("fullName",list.get(0));
-                map.put("dob",list.get(1));
-                map.put("gender",list.get(2));
-                map.put("email",list.get(3));
-                map.put("pinCode",list.get(4));
-                map.put("phone",list.get(5));
-                return  map;
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("fullName", list.get(0));
+                map.put("dob", list.get(1));
+                map.put("gender", list.get(2));
+                map.put("email", list.get(3));
+                map.put("pinCode", list.get(4));
+                map.put("phone", list.get(5));
+                return map;
             }
 //
 //            @Override
 //            protected Response<String> parseNetworkResponse(NetworkResponse response) {
 //
-//                loginKey loginKey=new loginKey(ctx);
+//                LoginKey LoginKey=new LoginKey(ctx);
 //                Map<String,String> params = new HashMap<String, String>();
 //                params.put("Content-Type","application/x-www-form-urlencoded");
-//                System.out.println("Key : "+loginKey.getLoginKey());
-//                params.put("Cookie",loginKey.getLoginKey());
+//                System.out.println("Key : "+LoginKey.getLoginKey());
+//                params.put("Cookie",LoginKey.getLoginKey());
 //
 //                return (Response<String>) params;
 //
@@ -93,11 +82,11 @@ public class SendUserDetails {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
 
-                loginKey loginKey=new loginKey(ctx);
-                Map<String,String> params = new HashMap<String, String>();
-                params.put("Content-Type","application/x-www-form-urlencoded");
-                System.out.println("Key : "+loginKey.getLoginKey());
-                params.put("Cookie",loginKey.getLoginKey());
+                LoginKey loginKey = new LoginKey(ctx);
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                System.out.println("Key : " + loginKey.getLoginKey());
+                params.put("Cookie", loginKey.getLoginKey());
                 return params;
             }
 
@@ -108,10 +97,7 @@ public class SendUserDetails {
 
     }
 
-
-    public interface UserCallBack{
-        public void getResult(boolean status);
+    public interface UserCallBack {
+        void getResult(boolean status);
     }
-
-
 }

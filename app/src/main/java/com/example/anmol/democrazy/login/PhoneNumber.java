@@ -12,6 +12,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.anmol.democrazy.R;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONException;
@@ -22,47 +23,33 @@ import java.util.Map;
 
 public class PhoneNumber {
 
-    Context ctx;
-    RequestQueue rq;
-    String phoneNumber;
+    private Context ctx;
+    private String phoneNumber;
 
-    private static final String URL="http://139.59.86.83:4000/login/otp/sendNew";
+    private static final String URL = "http://139.59.86.83:4000/login/otp/sendNew";
 
-    public PhoneNumber(String phoneNumber,Context ctx){
-
-        this.phoneNumber=phoneNumber;
-        this.ctx=ctx;
-
+    public PhoneNumber(String phoneNumber, Context ctx) {
+        this.phoneNumber = phoneNumber;
+        this.ctx = ctx;
     }
 
-    public void sendNumber(final phNoCallback callback){
+    public void sendNumber(final phNoCallback callback) {
 
-        rq=Volley.newRequestQueue(ctx);
-
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL,
-
+        RequestQueue rq = Volley.newRequestQueue(ctx);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
                         System.out.println(response);
-
                         try {
-
-                            JSONObject jsonObject=new JSONObject(response);
-
-                            boolean status=jsonObject.getBoolean("status");
-
-                            String msg=jsonObject.getString("msg");
-
-                            callback.getResult(status,msg);
-
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean status = jsonObject.getBoolean(ctx.getString(R.string.status));
+                            String msg = jsonObject.getString(ctx.getString(R.string.msg));
+                            callback.getResult(status, msg);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-
                     }
                 },
 
@@ -71,12 +58,12 @@ public class PhoneNumber {
                     public void onErrorResponse(VolleyError error) {
 
                     }
-                }){
+                }) {
             @Override
-            protected Map<String,String> getParams() throws AuthFailureError {
-                Map<String,String> map=new HashMap<String,String>();
-                map.put("phone",phoneNumber);
-                return  map;
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put("phone", phoneNumber);
+                return map;
             }
         };
 
@@ -85,8 +72,8 @@ public class PhoneNumber {
     }
 
 
-    public interface phNoCallback{
-        void getResult(boolean status,String msg);
+    public interface phNoCallback {
+        void getResult(boolean status, String msg);
     }
 
 }

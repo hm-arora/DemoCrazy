@@ -11,7 +11,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.loopj.android.http.RequestParams;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -84,7 +83,7 @@ public class OTP {
 
                 String key = response.headers.get("Set-Cookie");
                 System.out.println(key);
-                loginKey loginKey = new loginKey(ctx, key);
+                LoginKey loginKey = new LoginKey(ctx, key);
                 loginKey.setLoginKey();
 
                 System.out.println("Key : " + loginKey.getLoginKey());

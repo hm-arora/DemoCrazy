@@ -18,12 +18,9 @@ import android.widget.TextView;
 
 import com.example.anmol.democrazy.adapters.RecyclerAdapterMain;
 import com.example.anmol.democrazy.login.LogOut;
+import com.example.anmol.democrazy.login.LoginKey;
 import com.example.anmol.democrazy.login.getUserDetails;
-import com.example.anmol.democrazy.login.loginKey;
 import com.example.anmol.democrazy.navigation.AboutUs;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -68,21 +65,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Header of Navigation View
         View navHeader = navigationView.getHeaderView(0);
 
-        frameLayout= (FrameLayout) navHeader.findViewById(R.id.FrameNav);
-        final TextView login_text= (TextView) navHeader.findViewById(R.id.Login_text);
+        frameLayout = (FrameLayout) navHeader.findViewById(R.id.FrameNav);
+        final TextView login_text = (TextView) navHeader.findViewById(R.id.Login_text);
 
         ////////////// GETTING USER DETAILS  ///////////////////
-        loginKey l=new loginKey(MainActivity.this);
-        String key=l.getLoginKey();
-        if (key!=""){
+        LoginKey l = new LoginKey(MainActivity.this);
+        String key = l.getLoginKey();
+        if (key != "") {
 
             menu.findItem(R.id.LoginActivity).setTitle("LogOut");
 
             frameLayout.setVisibility(View.VISIBLE);
 
-            getUserDetails g=new getUserDetails(MainActivity.this);
+            getUserDetails g = new getUserDetails(MainActivity.this);
 
-            g.getDetails(new getUserDetails.getDetailsofUser() {
+            g.getDetails(new getUserDetails.getDetailsOfUser() {
                 @Override
                 public void result(String response) {
 
@@ -92,7 +89,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             });
 
         }
-
 
 
         layoutManager = new LinearLayoutManager(MainActivity.this);
@@ -150,43 +146,43 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         // Login Click
-        if (id==R.id.LoginActivity){
-            loginKey l = new loginKey(MainActivity.this);
-            if (l.getLoginKey()!=""){
-                LogOut logOut=new LogOut(MainActivity.this);
+        if (id == R.id.LoginActivity) {
+            LoginKey l = new LoginKey(MainActivity.this);
+
+            // If no login key found
+            //l.getLoginKey()!=""
+            if (!( l.getLoginKey().equals("")) ) {
+
+                LogOut logOut = new LogOut(MainActivity.this);
                 logOut.logoutUser(new LogOut.LogOutInter() {
                     @Override
                     public void result(boolean status) {
-                        System.out.println("status : "+status);
-                        if (status){
+                        System.out.println("status : " + status);
+                        if (status) {
                             // changing UI
                             item.setTitle("login");
                             frameLayout.setVisibility(View.GONE);
                             // Deleting Cookie
-                            loginKey l=new loginKey(MainActivity.this,"");
+                            LoginKey l = new LoginKey(MainActivity.this, "");
                             l.setLoginKey();
-
                         }
                     }
                 });
 
-            }
-            else{
-                Intent i=new Intent(MainActivity.this,LoginActivity.class);
+            } else {
+                Intent i = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(i);
             }
         }
 
         // Share App Click
-        else if (id==R.id.ShareApp){
+        else if (id == R.id.ShareApp) {
             Intent share = new Intent(Intent.ACTION_SEND);
             share.setType("text/plain");
             share.putExtra(Intent.EXTRA_TEXT, "Democrazy App link on Google Play Store");
             startActivity(Intent.createChooser(share, "Share using"));
-        }
-
-        else if(id==R.id.AboutUs){
-            Intent i=new Intent(MainActivity.this, AboutUs.class);
+        } else if (id == R.id.AboutUs) {
+            Intent i = new Intent(MainActivity.this, AboutUs.class);
             startActivity(i);
 
         }

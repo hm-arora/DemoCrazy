@@ -4,15 +4,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.anmol.democrazy.R;
-public class loginKey {
+public class LoginKey {
     private Context ctx;
     private String key;
 
-    public loginKey(Context ctx) {
+    public LoginKey(Context ctx) {
         this.ctx = ctx;
     }
 
-    public loginKey(Context ctx, String key) {
+    public LoginKey(Context ctx, String key) {
 
         this.ctx = ctx;
         this.key = key;

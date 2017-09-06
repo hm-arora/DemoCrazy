@@ -5,4 +5,10 @@
     <string name="Login_key_File">com.example.anmol.events.PREFERENCE_FILE_KEY</string>
     <string name="LOGIN_KEY">LOGIN_KEY</string>
     <string name="question">This is the question realted to any government whether central or state and user can vote this question whether the user likes this thing or not or don\'t know .Are you like this one or not ?</string>
+    <string name="Message_queued">message(s) queued</string>
+    <string name="Phone_number">PhoneNumber</string>
+    <string name="status">status</string>
+    <string name="msg">msg</string>
+    <string name="enter_one_time_password_otp">Enter One Time Password(OTP)</string>
+    <string name="OTP_contents_message">One Time Password(OTP) has been sent to your mobile ******6252,please enter the same here to login</string>
 </resources>

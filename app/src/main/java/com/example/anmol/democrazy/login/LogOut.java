@@ -16,26 +16,18 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by anmol on 4/9/17.
- */
-
 public class LogOut {
 
-    Context ctx;
-    RequestQueue rq;
+    private Context ctx;
 
     private static final String URL="http://139.59.86.83:4000/login/secure/user/logout";
-
     public LogOut(Context ctx){
-
         this.ctx=ctx;
-
     }
 
     public void logoutUser(final LogOutInter logOutInter){
 
-        rq= Volley.newRequestQueue(ctx);
+        RequestQueue rq = Volley.newRequestQueue(ctx);
 
         StringRequest stringRequest=new StringRequest(Request.Method.GET, URL,
 
@@ -47,10 +39,8 @@ public class LogOut {
 
                         try {
 
-                            JSONObject jsonObject=new JSONObject(response);
-
+                            JSONObject jsonObject = new JSONObject(response);
                             boolean status=jsonObject.getBoolean("status");
-
                             logOutInter.result(status);
 
                         } catch (JSONException e) {
@@ -71,7 +61,7 @@ public class LogOut {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
 
-                loginKey l=new loginKey(ctx);
+                LoginKey l=new LoginKey(ctx);
                 HashMap<String,String> map=new HashMap<>();
                 map.put("Cookie",l.getLoginKey());
                 return map;
@@ -85,7 +75,7 @@ public class LogOut {
     }
 
     public interface LogOutInter{
-        public void result(boolean status);
+        void result(boolean status);
     }
 
 }

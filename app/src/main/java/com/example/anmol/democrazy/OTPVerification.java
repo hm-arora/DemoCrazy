@@ -19,6 +19,7 @@ public class OTPVerification extends AppCompatActivity {
     EditText OtpEditText;
     String phoneNumber;
 
+    // Used to detect SMS
     BroadcastReceiver broadcastReceiver;
 
     @Override
@@ -27,8 +28,7 @@ public class OTPVerification extends AppCompatActivity {
 
         setContentView(R.layout.otp_verification_activity);
 
-        phoneNumber = getIntent().getExtras().getString("PhoneNumber");
-
+        phoneNumber = getIntent().getExtras().getString(getString(R.string.Phone_number));
         OtpEditText = (EditText) findViewById(R.id.OtpEditText);
 
 
@@ -42,7 +42,7 @@ public class OTPVerification extends AppCompatActivity {
 
                 String message = intent.getExtras().getString("message");
 
-                // Dont change otherwise it will not get right otp
+                // Don't change otherwise it will not get right otp
                 String otp = message.replace("Hi, your otp for democrazy is: ", "").substring(0, 6);
 
                 OTP otp1 = new OTP(phoneNumber, otp, getApplicationContext());
@@ -59,16 +59,12 @@ public class OTPVerification extends AppCompatActivity {
                                 i.putExtra("PhoneNumber", phoneNumber);
                                 startActivity(i);
                             } else {
-
                                 System.out.println("JsonObjects");
                                 System.out.println(msg);
                                 Intent i = new Intent(OTPVerification.this, MainActivity.class);
                                 startActivity(i);
-
                             }
-
                         }
-
                     }
                 });
 
