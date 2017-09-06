@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.anmol.democrazy.BillActivity;
+import com.example.anmol.democrazy.FinancialInclusionsActivity;
 import com.example.anmol.democrazy.OpinionPollActivity;
 import com.example.anmol.democrazy.R;
 import com.squareup.picasso.Picasso;
@@ -70,7 +71,8 @@ public class RecyclerAdapterMain extends RecyclerView.Adapter<RecyclerAdapterMai
                             ctx.startActivity(i);
                             break;
                         case 1:
-                            Toast.makeText(ctx, "Added soon...", Toast.LENGTH_SHORT).show();
+                            i = new Intent(ctx, FinancialInclusionsActivity.class);
+                            ctx.startActivity(i);
                             break;
                         case 2:
                             i = new Intent(ctx, OpinionPollActivity.class);

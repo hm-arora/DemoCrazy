@@ -3,8 +3,8 @@
     package="com.example.anmol.democrazy">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_SMS"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
     <application
         android:allowBackup="true"
@@ -21,16 +21,19 @@
             </intent-filter>
         </activity>
         <activity android:name=".BillActivity" />
-        <activity android:name=".LoginActivity"/>
-        <activity android:name=".navigation.AboutUs"/>
-        <activity android:name=".OTPVerification"/>
-        <activity android:name=".OpinionPollActivity"/>
-        <activity android:name=".UserDetails"/>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".navigation.AboutUs" />
+        <activity android:name=".OTPVerification" />
+        <activity android:name=".OpinionPollActivity" />
+        <activity android:name=".UserDetails" />
+
         <receiver android:name=".sms.smsReceiver">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".FinancialInclusionsActivity"></activity>
     </application>
 
 </manifest>

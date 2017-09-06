@@ -16,16 +16,18 @@ import java.util.List;
 
 public class OpinionPollActivity extends AppCompatActivity {
     private static final int PAGES = 20;
-    private VerticalPager pager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Full Screen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_opinion_poll);
-        pager = (VerticalPager) findViewById(R.id.view_pager);
+        VerticalPager pager = (VerticalPager) findViewById(R.id.view_pager);
         List<Fragment> fragmentList = new ArrayList<>();
         for (int i = 0; i < PAGES; i++) {
             // Number of pages in a vertical Pager
@@ -42,11 +44,11 @@ public class OpinionPollActivity extends AppCompatActivity {
     private static class Adapter extends FragmentPagerAdapter {
         private List<Fragment> mFragments = new ArrayList<>();
 
-        public Adapter(FragmentManager fm) {
+        Adapter(FragmentManager fm) {
             super(fm);
         }
 
-        public void addFragment(List<Fragment> fragmentList) {
+        void addFragment(List<Fragment> fragmentList) {
             mFragments = fragmentList;
         }
 
