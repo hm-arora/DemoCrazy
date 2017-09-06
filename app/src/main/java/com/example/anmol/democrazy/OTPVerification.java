@@ -27,45 +27,42 @@ public class OTPVerification extends AppCompatActivity {
 
         setContentView(R.layout.otp_verification_activity);
 
-        phoneNumber=getIntent().getExtras().getString("PhoneNumber");
+        phoneNumber = getIntent().getExtras().getString("PhoneNumber");
 
-        OtpEditText= (EditText) findViewById(R.id.OtpEditText);
+        OtpEditText = (EditText) findViewById(R.id.OtpEditText);
 
 
-        broadcastReceiver=new BroadcastReceiver() {
+        broadcastReceiver = new BroadcastReceiver() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onReceive(Context context, Intent intent) {
 
 
-                String senderName=intent.getExtras().getString("phoneNumber");
+                String senderName = intent.getExtras().getString("phoneNumber");
 
-                String message=intent.getExtras().getString("message");
+                String message = intent.getExtras().getString("message");
 
                 // Dont change otherwise it will not get right otp
-                String otp=message.replace("Hi, your otp for democrazy is: ","").substring(0,6);
+                String otp = message.replace("Hi, your otp for democrazy is: ", "").substring(0, 6);
 
-                OTP otp1=new OTP(phoneNumber,otp,getApplicationContext());
+                OTP otp1 = new OTP(phoneNumber, otp, getApplicationContext());
 
                 otp1.sendOTP(new OTP.OTPCallback() {
                     @Override
                     public void getStatus(boolean status, String msg) {
 
-                        if (status==true){
+                        if (status) {
 
                             // If user login first time
-                            if (msg.equals("request other details")){
-                                Intent i=new Intent(OTPVerification.this,UserDetails.class);
-                                i.putExtra("PhoneNumber",phoneNumber);
+                            if (msg.equals("request other details")) {
+                                Intent i = new Intent(OTPVerification.this, UserDetails.class);
+                                i.putExtra("PhoneNumber", phoneNumber);
                                 startActivity(i);
-                            }
-
-                            else{
+                            } else {
 
                                 System.out.println("JsonObjects");
                                 System.out.println(msg);
-
-                                Intent i=new Intent(OTPVerification.this,MainActivity.class);
+                                Intent i = new Intent(OTPVerification.this, MainActivity.class);
                                 startActivity(i);
 
                             }
@@ -79,15 +76,13 @@ public class OTPVerification extends AppCompatActivity {
         };
 
 
-
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        IntentFilter intentFilter=new IntentFilter("smsReceiver");
-        registerReceiver(broadcastReceiver,intentFilter);
+        IntentFilter intentFilter = new IntentFilter("smsReceiver");
+        registerReceiver(broadcastReceiver, intentFilter);
     }
 
     @Override

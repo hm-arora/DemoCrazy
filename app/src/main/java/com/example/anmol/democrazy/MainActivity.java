@@ -151,24 +151,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Login Click
         if (id==R.id.LoginActivity){
-
-            loginKey l=new loginKey(MainActivity.this);
+            loginKey l = new loginKey(MainActivity.this);
             if (l.getLoginKey()!=""){
-
                 LogOut logOut=new LogOut(MainActivity.this);
-
                 logOut.logoutUser(new LogOut.LogOutInter() {
                     @Override
                     public void result(boolean status) {
-
                         System.out.println("status : "+status);
-
                         if (status){
-
                             // changing UI
                             item.setTitle("login");
                             frameLayout.setVisibility(View.GONE);
-
                             // Deleting Cookie
                             loginKey l=new loginKey(MainActivity.this,"");
                             l.setLoginKey();
@@ -193,7 +186,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         else if(id==R.id.AboutUs){
-
             Intent i=new Intent(MainActivity.this, AboutUs.class);
             startActivity(i);
 

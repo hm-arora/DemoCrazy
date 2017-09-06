@@ -1,6 +1,7 @@
 package com.example.anmol.democrazy.login;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -21,41 +22,34 @@ import java.util.Map;
 
 public class OTP {
 
-    Context ctx;
-    RequestQueue rq;
-    String phoneNumber;
-    String OTPNum;
-    private static final String URL="http://139.59.86.83:4000/login/loginNow";
+    private static final String TAG = OTP.class.getSimpleName();
+    private Context ctx;
+    private String phoneNumber;
+    private String OTPNum;
 
-    public OTP(String phoneNumber,String OTPNum,Context ctx){
-        this.phoneNumber=phoneNumber;
-        this.OTPNum=OTPNum;
-        this.ctx=ctx;
+    // Login Url
+    private static final String URL = "http://139.59.86.83:4000/login/loginNow";
+
+    public OTP(String phoneNumber, String OTPNum, Context ctx) {
+        this.phoneNumber = phoneNumber;
+        this.OTPNum = OTPNum;
+        this.ctx = ctx;
     }
 
 
-    public void sendOTP(final OTPCallback otpCallback){
+    public void sendOTP(final OTPCallback otpCallback) {
 
-        rq= Volley.newRequestQueue(ctx);
-
-
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL,
-
+        RequestQueue rq = Volley.newRequestQueue(ctx);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
                         System.out.println(response);
-
                         try {
-
-
-                            JSONObject jsonObject=new JSONObject(response);
-
-                            boolean status=jsonObject.getBoolean("status");
-                            String msg=jsonObject.getString("msg");
-
-                            otpCallback.getStatus(status,msg);
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean status = jsonObject.getBoolean("status");
+                            String msg = jsonObject.getString("msg");
+                            otpCallback.getStatus(status, msg);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -68,16 +62,15 @@ public class OTP {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        Log.d(TAG, "onErrorResponse: Volley Server error");
                     }
                 }
-        ){
+        ) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-
-                Map<String,String> map=new HashMap<>();
-                map.put("phone",phoneNumber);
-                map.put("otp",OTPNum);
+                Map<String, String> map = new HashMap<>();
+                map.put("phone", phoneNumber);
+                map.put("otp", OTPNum);
                 return map;
             }
 
@@ -91,10 +84,10 @@ public class OTP {
 
                 String key = response.headers.get("Set-Cookie");
                 System.out.println(key);
-                loginKey loginKey=new loginKey(ctx,key);
+                loginKey loginKey = new loginKey(ctx, key);
                 loginKey.setLoginKey();
 
-                System.out.println("Key : "+loginKey.getLoginKey());
+                System.out.println("Key : " + loginKey.getLoginKey());
                 return super.parseNetworkResponse(response);
             }
         };
@@ -105,9 +98,8 @@ public class OTP {
     }
 
 
-    public interface OTPCallback{
-        public void getStatus(boolean status,String msg);
+    public interface OTPCallback {
+        void getStatus(boolean status, String msg);
     }
-
 
 }

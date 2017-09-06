@@ -40,11 +40,9 @@ public class UserDetails extends AppCompatActivity {
     Button Submit;
 
     //DatePicker
-
     private int year;
     private int month;
     private int day;
-
     static final int DATE_PICKER_ID = 1111;
 
 
@@ -57,40 +55,35 @@ public class UserDetails extends AppCompatActivity {
         rg.clearCheck();
 
         final Calendar c = Calendar.getInstance();
-        year  = c.get(Calendar.YEAR);
+        year = c.get(Calendar.YEAR);
         month = c.get(Calendar.MONTH);
-        day   = c.get(Calendar.DAY_OF_MONTH);
+        day = c.get(Calendar.DAY_OF_MONTH);
 
         //DatePicker
         DatePickerButt.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
-
-                Toast.makeText(getApplicationContext(),"Click",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Click", Toast.LENGTH_LONG).show();
                 showDialog(DATE_PICKER_ID);
 
             }
         });
-
-
-
         SubmitClick();
 
 
     }
 
 
+    public void initViews() {
 
-    public void initViews(){
-
-        FullName= (EditText) findViewById(R.id.FullNameUserDetailEditText);
-        Dob= (EditText) findViewById(R.id.DOBUserDetailEditText);
-        email= (EditText) findViewById(R.id.EmailUserDetailEditText);
-        PinCode= (EditText) findViewById(R.id.PinCodeUserDetailEditText);
-        rg= (RadioGroup) findViewById(R.id.RG);
-        DatePickerButt= (Button) findViewById(R.id.DatePicker);
-        Submit= (Button) findViewById(R.id.SubmitUserDetails);
+        FullName = (EditText) findViewById(R.id.FullNameUserDetailEditText);
+        Dob = (EditText) findViewById(R.id.DOBUserDetailEditText);
+        email = (EditText) findViewById(R.id.EmailUserDetailEditText);
+        PinCode = (EditText) findViewById(R.id.PinCodeUserDetailEditText);
+        rg = (RadioGroup) findViewById(R.id.RG);
+        DatePickerButt = (Button) findViewById(R.id.DatePicker);
+        Submit = (Button) findViewById(R.id.SubmitUserDetails);
 
     }
 
@@ -103,7 +96,7 @@ public class UserDetails extends AppCompatActivity {
                 // open datepicker dialog.
                 // set date picker for current date
                 // add pickerListener listner to date picker
-                return new DatePickerDialog(this, pickerListener, year, month,day);
+                return new DatePickerDialog(this, pickerListener, year, month, day);
         }
         return null;
     }
@@ -115,54 +108,44 @@ public class UserDetails extends AppCompatActivity {
         public void onDateSet(DatePicker view, int selectedYear,
                               int selectedMonth, int selectedDay) {
 
-            year  = selectedYear;
+            year = selectedYear;
             month = selectedMonth;
-            day   = selectedDay;
-
-            String month1,day1;
-            if (month<10){
-                month1="0"+month;
+            day = selectedDay;
+            String month1, day1;
+            if (month < 10) {
+                month1 = "0" + month;
+            } else {
+                month1 = "" + month;
             }
-            else{
-                month1=""+month;
+            if (day < 10) {
+                day1 = "0" + day;
+            } else {
+                day1 = "" + day;
             }
-            if (day<10){
-                day1="0"+day;
-            }
-            else{
-                day1=""+day;
-            }
-
-            Dob.setText(year+"-"+month1+"-"+day1);
+            Dob.setText(year + "-" + month1 + "-" + day1);
         }
     };
 
 
-
-
     // submitButton Click
 
-    public void SubmitClick(){
+    public void SubmitClick() {
 
         Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String fullName=FullName.getText().toString();
-                String DOB=Dob.getText().toString();
-                String Email=email.getText().toString();
-                String pincode=PinCode.getText().toString();
+                String fullName = FullName.getText().toString();
+                String DOB = Dob.getText().toString();
+                String Email = email.getText().toString();
+                String pincode = PinCode.getText().toString();
 
-                int selectedId=rg.getCheckedRadioButtonId();
+                int selectedId = rg.getCheckedRadioButtonId();
 
-                if (!(fullName.equals("") && DOB.equals("") && Email.equals("") && pincode.equals("") && selectedId==-1)){
-
-                    RadioButton radioButton= (RadioButton) findViewById(selectedId);
-
-                    String RadioText=radioButton.getText().toString().substring(0,1);
-
-                    List<String> list=new ArrayList<String>();
-
+                if (!(fullName.equals("") && DOB.equals("") && Email.equals("") && pincode.equals("") && selectedId == -1)) {
+                    RadioButton radioButton = (RadioButton) findViewById(selectedId);
+                    String RadioText = radioButton.getText().toString().substring(0, 1);
+                    List<String> list = new ArrayList<String>();
                     list.add(fullName);
                     list.add(DOB);
                     list.add(RadioText);
@@ -171,47 +154,25 @@ public class UserDetails extends AppCompatActivity {
                     list.add(getIntent().getExtras().getString("PhoneNumber"));
 
                     System.out.println(getIntent().getExtras().getString("PhoneNumber"));
-
-
-
                     //Send Data
-                    SendUserDetails sendUserDetails=new SendUserDetails(list,UserDetails.this);
+                    SendUserDetails sendUserDetails = new SendUserDetails(list, UserDetails.this);
 
                     sendUserDetails.sendDetails(new SendUserDetails.UserCallBack() {
                         @Override
                         public void getResult(boolean status) {
-
-                            if (status){
-
+                            if (status) {
                                 //// Keep Track of opening Activity
-
-                                Intent i=new Intent(UserDetails.this,MainActivity.class);
+                                Intent i = new Intent(UserDetails.this, MainActivity.class);
                                 startActivity(i);
-
-
                             }
-
-
                         }
                     });
-
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please fill All Details", Toast.LENGTH_LONG).show();
                 }
-
-                else{
-
-                    Toast.makeText(getApplicationContext(),"Please fill All Details",Toast.LENGTH_LONG).show();
-
-                }
-
-
             }
         });
-
-
     }
-
-
-
 }
 
 
