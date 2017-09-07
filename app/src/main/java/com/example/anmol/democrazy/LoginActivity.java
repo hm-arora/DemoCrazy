@@ -58,4 +58,13 @@ public class LoginActivity extends AppCompatActivity {
         }
     };
 
+
+    // On Back Pressed Going To Previous Activity
+    @Override
+    public void onBackPressed() {
+
+        Intent i = new Intent(LoginActivity.this,MainActivity.class);
+        startActivity(i);
+
+    }
 }

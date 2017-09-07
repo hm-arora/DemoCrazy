@@ -21,6 +21,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.anmol.democrazy.login.LoginKey;
 import com.example.anmol.democrazy.login.SendUserDetails;
 
 import java.util.ArrayList;
@@ -172,6 +173,20 @@ public class UserDetails extends AppCompatActivity {
                 }
             }
         });
+    }
+
+
+    // On Back Pressed to Login Activity Not OTPVerification Activity
+    @Override
+    public void onBackPressed() {
+
+        // Removing Login Key as Process is Not completed.......
+        LoginKey l=new LoginKey(UserDetails.this,"");
+        l.setLoginKey();
+
+        Intent i = new Intent(UserDetails.this,LoginActivity.class);
+        startActivity(i);
+
     }
 }
 
