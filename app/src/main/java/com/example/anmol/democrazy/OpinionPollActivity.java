@@ -3,9 +3,11 @@ package com.example.anmol.democrazy;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -14,6 +16,8 @@ import com.example.anmol.democrazy.login.LoginKey;
 import com.example.anmol.democrazy.viewpagers.VerticalPager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class OpinionPollActivity extends AppCompatActivity {
@@ -35,6 +39,7 @@ public class OpinionPollActivity extends AppCompatActivity {
         Log.e(TAG, "onCreate: " + loginKey.getLoginKey());
         VerticalPager pager = (VerticalPager) findViewById(R.id.view_pager);
         List<Fragment> fragmentList = new ArrayList<>();
+
         for (int i = 0; i < PAGES; i++) {
             // Number of pages in a vertical Pager
 //            fragmentList.add(OpinionPollFragment.newInstance(getString(R.string.question)));
@@ -59,6 +64,7 @@ public class OpinionPollActivity extends AppCompatActivity {
             mFragments = fragmentList;
         }
 
+
         @Override
         public Fragment getItem(int position) {
             return mFragments.get(position);
@@ -67,6 +73,12 @@ public class OpinionPollActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             return mFragments.size();
+        }
+
+        // It is the main reason why state remains same because it is destroying fragments...We telled it not to destroy them
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+
         }
     }
 }

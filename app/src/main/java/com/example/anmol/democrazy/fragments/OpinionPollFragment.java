@@ -43,6 +43,8 @@ public class OpinionPollFragment extends Fragment {
         btn1 = (Button) view.findViewById(R.id.button1);
         btn2 = (Button) view.findViewById(R.id.button2);
         btn3 = (Button) view.findViewById(R.id.button3);
+
+        // Retaing State of fragment
         if (savedInstanceState != null) {
             checkValue(savedInstanceState.getInt(VALUE));
         }

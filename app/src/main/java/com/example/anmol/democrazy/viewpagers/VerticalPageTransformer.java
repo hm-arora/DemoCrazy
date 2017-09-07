@@ -18,13 +18,16 @@ class VerticalPageTransformer implements ViewPager.PageTransformer {
 
             // top page
         else if(position <= 0) {
+
+            // Dont make alha 0 here otherwise state change will not retain
+            view.setAlpha(1);
             view.setTranslationY(view.getHeight() * position);
         }
         // for upcoming (adjacent) bottom page
 
         else if(position<=1f){
             final float scaleFactor = MIN_SCALE + (1 - MIN_SCALE) * (1f - 0.25f*Math.abs(position));
-            view.setAlpha(1 - position);
+            view.setAlpha(1-position);
             view.setScaleX(scaleFactor);
             view.setScaleY(scaleFactor);
         }
