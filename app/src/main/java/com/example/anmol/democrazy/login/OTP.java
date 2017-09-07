@@ -76,13 +76,13 @@ public class OTP {
             @Override
             protected Response<String> parseNetworkResponse(NetworkResponse response) {
 
-
                 System.out.println(response.headers);
 
                 //.replace(" Path=/; HttpOnly","")
 
+                // To get cookie from headers
                 String key = response.headers.get("Set-Cookie");
-                System.out.println(key);
+                Log.e(TAG, "parseNetworkResponse: " + key );
                 LoginKey loginKey = new LoginKey(ctx, key);
                 loginKey.setLoginKey();
 

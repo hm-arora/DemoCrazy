@@ -1,6 +1,7 @@
 package com.example.anmol.democrazy.login;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -20,16 +21,17 @@ public class LogOut {
 
     private Context ctx;
 
-    private static final String URL="http://139.59.86.83:4000/login/secure/user/logout";
-    public LogOut(Context ctx){
-        this.ctx=ctx;
+    private static final String URL = "http://139.59.86.83:4000/login/secure/user/logout";
+
+    public LogOut(Context ctx) {
+        this.ctx = ctx;
     }
 
-    public void logoutUser(final LogOutInter logOutInter){
+    public void logoutUser(final LogOutInter logOutInter) {
 
         RequestQueue rq = Volley.newRequestQueue(ctx);
 
-        StringRequest stringRequest=new StringRequest(Request.Method.GET, URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
 
                 new Response.Listener<String>() {
                     @Override
@@ -40,7 +42,7 @@ public class LogOut {
                         try {
 
                             JSONObject jsonObject = new JSONObject(response);
-                            boolean status=jsonObject.getBoolean("status");
+                            boolean status = jsonObject.getBoolean("status");
                             logOutInter.result(status);
 
                         } catch (JSONException e) {
@@ -57,13 +59,13 @@ public class LogOut {
                     }
                 }
 
-        ){
+        ) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
 
-                LoginKey l=new LoginKey(ctx);
-                HashMap<String,String> map=new HashMap<>();
-                map.put("Cookie",l.getLoginKey());
+                LoginKey l = new LoginKey(ctx);
+                HashMap<String, String> map = new HashMap<>();
+                map.put("Cookie", l.getLoginKey());
                 return map;
 
             }
@@ -74,7 +76,7 @@ public class LogOut {
 
     }
 
-    public interface LogOutInter{
+    public interface LogOutInter {
         void result(boolean status);
     }
 

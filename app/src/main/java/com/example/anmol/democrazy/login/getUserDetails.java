@@ -1,6 +1,7 @@
 package com.example.anmol.democrazy.login;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -24,15 +25,15 @@ public class getUserDetails {
 
     private static final String URL = "http://139.59.86.83:4000/login/secure/user/getDetails";
 
-    public getUserDetails(Context ctx){
-        this.ctx=ctx;
+    public getUserDetails(Context ctx) {
+        this.ctx = ctx;
     }
 
-    public void getDetails(final getDetailsOfUser getDetailsOfUser){
+    public void getDetails(final getDetailsOfUser getDetailsOfUser) {
 
-        rq= Volley.newRequestQueue(ctx);
+        rq = Volley.newRequestQueue(ctx);
 
-        StringRequest stringRequest=new StringRequest(Request.Method.GET, URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
 
                 new Response.Listener<String>() {
                     @Override
@@ -42,10 +43,10 @@ public class getUserDetails {
 
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                             JSONObject jsonObject1 = jsonObject.getJSONObject("msg");
-                             String email = jsonObject1.getString("email");
-                             System.out.println("Email : "+email);
-                             getDetailsOfUser.result(email);
+                            JSONObject jsonObject1 = jsonObject.getJSONObject("msg");
+                            String email = jsonObject1.getString("email");
+                            System.out.println("Email : " + email);
+                            getDetailsOfUser.result(email);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -61,15 +62,13 @@ public class getUserDetails {
                     }
                 }
 
-        ){
+        ) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-
-                LoginKey l=new LoginKey(ctx);
-                HashMap<String,String> map=new HashMap<>();
-                map.put("Cookie",l.getLoginKey());
+                LoginKey loginKey = new LoginKey(ctx);
+                HashMap<String, String> map = new HashMap<>();
+                map.put("Cookie", loginKey.getLoginKey());
                 return map;
-
             }
         };
         rq.add(stringRequest);
