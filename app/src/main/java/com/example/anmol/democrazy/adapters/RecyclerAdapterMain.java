@@ -3,6 +3,7 @@ package com.example.anmol.democrazy.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,10 @@ import android.widget.Toast;
 
 import com.example.anmol.democrazy.BillActivity;
 import com.example.anmol.democrazy.FinancialInclusionsActivity;
+import com.example.anmol.democrazy.LoginActivity;
 import com.example.anmol.democrazy.OpinionPollActivity;
 import com.example.anmol.democrazy.R;
+import com.example.anmol.democrazy.login.LoginKey;
 import com.squareup.picasso.Picasso;
 
 public class RecyclerAdapterMain extends RecyclerView.Adapter<RecyclerAdapterMain.ViewHolder> {
@@ -75,7 +78,13 @@ public class RecyclerAdapterMain extends RecyclerView.Adapter<RecyclerAdapterMai
                             ctx.startActivity(i);
                             break;
                         case 2:
-                            i = new Intent(ctx, OpinionPollActivity.class);
+                            LoginKey loginKey = new LoginKey(ctx);
+                            if(loginKey.getLoginKey().length() == 0){
+                                Toast.makeText(ctx, "You should have login first",Toast.LENGTH_SHORT).show();
+                                i = new Intent(ctx, LoginActivity.class);
+                            }
+                            else
+                                i = new Intent(ctx, OpinionPollActivity.class);
                             ctx.startActivity(i);
                             break;
                     }
