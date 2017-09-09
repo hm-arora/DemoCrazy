@@ -1,7 +1,12 @@
 package com.example.anmol.democrazy;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.anmol.democrazy.adapters.RecyclerAdapterMain;
 import com.example.anmol.democrazy.login.LogOut;
@@ -26,6 +32,7 @@ import com.example.anmol.democrazy.navigation.AboutUs;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
+    private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1;
     FrameLayout frameLayout;
 
     private DrawerLayout drawer;
@@ -44,7 +51,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        // CheckPermission
+        Permission();
         // Used to initialize views
         initViews();
 
@@ -100,6 +108,47 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    private void Permission() {
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.READ_SMS) + ContextCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
+                    Manifest.permission.READ_SMS) || ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
+                    Manifest.permission.RECEIVE_SMS)) {
+
+                Snackbar.make(findViewById(android.R.id.content),
+                        "Please Grant Permissions to read OTP from messages",
+                        Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ActivityCompat.requestPermissions(MainActivity.this,
+                                        new String[]{Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS},
+                                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+                            }
+                        }).show();
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[]{Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS},
+                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+            // Should we show an explanation?
+        }
+    }
+
     private void setToolbar() {
         if (toolbar != null)
             setSupportActionBar(toolbar);
@@ -151,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             // If no login key found
             //l.getLoginKey()!=""
-            if (!( l.getLoginKey().equals("")) ) {
+            if (!(l.getLoginKey().equals(""))) {
 
                 LogOut logOut = new LogOut(MainActivity.this);
                 logOut.logoutUser(new LogOut.LogOutInter() {
@@ -193,5 +242,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_READ_CONTACTS: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0) {
+                    boolean read_sms = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    boolean recieve_sms = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                    if (!read_sms && !recieve_sms) {
+                        Snackbar.make(findViewById(android.R.id.content),
+                                "Please Grant Permissions to read OTP from messages",
+                                Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
+                                new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        ActivityCompat.requestPermissions(MainActivity.this,
+                                                new String[]{Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS},
+                                                MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+                                    }
+                                }).show();
+                    }
+                }
+                break;
+            }
+        }
+    }
 
 }

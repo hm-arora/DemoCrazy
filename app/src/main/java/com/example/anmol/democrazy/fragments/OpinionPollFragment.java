@@ -25,7 +25,7 @@ public class OpinionPollFragment extends Fragment {
      * @param question add to object list
      * @return OpinionPollFragment object
      */
-    public static OpinionPollFragment newInstance(String question) {
+    public static OpinionPollFragment newInstance(String question, String id) {
         OpinionPollFragment opinionPollFragment = new OpinionPollFragment();
         Bundle args = new Bundle();
         args.putCharSequence(QUESTION, question);
