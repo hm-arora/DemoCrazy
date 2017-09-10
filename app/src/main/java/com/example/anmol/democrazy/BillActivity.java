@@ -62,9 +62,10 @@ public class BillActivity extends AppCompatActivity {
      */
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new BillsLaid(BillActivity.this), "BillActivity Laid");
-        adapter.addFragment(new BillsPassed(BillActivity.this), "BillActivity Passed");
-        adapter.addFragment(new Ordiances(BillActivity.this), "Ordiances");
+        adapter.addFragment(new BillsLaid(BillActivity.this), "Bills Laid");
+//        adapter.addFragment(new BillsPassed(BillActivity.this), "Bills Passed");
+//        adapter.addFragment(new Ordiances(BillActivity.this), "Ordinances Enacted");
+//        adapter.addFragment(new Ordiances(BillActivity.this), "Ordinances Lapsed");
         viewPager.setAdapter(adapter);
     }
 

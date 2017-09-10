@@ -30,11 +30,11 @@ public class BillsPassed extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.bills_laid_fragment, container, false);
-        RecyclerView rv = (RecyclerView) v.findViewById(R.id.BillsLaidRv);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ctx);
-        RecyclerView.Adapter adapter = new BillsLaidAdapter(ctx);
-        rv.setLayoutManager(layoutManager);
-        rv.setAdapter(adapter);
+//        RecyclerView rv = (RecyclerView) v.findViewById(R.id.BillsLaidRv);
+//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ctx);
+//        RecyclerView.Adapter adapter = new BillsLaidAdapter(ctx);
+//        rv.setLayoutManager(layoutManager);
+//        rv.setAdapter(adapter);
         return v;
 
     }

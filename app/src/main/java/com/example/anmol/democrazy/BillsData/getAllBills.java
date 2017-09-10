@@ -26,23 +26,23 @@ public class getAllBills {
     int type;
     int offset;
 
-    private static final String URL = "";
+    private static final String URL = "http://139.59.86.83:4000/login/unsecure/billsOrdinances/get";
 
-    // Constructor
+    // Constructor : - Type
     public getAllBills(Context ctx, int type){
         this.ctx = ctx;
         this.type = type;
         offset=0;
     }
 
-    // with offset
+    // with offset and type
     public getAllBills(Context ctx,int type,int offset){
         this.ctx=ctx;
         this.type=type;
         this.offset=offset;
     }
 
-    public void getData(){
+    public void getData(final BillsCallBack billsCallBack){
 
         rq= Volley.newRequestQueue(ctx);
 
@@ -52,16 +52,18 @@ public class getAllBills {
                     @Override
                     public void onResponse(String response) {
 
+                        System.out.println(response);
+
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                              boolean status=jsonObject.getBoolean("status");
-                             if (status){
-                                 JSONArray jsonArray=jsonObject.getJSONArray("msg");
-                                 for (int i=0;i<jsonArray.length();i++){
-                                     JSONObject object= (JSONObject) jsonArray.get(i);
+                             JSONArray jsonArray=jsonObject.getJSONArray("msg");
 
-                                 }
-                             }
+                            // sending status and msg array
+
+                            billsCallBack.getAll(status,jsonArray);
+
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -83,7 +85,7 @@ public class getAllBills {
                 map.put("offset",String.valueOf(offset));
                 map.put("count","10");
                 map.put("SCId","[1]");
-                return super.getParams();
+                return map;
             }
         };
 
@@ -91,7 +93,7 @@ public class getAllBills {
     }
 
     public interface BillsCallBack{
-        void getAll(List<String> li);
+        void getAll(boolean status,JSONArray jsonArray) throws JSONException;
     }
 
 }

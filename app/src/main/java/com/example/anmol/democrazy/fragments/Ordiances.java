@@ -42,11 +42,11 @@ public class Ordiances extends Fragment {
         View view = inflater.inflate(R.layout.bills_laid_fragment, container, false);
 
 
-        RecyclerView rv= (RecyclerView) view.findViewById(R.id.BillsLaidRv);
-        RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(ctx);
-        RecyclerView.Adapter adapter=new BillsLaidAdapter(ctx);
-        rv.setLayoutManager(layoutManager);
-        rv.setAdapter(adapter);
+//        RecyclerView rv= (RecyclerView) view.findViewById(R.id.BillsLaidRv);
+//        RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(ctx);
+//        RecyclerView.Adapter adapter=new BillsLaidAdapter(ctx);
+//        rv.setLayoutManager(layoutManager);
+//        rv.setAdapter(adapter);
         return view;
 
     }

@@ -5,26 +5,43 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.anmol.democrazy.R;
+
+import org.w3c.dom.Text;
+
+import java.util.List;
+import java.util.jar.Attributes;
 
 
 public class BillsLaidAdapter extends RecyclerView.Adapter<BillsLaidAdapter.ViewHolder> {
 
     private Context ctx;
+    private List<Integer> id;
+    private List<String> name;
+    private List<String> centeralName;
+    private List<String> date;
 
-    public BillsLaidAdapter(Context ctx) {
-
+    public BillsLaidAdapter(Context ctx, List<Integer> id, List<String> name, List<String> centeralName, List<String> date) {
+        this.id=id;
         this.ctx=ctx;
-
+        this.name=name;
+        this.centeralName=centeralName;
+        this.date=date;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
+
+        private TextView Nametx,centeralNametx,datetx;
 
         public ViewHolder(View itemView)
         {
             super(itemView);
 
+            Nametx= (TextView) itemView.findViewById(R.id.Name_of_Bill);
+            centeralNametx= (TextView) itemView.findViewById(R.id.Central_Name_of_Bill);
+            datetx= (TextView) itemView.findViewById(R.id.date_of_Bill);
 
         }
     }
@@ -39,17 +56,17 @@ public class BillsLaidAdapter extends RecyclerView.Adapter<BillsLaidAdapter.View
     @Override
     public void onBindViewHolder(final BillsLaidAdapter.ViewHolder holder, int position) {
 
-
-//        TranslateAnimation translateAnimation=new TranslateAnimation();
-
-        //holder.itemView
+        holder.Nametx.setText(name.get(position));
+        holder.centeralNametx.setText(centeralName.get(position));
+        holder.datetx.setText(date.get(position));
 
     }
 
     @Override
     public int getItemCount()
     {
-        return 10;
+        return id.size();
     }
+
 }
 
