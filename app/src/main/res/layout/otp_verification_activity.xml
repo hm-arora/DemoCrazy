@@ -71,6 +71,7 @@
         android:textStyle="normal" />
 
     <Button
+        android:id="@+id/Login_OTP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/TryAgainOTP"

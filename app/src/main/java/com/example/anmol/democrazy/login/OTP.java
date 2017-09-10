@@ -22,7 +22,7 @@ import java.util.Map;
 public class OTP {
 
     private static final String TAG = OTP.class.getSimpleName();
-    private Context ctx;
+    Context ctx;
     private String phoneNumber;
     private String OTPNum;
 
@@ -68,6 +68,8 @@ public class OTP {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
+                System.out.println("Phone No. : "+phoneNumber);
+                System.out.println("otp : "+OTPNum);
                 map.put("phone", phoneNumber);
                 map.put("otp", OTPNum);
                 return map;
@@ -77,9 +79,6 @@ public class OTP {
             protected Response<String> parseNetworkResponse(NetworkResponse response) {
 
                 System.out.println(response.headers);
-
-                //.replace(" Path=/; HttpOnly","")
-
                 // To get cookie from headers
                 String key = response.headers.get("Set-Cookie");
                 Log.e(TAG, "parseNetworkResponse: " + key );

@@ -23,10 +23,11 @@ public class LoginKey {
      * Used to set login key
      */
     public void setLoginKey() {
+
         SharedPreferences sharedPref = ctx.getSharedPreferences(String.valueOf(R.string.Login_key_File), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(String.valueOf(R.string.LOGIN_KEY), key);
-        editor.apply();
+        editor.commit();
 
     }
 

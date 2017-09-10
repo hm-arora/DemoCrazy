@@ -22,6 +22,9 @@ import com.example.anmol.democrazy.login.LoginKey;
 import com.example.anmol.democrazy.login.getUserDetails;
 import com.example.anmol.democrazy.navigation.AboutUs;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -66,6 +69,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View navHeader = navigationView.getHeaderView(0);
 
         frameLayout = (FrameLayout) navHeader.findViewById(R.id.FrameNav);
+
+        //Header TextView
         final TextView login_text = (TextView) navHeader.findViewById(R.id.Login_text);
 
         ////////////// GETTING USER DETAILS  ///////////////////
@@ -77,28 +82,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             frameLayout.setVisibility(View.VISIBLE);
 
+            //getting details
             getUserDetails g = new getUserDetails(MainActivity.this);
 
             g.getDetails(new getUserDetails.getDetailsOfUser() {
                 @Override
-                public void result(String response) {
+                public void result(boolean status, JSONObject jsonObject) throws JSONException {
 
-                    login_text.setText(response);
-
+                    //status -true := getting details Successfully
+                    if (status){
+                        String email=jsonObject.getJSONObject("msg").getString("email");
+                        login_text.setText(email);
+                    }
                 }
             });
-
         }
 
-
-        layoutManager = new LinearLayoutManager(MainActivity.this);
-        adapter = new RecyclerAdapterMain(MainActivity.this);
-        // rv.addItemDecoration(new OverlappingDecoration());
-        rv.setLayoutManager(layoutManager);
-        rv.setAdapter(adapter);
-
-
-    }
+            layoutManager = new LinearLayoutManager(MainActivity.this);
+            adapter = new RecyclerAdapterMain(MainActivity.this);
+            // rv.addItemDecoration(new OverlappingDecoration());
+            rv.setLayoutManager(layoutManager);
+            rv.setAdapter(adapter);
+        }
 
     private void setToolbar() {
         if (toolbar != null)
@@ -149,8 +154,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.LoginActivity) {
             LoginKey l = new LoginKey(MainActivity.this);
 
-            // If no login key found
-            //l.getLoginKey()!=""
+            // If login key found
             if (!( l.getLoginKey().equals("")) ) {
 
                 LogOut logOut = new LogOut(MainActivity.this);
