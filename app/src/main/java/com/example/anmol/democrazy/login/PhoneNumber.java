@@ -4,6 +4,7 @@ package com.example.anmol.democrazy.login;
 // Sending Phone Number
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -56,7 +57,7 @@ public class PhoneNumber {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        Toast.makeText(ctx," Error ",Toast.LENGTH_SHORT).show();
                     }
                 }) {
             @Override

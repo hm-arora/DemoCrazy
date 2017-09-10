@@ -33,7 +33,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".FinancialInclusionsActivity"></activity>
+        <activity android:name=".FinancialInclusionsActivity"/>
     </application>
 
 </manifest>

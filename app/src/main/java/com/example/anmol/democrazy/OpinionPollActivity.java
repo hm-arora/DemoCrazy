@@ -11,9 +11,18 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.example.anmol.democrazy.fragments.OpinionPollFragment;
 import com.example.anmol.democrazy.login.LoginKey;
 import com.example.anmol.democrazy.viewpagers.VerticalPager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,11 +32,14 @@ import java.util.List;
 public class OpinionPollActivity extends AppCompatActivity {
     private static final int PAGES = 20;
     private static final String TAG = OpinionPollActivity.class.getSimpleName();
-
+    ArrayList<String> QuestionID, Questions;
+    private static String URL = "http://139.59.86.83:4000/login/secure/opinionPolls/getNew?count=";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        QuestionID = new ArrayList<>();
+        Questions = new ArrayList<>();
         // Full Screen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -40,10 +52,12 @@ public class OpinionPollActivity extends AppCompatActivity {
         VerticalPager pager = (VerticalPager) findViewById(R.id.view_pager);
         List<Fragment> fragmentList = new ArrayList<>();
 
+
         for (int i = 0; i < PAGES; i++) {
             // Number of pages in a vertical Pager
 //            fragmentList.add(OpinionPollFragment.newInstance(getString(R.string.question)));
-            fragmentList.add(OpinionPollFragment.newInstance("Question : " + (i + 1)));
+            String ID = "1";
+            fragmentList.add(OpinionPollFragment.newInstance("Question : " + (i + 1), ID));
         }
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(fragmentList);
@@ -53,6 +67,30 @@ public class OpinionPollActivity extends AppCompatActivity {
     }
 
 
+    public void getPolls(){
+        URL +="5";
+        Log.e(TAG, "getPolls: "  + URL);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
+
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String status = response.getString(getString(R.string.status));
+                            Log.e(TAG, "onResponse: " + status);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+    }
     private static class Adapter extends FragmentPagerAdapter {
         private List<Fragment> mFragments = new ArrayList<>();
 
@@ -75,7 +113,7 @@ public class OpinionPollActivity extends AppCompatActivity {
             return mFragments.size();
         }
 
-        // It is the main reason why state remains same because it is destroying fragments...We telled it not to destroy them
+        // It is the main reason why state remains same because it is destroying fragments...We tell it not to destroy them
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
 
