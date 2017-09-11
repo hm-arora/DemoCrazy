@@ -104,6 +104,8 @@ public class OpinionPollActivity extends AppCompatActivity {
                         Toast.makeText(OpinionPollActivity.this, " Error ", Toast.LENGTH_SHORT).show();
                     }
                 }) {
+
+            // Change here
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
