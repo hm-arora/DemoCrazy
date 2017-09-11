@@ -10,13 +10,18 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.anmol.democrazy.fragments.OpinionPollFragment;
 import com.example.anmol.democrazy.login.LoginKey;
 import com.example.anmol.democrazy.viewpagers.VerticalPager;
@@ -28,12 +33,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OpinionPollActivity extends AppCompatActivity {
     private static final int PAGES = 20;
     private static final String TAG = OpinionPollActivity.class.getSimpleName();
     ArrayList<String> QuestionID, Questions;
     private static String URL = "http://139.59.86.83:4000/login/secure/opinionPolls/getNew?count=";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +48,9 @@ public class OpinionPollActivity extends AppCompatActivity {
         QuestionID = new ArrayList<>();
         Questions = new ArrayList<>();
         // Full Screen
+
+        getPolls();
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -67,17 +77,18 @@ public class OpinionPollActivity extends AppCompatActivity {
     }
 
 
-    public void getPolls(){
-        URL +="5";
-        Log.e(TAG, "getPolls: "  + URL);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
+    public void getPolls() {
 
-                new Response.Listener<JSONObject>() {
+        URL += "5";
+        Log.e(TAG, "getPolls: " + URL);
+        RequestQueue rq = Volley.newRequestQueue(OpinionPollActivity.this);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(String response) {
+                        System.out.println(response);
                         try {
-                            String status = response.getString(getString(R.string.status));
-                            Log.e(TAG, "onResponse: " + status);
+                            JSONObject jsonObject = new JSONObject(response);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -87,10 +98,26 @@ public class OpinionPollActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        NetworkResponse response = error.networkResponse;
+                        String json = new String(response.data);
+                        Log.e(TAG, "onErrorResponse: " + json);
+                        Toast.makeText(OpinionPollActivity.this, " Error ", Toast.LENGTH_SHORT).show();
                     }
-                });
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                LoginKey loginKey = new LoginKey(OpinionPollActivity.this);
+                String key = loginKey.getLoginKey();
+                Log.e(TAG, "getParams: " + key);
+                map.put("Cookie", key);
+                return map;
+            }
+        };
+
+        rq.add(stringRequest);
     }
+
     private static class Adapter extends FragmentPagerAdapter {
         private List<Fragment> mFragments = new ArrayList<>();
 

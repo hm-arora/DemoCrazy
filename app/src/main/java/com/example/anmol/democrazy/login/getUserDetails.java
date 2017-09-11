@@ -31,7 +31,6 @@ public class getUserDetails {
     }
 
 
-
     public void getDetails(final getDetailsOfUser getDetailsOfUser) {
 
         rq = Volley.newRequestQueue(ctx);
@@ -46,8 +45,8 @@ public class getUserDetails {
 
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            boolean status=jsonObject.getBoolean("status");
-                            getDetailsOfUser.result(status,jsonObject);
+                            boolean status = jsonObject.getBoolean("status");
+                            getDetailsOfUser.result(status, jsonObject);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -61,18 +60,18 @@ public class getUserDetails {
                     public void onErrorResponse(VolleyError error) {
 
                         //getting Network Response
-                        NetworkResponse response=error.networkResponse;
+                        NetworkResponse response = error.networkResponse;
 
                         //checking if response data is not null
-                        if (response!=null && response.data!=null){
+                        if (response != null && response.data != null) {
 
-                            switch(response.statusCode){
+                            switch (response.statusCode) {
 
                                 // Handling 403
                                 case 403:
-                                    String json=new String(response.data);
+                                    String json = new String(response.data);
                                     try {
-                                        Handling403(json,getDetailsOfUser);
+                                        Handling403(json, getDetailsOfUser);
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -100,17 +99,17 @@ public class getUserDetails {
 
 
     //Handling 403
-    public void Handling403(String Json,getDetailsOfUser getDetailsOfUser) throws JSONException {
+    public void Handling403(String Json, getDetailsOfUser getDetailsOfUser) throws JSONException {
 
         System.out.println(Json);
-        JSONObject jsonObject=new JSONObject(new String(Json));
-         boolean status=jsonObject.getBoolean("status");
-        getDetailsOfUser.result(status,jsonObject);
+        JSONObject jsonObject = new JSONObject(new String(Json));
+        boolean status = jsonObject.getBoolean("status");
+        getDetailsOfUser.result(status, jsonObject);
 
     }
 
     public interface getDetailsOfUser {
-        void result(boolean status,JSONObject jsonObject) throws JSONException;
+        void result(boolean status, JSONObject jsonObject) throws JSONException;
     }
 
 }
