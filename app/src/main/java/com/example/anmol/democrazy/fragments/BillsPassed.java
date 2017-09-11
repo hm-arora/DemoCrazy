@@ -24,10 +24,22 @@ import java.util.List;
 public class BillsPassed extends Fragment {
 
     private Context ctx;
+    private String userstates;
 
+    //If no User States are there ==== User is not logeed in
+    public BillsPassed(Context ctx){
+
+        this.ctx=ctx;
+        // default centeral bills
+        userstates="[1]";
+    }
+
+    // if User State is Present
     @SuppressLint("ValidFragment")
-    public BillsPassed(Context ctx) {
-        this.ctx = ctx;
+    public BillsPassed(Context ctx, String userstates) {
+
+        this.ctx=ctx;
+        this.userstates=userstates;
     }
 
     @Override
@@ -39,7 +51,7 @@ public class BillsPassed extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.bills_laid_fragment, container, false);
 
-        getAllBills getAllBills=new getAllBills(ctx,1,0);
+        getAllBills getAllBills=new getAllBills(ctx,1,0,userstates);
 
         // Getting All Bills of BillsPassed
         getAllBills.getData(new getAllBills.BillsCallBack() {

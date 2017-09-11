@@ -25,6 +25,7 @@ public class getAllBills {
     Context ctx;
     int type;
     int offset;
+    String scid;
 
     private static final String URL = "http://139.59.86.83:4000/login/unsecure/billsOrdinances/get";
 
@@ -33,6 +34,7 @@ public class getAllBills {
         this.ctx = ctx;
         this.type = type;
         offset=0;
+        scid="[1]";
     }
 
     // with offset and type
@@ -40,7 +42,17 @@ public class getAllBills {
         this.ctx=ctx;
         this.type=type;
         this.offset=offset;
+        scid="[1]";
     }
+
+    // with offset and type and scid
+    public getAllBills(Context ctx,int type,int offset,String scid){
+        this.ctx=ctx;
+        this.type=type;
+        this.offset=offset;
+        this.scid=scid;
+    }
+
 
     public void getData(final BillsCallBack billsCallBack){
 
@@ -84,7 +96,7 @@ public class getAllBills {
                 map.put("type",String.valueOf(type));
                 map.put("offset",String.valueOf(offset));
                 map.put("count","10");
-                map.put("SCId","[1]");
+                map.put("SCId",scid);
                 return map;
             }
         };

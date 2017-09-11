@@ -25,9 +25,22 @@ import java.util.StringTokenizer;
 @SuppressLint("ValidFragment")
 public class BillsLaid extends Fragment {
     private Context ctx;
-    @SuppressLint("ValidFragment")
-    public BillsLaid(Context ctx) {
+    private String userstates;
+
+    //If no User States are there ==== User is not logeed in
+    public BillsLaid(Context ctx){
+
         this.ctx=ctx;
+        // default centeral bills
+        userstates="[1]";
+    }
+
+    // if User State is Present
+    @SuppressLint("ValidFragment")
+    public BillsLaid(Context ctx, String userstates) {
+
+        this.ctx=ctx;
+        this.userstates=userstates;
     }
 
     @Override
@@ -40,7 +53,8 @@ public class BillsLaid extends Fragment {
                              Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.bills_laid_fragment, container, false);
         //getting All Bills
-        getAllBills getAllBills=new getAllBills(ctx,0,0);
+        getAllBills getAllBills=new getAllBills(ctx,0,0,userstates);
+        System.out.println("Bills Laid user states: "+userstates);
         getAllBills.getData(new getAllBills.BillsCallBack() {
             @Override
             public void getAll(boolean status, JSONArray jsonArray) throws JSONException {

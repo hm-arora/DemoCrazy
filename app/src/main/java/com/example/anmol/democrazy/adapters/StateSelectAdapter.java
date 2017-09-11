@@ -7,27 +7,39 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.anmol.democrazy.BillsData.States;
 import com.example.anmol.democrazy.R;
-import com.example.anmol.democrazy.StateSet;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StateSelectAdapter extends RecyclerView.Adapter<StateSelectAdapter.ViewHolder> {
 
     private Context ctx;
-    private List<Integer> id;
-    private List<String> name;
+    private List<States> list;
+    //Skip Button
+    Button skip;
+    //SaveChanges Button
+    Button saveChanges;
 
-    public StateSelectAdapter(Context ctx, List<Integer> id, List<String> name) {
+    // List That the user selects (Updated List)
+    List<Integer> id;
+
+    public StateSelectAdapter(Context ctx, Button skip, Button saveChanges, List<States> list) {
 
         this.ctx=ctx;
-        this.id=id;
-        this.name=name;
+        this.list=list;
+        this.skip=skip;
+        this.saveChanges=saveChanges;
+        id=new ArrayList<>();
 
     }
+
     class ViewHolder extends RecyclerView.ViewHolder {
 
         CheckBox ch;
@@ -37,6 +49,10 @@ public class StateSelectAdapter extends RecyclerView.Adapter<StateSelectAdapter.
             super(itemView);
             ch= (CheckBox) itemView.findViewById(R.id.CheckBoxStates);
             tx= (TextView) itemView.findViewById(R.id.TextViewStates);
+
+            // Handling Skip Click Button
+            onClickSkip();
+
         }
     }
 
@@ -48,15 +64,52 @@ public class StateSelectAdapter extends RecyclerView.Adapter<StateSelectAdapter.
     }
 
     @Override
-    public void onBindViewHolder(final StateSelectAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final StateSelectAdapter.ViewHolder holder, final int position) {
 
-        holder.tx.setText(name.get(position));
+        holder.tx.setText(list.get(position).getName());
+
+        holder.ch.setChecked(list.get(position).isChecked());
+
+        holder.ch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CheckBox cb= (CheckBox) view;
+                list.get(position).setChecked(cb.isChecked());
+
+                // If CheckBox is Checked
+                if (cb.isChecked()){
+                    id.add(list.get(position).getId());
+                }
+                /*
+                  list.remove(1) removes the object at position 1
+                  and remove(new Integer(1)) removes the first occurrence
+                  of the specified element from this list.
+                 */
+                else{
+                    id.remove(new Integer(list.get(position).getId()));
+                }
+            }
+        });
 
     }
 
     @Override
     public int getItemCount() {
-        return id.size();
+        return list.size();
+    }
+
+    // Skip Click Button
+    public void onClickSkip(){
+
+        skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+            }
+        });
+
     }
 
 }

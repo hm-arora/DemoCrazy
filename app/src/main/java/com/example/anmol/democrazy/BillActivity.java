@@ -12,20 +12,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.anmol.democrazy.BillsData.UserStates;
 import com.example.anmol.democrazy.BillsData.getAllStates;
-import com.example.anmol.democrazy.BillsData.statesData;
-import com.example.anmol.democrazy.adapters.BillsLaidAdapter;
 import com.example.anmol.democrazy.fragments.BillsLaid;
 import com.example.anmol.democrazy.fragments.BillsPassed;
-import com.example.anmol.democrazy.fragments.Ordiances;
 import com.example.anmol.democrazy.fragments.OrdinancesElacted;
 import com.example.anmol.democrazy.fragments.OrdinancesEllapsed;
-
-import org.json.JSONArray;
-import org.json.JSONException;
+import com.example.anmol.democrazy.login.LoginKey;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,10 +68,26 @@ public class BillActivity extends AppCompatActivity {
      */
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new BillsLaid(BillActivity.this), "Bills Laid");
-        adapter.addFragment(new BillsPassed(BillActivity.this), "Bills Passed");
-        adapter.addFragment(new OrdinancesElacted(BillActivity.this), "Ordinances Enacted");
-        adapter.addFragment(new OrdinancesEllapsed(BillActivity.this), "Ordinances Lapsed");
+
+        //Firstly I am Checking Login Key is prsesnt or not
+        LoginKey loginKey=new LoginKey(BillActivity.this);
+        if (loginKey.getLoginKey()!=""){
+
+            //Getting User States as there is login key that implies there must be user states
+            UserStates userStates=new UserStates(BillActivity.this);
+            String userstates=userStates.getUserStates();
+            adapter.addFragment(new BillsLaid(BillActivity.this,userstates), "Bills Laid");
+            adapter.addFragment(new BillsPassed(BillActivity.this,userstates), "Bills Passed");
+            adapter.addFragment(new OrdinancesElacted(BillActivity.this,userstates), "Ordinances Enacted");
+            adapter.addFragment(new OrdinancesEllapsed(BillActivity.this,userstates), "Ordinances Lapsed");
+        }
+        // If No Login Key is present then show them centeral Bills
+        else{
+            adapter.addFragment(new BillsLaid(BillActivity.this), "Bills Laid");
+            adapter.addFragment(new BillsPassed(BillActivity.this), "Bills Passed");
+            adapter.addFragment(new OrdinancesElacted(BillActivity.this), "Ordinances Enacted");
+            adapter.addFragment(new OrdinancesEllapsed(BillActivity.this), "Ordinances Lapsed");
+        }
         viewPager.setAdapter(adapter);
     }
 

@@ -5,8 +5,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.anmol.democrazy.BillsData.States;
 import com.example.anmol.democrazy.BillsData.UserStates;
 import com.example.anmol.democrazy.BillsData.statesData;
 import com.example.anmol.democrazy.adapters.StateSelectAdapter;
@@ -20,8 +23,8 @@ import java.util.List;
 
 public class StateSet extends AppCompatActivity{
 
-    List<Integer> id;
-    List<String> name;
+
+    List<States> list;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,8 +32,10 @@ public class StateSet extends AppCompatActivity{
 
         setContentView(R.layout.states_select);
 
-        id=new ArrayList<>();
-        name=new ArrayList<>();
+        Button skip= (Button) findViewById(R.id.skipStateSelect);
+        Button SaveChanges= (Button) findViewById(R.id.SaveChangesButt);
+
+        list=new ArrayList<>();
 
         // All States data
         statesData statesData=new statesData(StateSet.this);
@@ -39,8 +44,12 @@ public class StateSet extends AppCompatActivity{
         try {
             JSONArray jsonArray=new JSONArray(statesData.getStates());
             for (int i=0;i<jsonArray.length();i++){
-                id.add(jsonArray.getJSONObject(i).getInt("id"));
-                name.add(jsonArray.getJSONObject(i).getString("name"));
+                int id=jsonArray.getJSONObject(i).getInt("id");
+                String name=jsonArray.getJSONObject(i).getString("name");
+
+                //States is a getter and setter class
+                States states=new States(id,name,false);
+                list.add(states);
             }
 
         } catch (JSONException e) {
@@ -53,10 +62,13 @@ public class StateSet extends AppCompatActivity{
 
         //setting up recycler view
         RecyclerView rv= (RecyclerView) findViewById(R.id.StatesSelectRecyclerView);
+        rv.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(StateSet.this);
-        RecyclerView.Adapter adapter=new StateSelectAdapter(StateSet.this,id,name);
+        RecyclerView.Adapter adapter=new StateSelectAdapter(StateSet.this,skip,SaveChanges,list);
         rv.setLayoutManager(layoutManager);
         rv.setAdapter(adapter);
+
+
 
     }
 }

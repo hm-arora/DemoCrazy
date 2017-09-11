@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
-    app:cardBackgroundColor="@color/colorPrimaryDark">
+    android:layout_height="50dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -24,6 +23,7 @@
             android:layout_toRightOf="@id/CheckBoxStates"
             android:layout_centerVertical="true"
             android:textSize="20sp"
+            android:textStyle="bold"
             android:paddingLeft="80dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

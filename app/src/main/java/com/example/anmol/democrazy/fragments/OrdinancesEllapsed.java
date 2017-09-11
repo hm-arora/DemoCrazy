@@ -27,9 +27,22 @@ public class OrdinancesEllapsed extends Fragment {
 
     private Context ctx;
 
+    private String userstates;
+
+    //If no User States are there ==== User is not logeed in
+    public OrdinancesEllapsed(Context ctx){
+
+        this.ctx=ctx;
+        // default centeral bills
+        userstates="[1]";
+    }
+
+    // if User State is Present
     @SuppressLint("ValidFragment")
-    public OrdinancesEllapsed(Context ctx) {
-        this.ctx = ctx;
+    public OrdinancesEllapsed(Context ctx, String userstates) {
+
+        this.ctx=ctx;
+        this.userstates=userstates;
     }
 
     @Override
@@ -41,7 +54,7 @@ public class OrdinancesEllapsed extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.bills_laid_fragment, container, false);
 
-        getAllBills getAllBills=new getAllBills(ctx,3,0);
+        getAllBills getAllBills=new getAllBills(ctx,3,0,userstates);
 
         // Getting All Bills of BillsPassed
         getAllBills.getData(new getAllBills.BillsCallBack() {
