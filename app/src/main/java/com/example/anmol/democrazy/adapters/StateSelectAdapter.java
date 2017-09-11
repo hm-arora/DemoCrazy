@@ -1,6 +1,7 @@
 package com.example.anmol.democrazy.adapters;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -12,8 +13,19 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.anmol.democrazy.BillActivity;
 import com.example.anmol.democrazy.BillsData.States;
+import com.example.anmol.democrazy.BillsData.TemporaryUserStates;
+import com.example.anmol.democrazy.BillsData.UserStates;
+import com.example.anmol.democrazy.BillsData.updateUserStates;
+import com.example.anmol.democrazy.LoginActivity;
+import com.example.anmol.democrazy.MainActivity;
 import com.example.anmol.democrazy.R;
+import com.example.anmol.democrazy.UserDetails;
+import com.example.anmol.democrazy.login.LoginKey;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +64,9 @@ public class StateSelectAdapter extends RecyclerView.Adapter<StateSelectAdapter.
 
             // Handling Skip Click Button
             onClickSkip();
+
+            //Handling Click Save Changes;
+            onClickSaveChanges();
 
         }
     }
@@ -105,11 +120,66 @@ public class StateSelectAdapter extends RecyclerView.Adapter<StateSelectAdapter.
             @Override
             public void onClick(View view) {
 
+                JSONArray jsonArray=new JSONArray();
+                for (int i=0;i<id.size();i++){
+                    jsonArray.put(id.get(i));
+                }
 
+                //Setting Temporary User State
+                try {
+                    TemporaryUserStates temporaryUserStates=new TemporaryUserStates(ctx,jsonArray);
+                    temporaryUserStates.setTempUserState();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                //Redirecting To Bill Activity
+                Intent i=new Intent(ctx, BillActivity.class);
+                ctx.startActivity(i);
+            }
+        });
+    }
+
+    //Save Changes Button
+    public void onClickSaveChanges(){
+
+
+        saveChanges.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                JSONArray jsonArray=new JSONArray();
+                for (int i=0;i<id.size();i++){
+                    jsonArray.put(id.get(i));
+                }
+
+                //checking LoginKey
+                LoginKey loginKey=new LoginKey(ctx);
+
+                //if login key is empty
+                if (loginKey.getLoginKey()==""){
+                    Toast.makeText(ctx,"You have to Login First for save Changes",Toast.LENGTH_LONG).show();
+                    Intent i=new Intent(ctx, LoginActivity.class);
+                    ctx.startActivity(i);
+                    //Finishing Activity
+                    ((Activity)ctx).finish();
+                }
+                //if login key is not empty
+                else{
+                    try {
+                        UserStates userStates=new UserStates(ctx,jsonArray);
+                        userStates.setUserState();
+                        //Updating User States
+                        updateUserStates updateUserStates=new updateUserStates(ctx);
+                        updateUserStates.updateStates();
+                        // updateUserStates
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
 
             }
         });
 
     }
-
 }

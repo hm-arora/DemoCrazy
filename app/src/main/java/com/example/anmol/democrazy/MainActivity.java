@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.anmol.democrazy.BillsData.UserStates;
+import com.example.anmol.democrazy.PhoneNoSave.SavePhoneNo;
 import com.example.anmol.democrazy.adapters.RecyclerAdapterMain;
 import com.example.anmol.democrazy.login.LogOut;
 import com.example.anmol.democrazy.login.LoginKey;
@@ -112,6 +113,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                         //Setting text in login text
                         login_text.setText(email);
+
+                        //saving Phone No
+                        SavePhoneNo savePhoneNo=new SavePhoneNo(MainActivity.this,jsonObject.getJSONObject("msg").getString("phone"));
+                        savePhoneNo.setPhoneNo();
                     }
                 }
             });

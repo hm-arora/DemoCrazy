@@ -47,6 +47,6 @@ public class UserStates {
      */
     public String getUserStates() {
         SharedPreferences sharedPref = ctx.getSharedPreferences(String.valueOf((R.string.User_states_data_file)), Context.MODE_PRIVATE);
-        return sharedPref.getString(String.valueOf(R.string.UserStates), "");
+        return sharedPref.getString(String.valueOf(R.string.UserStates), "[1]");
     }
 }

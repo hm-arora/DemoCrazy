@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.anmol.democrazy.BillsData.TemporaryUserStates;
 import com.example.anmol.democrazy.BillsData.UserStates;
 import com.example.anmol.democrazy.BillsData.getAllStates;
 import com.example.anmol.democrazy.fragments.BillsLaid;
@@ -82,11 +83,14 @@ public class BillActivity extends AppCompatActivity {
             adapter.addFragment(new OrdinancesEllapsed(BillActivity.this,userstates), "Ordinances Lapsed");
         }
         // If No Login Key is present then show them centeral Bills
+        //Showing Temporary User States
         else{
-            adapter.addFragment(new BillsLaid(BillActivity.this), "Bills Laid");
-            adapter.addFragment(new BillsPassed(BillActivity.this), "Bills Passed");
-            adapter.addFragment(new OrdinancesElacted(BillActivity.this), "Ordinances Enacted");
-            adapter.addFragment(new OrdinancesEllapsed(BillActivity.this), "Ordinances Lapsed");
+            TemporaryUserStates temporaryUserStates=new TemporaryUserStates(BillActivity.this);
+            String tempuserstates=temporaryUserStates.getTempUserStates();
+            adapter.addFragment(new BillsLaid(BillActivity.this,tempuserstates), "Bills Laid");
+            adapter.addFragment(new BillsPassed(BillActivity.this,tempuserstates), "Bills Passed");
+            adapter.addFragment(new OrdinancesElacted(BillActivity.this,tempuserstates), "Ordinances Enacted");
+            adapter.addFragment(new OrdinancesEllapsed(BillActivity.this,tempuserstates), "Ordinances Lapsed");
         }
         viewPager.setAdapter(adapter);
     }
@@ -142,7 +146,7 @@ public class BillActivity extends AppCompatActivity {
 
                 //getting all states from server
                 getAllStates getAllStates=new getAllStates(BillActivity.this);
-
+                getAllStates.getData();
                 Intent i=new Intent(BillActivity.this,StateSet.class);
                 startActivity(i);
 

@@ -82,7 +82,7 @@ public class OpinionPollActivity extends AppCompatActivity {
         URL += "5";
         Log.e(TAG, "getPolls: " + URL);
         RequestQueue rq = Volley.newRequestQueue(OpinionPollActivity.this);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
