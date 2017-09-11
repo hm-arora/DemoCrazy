@@ -20,12 +20,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BillActivity" />
+        <activity android:name=".BillActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".LoginActivity" />
         <activity android:name=".navigation.AboutUs" />
         <activity android:name=".OTPVerification" />
         <activity android:name=".OpinionPollActivity" />
         <activity android:name=".UserDetails" />
+        <activity android:name=".StateSet" />
 
         <receiver android:name=".sms.smsReceiver">
             <intent-filter>

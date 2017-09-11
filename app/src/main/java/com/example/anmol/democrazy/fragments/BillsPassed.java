@@ -8,9 +8,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.anmol.democrazy.BillsData.getAllBills;
 import com.example.anmol.democrazy.adapters.BillsLaidAdapter;
 import com.example.anmol.democrazy.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressLint("ValidFragment")
 public class BillsPassed extends Fragment {
@@ -29,14 +37,53 @@ public class BillsPassed extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.bills_laid_fragment, container, false);
-//        RecyclerView rv = (RecyclerView) v.findViewById(R.id.BillsLaidRv);
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ctx);
-//        RecyclerView.Adapter adapter = new BillsLaidAdapter(ctx);
-//        rv.setLayoutManager(layoutManager);
-//        rv.setAdapter(adapter);
+        final View v = inflater.inflate(R.layout.bills_laid_fragment, container, false);
+
+        getAllBills getAllBills=new getAllBills(ctx,1,0);
+
+        // Getting All Bills of BillsPassed
+        getAllBills.getData(new getAllBills.BillsCallBack() {
+            @Override
+            public void getAll(boolean status, JSONArray jsonArray) throws JSONException {
+
+                List<Integer> id=new ArrayList<Integer>();
+                List<String> Name=new ArrayList<String>();
+                List<String> centeralName=new ArrayList<String>();
+                List<String> date=new ArrayList<String>();
+
+                for (int i=0;i<jsonArray.length();i++){
+                    id.add(jsonArray.getJSONObject(i).getInt("id"));
+                    Name.add(jsonArray.getJSONObject(i).getString("name"));
+                    centeralName.add(jsonArray.getJSONObject(i).getString("state"));
+                    date.add(jsonArray.getJSONObject(i).getString("date").substring(0,10));
+                }
+                System.out.println("id : "+id);
+                System.out.println("name : "+Name);
+                System.out.println("date : "+date);
+                // RecyclerView for Bills Laid
+                RecyclerView rv= (RecyclerView) v.findViewById(R.id.BillsLaidRv);
+
+                //TextView No Data
+                TextView tx= (TextView) v.findViewById(R.id.NoData);
+
+                //checking if there is not an empty array
+                if (id.isEmpty()){
+                    tx.setVisibility(View.VISIBLE);
+                    rv.setVisibility(View.GONE);
+                }
+                // If not emty then list will come
+                else{
+                    tx.setVisibility(View.GONE);
+                    rv.setVisibility(View.VISIBLE);
+                    RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(ctx);
+                    RecyclerView.Adapter adapter=new BillsLaidAdapter(ctx,id,Name,centeralName,date);
+                    rv.setLayoutManager(layoutManager);
+                    rv.setAdapter(adapter);
+                }
+
+            }
+        });
+
         return v;
-
     }
-
 }

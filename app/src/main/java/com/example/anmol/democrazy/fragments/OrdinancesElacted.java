@@ -1,4 +1,6 @@
 package com.example.anmol.democrazy.fragments;
+
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
@@ -11,23 +13,23 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.anmol.democrazy.BillsData.getAllBills;
-import com.example.anmol.democrazy.adapters.BillsLaidAdapter;
 import com.example.anmol.democrazy.R;
+import com.example.anmol.democrazy.adapters.BillsLaidAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 @SuppressLint("ValidFragment")
-public class BillsLaid extends Fragment {
+public class OrdinancesElacted extends Fragment {
+
     private Context ctx;
+
     @SuppressLint("ValidFragment")
-    public BillsLaid(Context ctx) {
-        this.ctx=ctx;
+    public OrdinancesElacted(Context ctx) {
+        this.ctx = ctx;
     }
 
     @Override
@@ -36,14 +38,16 @@ public class BillsLaid extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.bills_laid_fragment, container, false);
-        //getting All Bills
-        getAllBills getAllBills=new getAllBills(ctx,0,0);
+
+        getAllBills getAllBills=new getAllBills(ctx,2,0);
+
+        // Getting All Bills of BillsPassed
         getAllBills.getData(new getAllBills.BillsCallBack() {
             @Override
             public void getAll(boolean status, JSONArray jsonArray) throws JSONException {
+
                 List<Integer> id=new ArrayList<Integer>();
                 List<String> Name=new ArrayList<String>();
                 List<String> centeralName=new ArrayList<String>();
@@ -58,6 +62,7 @@ public class BillsLaid extends Fragment {
                 System.out.println("id : "+id);
                 System.out.println("name : "+Name);
                 System.out.println("date : "+date);
+
                 // RecyclerView for Bills Laid
                 RecyclerView rv= (RecyclerView) v.findViewById(R.id.BillsLaidRv);
 
@@ -78,10 +83,10 @@ public class BillsLaid extends Fragment {
                     rv.setLayoutManager(layoutManager);
                     rv.setAdapter(adapter);
                 }
+
             }
         });
+
         return v;
-
     }
-
 }

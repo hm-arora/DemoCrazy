@@ -22,12 +22,14 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.anmol.democrazy.BillsData.UserStates;
 import com.example.anmol.democrazy.adapters.RecyclerAdapterMain;
 import com.example.anmol.democrazy.login.LogOut;
 import com.example.anmol.democrazy.login.LoginKey;
 import com.example.anmol.democrazy.login.getUserDetails;
 import com.example.anmol.democrazy.navigation.AboutUs;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -100,6 +102,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     //status -true := getting details Successfully
                     if (status){
                         String email=jsonObject.getJSONObject("msg").getString("email");
+
+                        //getting JsonArray of states
+                        JSONArray jsonArray=jsonObject.getJSONObject("msg").getJSONArray("BOStates");
+
+                        //setting jsonArray in pref file
+                        UserStates userStates=new UserStates(MainActivity.this,jsonArray);
+                        userStates.setUserState();
+
+                        //Setting text in login text
                         login_text.setText(email);
                     }
                 }
