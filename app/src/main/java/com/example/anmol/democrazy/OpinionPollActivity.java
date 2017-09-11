@@ -7,9 +7,11 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -24,8 +26,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.anmol.democrazy.fragments.OpinionPollFragment;
 import com.example.anmol.democrazy.login.LoginKey;
+import com.example.anmol.democrazy.opinion.OpinionPoll;
 import com.example.anmol.democrazy.viewpagers.VerticalPager;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,47 +42,36 @@ import java.util.Map;
 public class OpinionPollActivity extends AppCompatActivity {
     private static final int PAGES = 20;
     private static final String TAG = OpinionPollActivity.class.getSimpleName();
-    ArrayList<String> QuestionID, Questions;
-    private static String URL = "http://139.59.86.83:4000/login/secure/opinionPolls/getNew?count=";
+    private String URL = "http://139.59.86.83:4000/login/secure/opinionPolls/getNew?count=";
+    private ArrayList<OpinionPoll> listPolls;
+    ProgressBar progressBar;
+    VerticalPager pager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        QuestionID = new ArrayList<>();
-        Questions = new ArrayList<>();
-        // Full Screen
-
-        getPolls();
-
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         setContentView(R.layout.activity_opinion_poll);
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        pager = (VerticalPager) findViewById(R.id.view_pager);
+
+        // Full Screen
+
+        // Used to populate polls;
+        getPolls();
 
         LoginKey loginKey = new LoginKey(OpinionPollActivity.this);
         Log.e(TAG, "onCreate: " + loginKey.getLoginKey());
-        VerticalPager pager = (VerticalPager) findViewById(R.id.view_pager);
-        List<Fragment> fragmentList = new ArrayList<>();
-
-
-        for (int i = 0; i < PAGES; i++) {
-            // Number of pages in a vertical Pager
-//            fragmentList.add(OpinionPollFragment.newInstance(getString(R.string.question)));
-            String ID = "1";
-            fragmentList.add(OpinionPollFragment.newInstance("Question : " + (i + 1), ID));
-        }
-        Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(fragmentList);
-        pager.setAdapter(adapter);
-        pager.setOffscreenPageLimit(0);
 
     }
 
 
     public void getPolls() {
-
+        progressBar.setVisibility(View.VISIBLE);
+        listPolls = new ArrayList<>();
         URL += "5";
         Log.e(TAG, "getPolls: " + URL);
         RequestQueue rq = Volley.newRequestQueue(OpinionPollActivity.this);
@@ -87,8 +80,28 @@ public class OpinionPollActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         System.out.println(response);
+                        List<Fragment> fragmentList = new ArrayList<>();
                         try {
                             JSONObject jsonObject = new JSONObject(response);
+                            String msg = jsonObject.getString(getString(R.string.status));
+                            if (msg.equals("true")) {
+                                JSONArray jsonArray = jsonObject.getJSONArray("msg");
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject object = jsonArray.getJSONObject(i);
+                                    String id = object.getString("id");
+                                    String question = object.getString("question");
+                                    String stateCentralId = object.getString("state_central_id");
+                                    String startDate = object.getString("date_start");
+                                    String endDate = object.getString("date_end");
+                                    fragmentList.add(OpinionPollFragment.newInstance(
+                                            new OpinionPoll(id, question, stateCentralId, startDate, endDate)));
+                                }
+                            }
+                            Adapter adapter = new Adapter(getSupportFragmentManager());
+                            adapter.addFragment(fragmentList);
+                            pager.setAdapter(adapter);
+                            pager.setOffscreenPageLimit(0);
+                            progressBar.setVisibility(View.GONE);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -98,6 +111,7 @@ public class OpinionPollActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        progressBar.setVisibility(View.GONE);
                         NetworkResponse response = error.networkResponse;
                         String json = new String(response.data);
                         Log.e(TAG, "onErrorResponse: " + json);

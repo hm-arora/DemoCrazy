@@ -4,6 +4,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,23 +13,27 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.anmol.democrazy.R;
+import com.example.anmol.democrazy.opinion.OpinionPoll;
 
 
 public class OpinionPollFragment extends Fragment {
-    private static final String QUESTION = "QUESTION";
+    private static final String POLL_KEY = "POLL_KEY";
+    private static final String TAG = OpinionPollFragment.class.getSimpleName();
     Button btn1, btn2, btn3;
-    private static final String VALUE = "VALUE";
+    OpinionPoll mOpinionPoll;
 
     /**
      * Used to initialize OpinionPollFragment object
      *
-     * @param question add to object list
+     * @param object add to object list
      * @return OpinionPollFragment object
      */
-    public static OpinionPollFragment newInstance(String question, String id) {
+    public static OpinionPollFragment newInstance(OpinionPoll object) {
         OpinionPollFragment opinionPollFragment = new OpinionPollFragment();
         Bundle args = new Bundle();
-        args.putCharSequence(QUESTION, question);
+        String question = object.getQuestion();
+        Log.d(TAG, question + " ");
+        args.putSerializable(POLL_KEY, object);
         opinionPollFragment.setArguments(args);
         return opinionPollFragment;
     }
@@ -38,7 +43,12 @@ public class OpinionPollFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.opinion_poll_fragment, container, false);
-        String question_text = getArguments().getString(QUESTION);
+        mOpinionPoll = (OpinionPoll) getArguments().getSerializable(POLL_KEY);
+        String id = mOpinionPoll.getID();
+        String question = mOpinionPoll.getQuestion();
+        String stateCentralId = mOpinionPoll.getStateCentralID();
+        String startDate = mOpinionPoll.getStartDate();
+        String endDate = mOpinionPoll.getEndData();
         TextView descTextView = (TextView) view.findViewById(R.id.text_ques);
         btn1 = (Button) view.findViewById(R.id.button1);
         btn2 = (Button) view.findViewById(R.id.button2);
@@ -47,7 +57,7 @@ public class OpinionPollFragment extends Fragment {
         btn1.setOnTouchListener(listener);
         btn2.setOnTouchListener(listener);
         btn3.setOnTouchListener(listener);
-        descTextView.setText(question_text);
+        descTextView.setText(question);
         descTextView.setTypeface(null, Typeface.BOLD);
         return view;
     }
