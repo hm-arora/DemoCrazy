@@ -1,18 +1,17 @@
 package com.example.anmol.democrazy.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.anmol.democrazy.BillDetailsActivity;
 import com.example.anmol.democrazy.R;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
-import java.util.jar.Attributes;
 
 
 public class BillsLaidAdapter extends RecyclerView.Adapter<BillsLaidAdapter.ViewHolder> {
@@ -42,6 +41,18 @@ public class BillsLaidAdapter extends RecyclerView.Adapter<BillsLaidAdapter.View
             Nametx= (TextView) itemView.findViewById(R.id.Name_of_Bill);
             centeralNametx= (TextView) itemView.findViewById(R.id.Central_Name_of_Bill);
             datetx= (TextView) itemView.findViewById(R.id.date_of_Bill);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    int pos=getAdapterPosition();
+                    Intent i=new Intent(ctx, BillDetailsActivity.class);
+                    i.putExtra("id",id.get(pos));
+                    ctx.startActivity(i);
+
+                }
+            });
 
         }
     }

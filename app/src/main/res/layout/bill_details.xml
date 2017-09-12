@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="#fff"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/BillName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Taxation Ammendement act(customs)2017"
+                android:textStyle="bold"
+                android:textSize="30sp"
+                android:textColor="#000"
+                android:background="@drawable/back"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center_horizontal"
+                ></TextView>
+
+            <TextView
+                android:id="@+id/BillDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2017-03-27"
+                android:layout_below="@id/BillName"
+                android:layout_alignParentRight="true"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:textSize="15dp"
+                android:textColor="#000"/>
+
+            <TextView
+                android:id="@+id/Synop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/BillDate"
+                android:text="Synopsis"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="20dp"
+                android:textSize="30dp"
+                android:textColor="#000"
+                />
+
+
+            <TextView
+                android:id="@+id/SynopContents"
+                android:layout_below="@id/Synop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:textColor="#000"
+                android:textStyle="italic"
+                android:paddingBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textSize="15dp"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:text="The Bill seeks to amend the Customs Act 1962, the Customs Tariff Act 1975, the Central Excise Act 1944, the Finance Act, 2001 and the Finance Act, 2005 and to repeal certain enactments.\n The Customs Act is proposed to be amended to include warehouse in the definition of customs area  to ensure that an importer would not be required to pay the proposed integrated goods and services tax at the time of removal of goods from a customs station to a warehouse.\n \n The Customs Tariff Act, 1975 is proposed to be amended to provide for levy of integrated goods and services tax and goods and services tax compensation cess on imported goods so as to provide a level playing field to the domestic industry vis-a-vis imported goods.\n \n This Bill also seeks to abolish certain cesses or surcharges which are levied or collected as duty of excise or service tax under various Acts.\n\n
+                      It also seeks to abolish the cess levied on water consumed by certain industries and local authorities under the Water (Prevention and Control of Pollution) Cess Act 1977."/>
+
+            <include
+                layout="@layout/bill_details_one" />
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+
+
+</RelativeLayout>

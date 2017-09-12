@@ -28,6 +28,7 @@
         <activity android:name=".OpinionPollActivity" />
         <activity android:name=".UserDetails" />
         <activity android:name=".StateSet" />
+        <activity android:name=".BillDetailsActivity"/>
 
         <receiver android:name=".sms.smsReceiver">
             <intent-filter>

@@ -1,6 +1,9 @@
 package com.example.anmol.democrazy.BillsData;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -9,9 +12,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.anmol.democrazy.BillActivity;
 import com.example.anmol.democrazy.PhoneNoSave.SavePhoneNo;
 import com.example.anmol.democrazy.login.LoginKey;
 
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,8 +46,26 @@ public class updateUserStates  {
                     @Override
                     public void onResponse(String response) {
 
-                        System.out.println(response);
+                        try {
+                            JSONObject jsonObject=new JSONObject(response);
 
+                            System.out.println(jsonObject);
+
+                            boolean status=jsonObject.getBoolean("status");
+                            // if status true then update success
+                            if (status){
+
+                                Toast.makeText(ctx,"Successfully saved",Toast.LENGTH_LONG).show();
+                                //Redirecting to BillActivity class
+                                Intent i=new Intent(ctx, BillActivity.class);
+                                ctx.startActivity(i);
+                                ((Activity)ctx).finish();
+
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
 
@@ -62,7 +87,7 @@ public class updateUserStates  {
                 map.put("phone",phone);
                 UserStates userStates=new UserStates(ctx);
                 String s=userStates.getUserStates();
-                map.put("SCId",s);
+                map.put("SCIds",s);
                 return map;
             }
 
