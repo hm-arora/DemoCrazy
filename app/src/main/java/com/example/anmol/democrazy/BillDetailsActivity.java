@@ -11,7 +11,9 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.webkit.URLUtil;
@@ -29,7 +31,7 @@ import java.io.File;
 public class BillDetailsActivity extends AppCompatActivity {
 
 
-    TextView BillName,BillDate,SynopContent,Pros,ProsContent,Cons,ConsContent,NewspaperLink;
+    TextView BillName,BillDate,Synop,SynopContent,Pros,ProsContent,Cons,ConsContent,NewspaperLink;
 
     Button ActualBillLinkButt;
 
@@ -49,6 +51,7 @@ public class BillDetailsActivity extends AppCompatActivity {
 
         ActualBillLinkButt= (Button) findViewById(R.id.ActualBillLink);
         BillName= (TextView) findViewById(R.id.BillName);
+        Synop= (TextView) findViewById(R.id.Synop);
         BillDate= (TextView) findViewById(R.id.BillDate);
         SynopContent= (TextView) findViewById(R.id.SynopContents);
         Pros= (TextView) findViewById(R.id.ProsText);
@@ -68,6 +71,10 @@ public class BillDetailsActivity extends AppCompatActivity {
             @Override
             public void getBillDetails(JSONObject jsonObject) throws JSONException {
 
+                SpannableString spannable=new SpannableString("Synopsis");
+                spannable.setSpan(new UnderlineSpan(),0,spannable.length(),0);
+                Synop.setText(spannable);
+
                 System.out.println(jsonObject);
                 boolean status=jsonObject.getBoolean("status");
                 //checking status - true
@@ -76,8 +83,8 @@ public class BillDetailsActivity extends AppCompatActivity {
                     billName =jsonObject1.getString("name");
                     billDate=jsonObject1.getString("date").substring(0,10);
                     synopContent=jsonObject1.getString("synopsis").replace("\n","\n\n");
-                    prosContent=jsonObject1.getString("pros").replace("\n","\n\n ->");
-                    consContent=jsonObject1.getString("cons").replace("\n","\n\n ->");
+                    prosContent=jsonObject1.getString("pros").replace("\n","\n\n");
+                    consContent=jsonObject1.getString("cons").replace("\n","\n\n");
 
                     newspaperlink=jsonObject1.getString("newspaper_articles_links");
 
@@ -92,7 +99,9 @@ public class BillDetailsActivity extends AppCompatActivity {
                         Cons.setVisibility(View.GONE);
                         ConsContent.setVisibility(View.GONE);
                         //setting Text of Pros and Cons
-                        Pros.setText("Pros & Cons");
+                        SpannableString spannableString=new SpannableString("Pros & Cons");
+                        spannableString.setSpan(new UnderlineSpan(),0,spannableString.length(),0);
+                        Pros.setText(spannableString);
                         ProsContent.setText(prosContent);
 
                     }
@@ -102,9 +111,13 @@ public class BillDetailsActivity extends AppCompatActivity {
                         Cons.setVisibility(View.VISIBLE);
                         ConsContent.setVisibility(View.VISIBLE);
                         //setting Text of Pros and Cons
-                        Pros.setText("Pros");
+                        SpannableString spannableString=new SpannableString("Pros");
+                        spannableString.setSpan(new UnderlineSpan(),0,spannableString.length(),0);
+                        Pros.setText(spannableString);
                         ProsContent.setText(prosContent);
-                        Cons.setText("Cons");
+                        SpannableString spannableString1=new SpannableString("Cons");
+                        spannableString.setSpan(new UnderlineSpan(),0,spannableString.length(),0);
+                        Cons.setText(spannableString1);
                         ConsContent.setText(consContent);
                     }
 
