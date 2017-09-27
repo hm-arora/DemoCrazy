@@ -9,12 +9,19 @@ public class OpinionPoll implements Serializable {
     String startDate;
     String endData;
 
-    public OpinionPoll(String ID, String question, String stateCentralID, String startDate, String endData) {
+    public boolean isShowButton() {
+        return isShowButton;
+    }
+
+    boolean isShowButton;
+
+    public OpinionPoll(String ID, String question, String stateCentralID, String startDate, String endData, boolean isShowButton) {
         this.ID = ID;
         Question = question;
         this.stateCentralID = stateCentralID;
         this.startDate = startDate;
         this.endData = endData;
+        this.isShowButton = isShowButton;
     }
 
     public String getStateCentralID() {

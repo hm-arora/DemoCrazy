@@ -19,8 +19,9 @@ import com.example.anmol.democrazy.opinion.OpinionPoll;
 public class OpinionPollFragment extends Fragment {
     private static final String POLL_KEY = "POLL_KEY";
     private static final String TAG = OpinionPollFragment.class.getSimpleName();
-    Button btn1, btn2, btn3;
+    Button btn1, btn2, btn3,mShowButton;
     OpinionPoll mOpinionPoll;
+    private boolean isShowButton;
 
     /**
      * Used to initialize OpinionPollFragment object
@@ -49,19 +50,34 @@ public class OpinionPollFragment extends Fragment {
         String stateCentralId = mOpinionPoll.getStateCentralID();
         String startDate = mOpinionPoll.getStartDate();
         String endDate = mOpinionPoll.getEndData();
+        boolean isShowButton = mOpinionPoll.isShowButton();
         TextView descTextView = (TextView) view.findViewById(R.id.text_ques);
         btn1 = (Button) view.findViewById(R.id.button1);
         btn2 = (Button) view.findViewById(R.id.button2);
         btn3 = (Button) view.findViewById(R.id.button3);
+        mShowButton = (Button) view.findViewById(R.id.submitButton);
 
         btn1.setOnTouchListener(listener);
         btn2.setOnTouchListener(listener);
         btn3.setOnTouchListener(listener);
         descTextView.setText(question);
         descTextView.setTypeface(null, Typeface.BOLD);
+
+
+        if(isShowButton) {
+            mShowButton.setOnClickListener(mShowButtonListener);
+            mShowButton.setVisibility(View.VISIBLE);
+        }
         return view;
     }
 
+
+    View.OnClickListener mShowButtonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+        }
+    };
     private void checkValue(int value) {
         if (value == 1) {
             btn1.setPressed(true);

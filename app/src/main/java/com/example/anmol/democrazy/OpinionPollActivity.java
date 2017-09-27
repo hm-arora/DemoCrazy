@@ -93,8 +93,14 @@ public class OpinionPollActivity extends AppCompatActivity {
                                     String stateCentralId = object.getString("state_central_id");
                                     String startDate = object.getString("date_start");
                                     String endDate = object.getString("date_end");
+
+                                    // add fragments to fragmentList
+                                    if(i == jsonArray.length()-1)
+                                        fragmentList.add(OpinionPollFragment.newInstance(
+                                                new OpinionPoll(id, question, stateCentralId, startDate, endDate, true)));
+                                    else
                                     fragmentList.add(OpinionPollFragment.newInstance(
-                                            new OpinionPoll(id, question, stateCentralId, startDate, endDate)));
+                                            new OpinionPoll(id, question, stateCentralId, startDate, endDate, false)));
                                 }
                             }
                             Adapter adapter = new Adapter(getSupportFragmentManager());
