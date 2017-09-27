@@ -95,12 +95,12 @@ public class OpinionPollActivity extends AppCompatActivity {
                                     String endDate = object.getString("date_end");
 
                                     // add fragments to fragmentList
-                                    if(i == jsonArray.length()-1)
+                                    if (i == jsonArray.length() - 1)
                                         fragmentList.add(OpinionPollFragment.newInstance(
                                                 new OpinionPoll(id, question, stateCentralId, startDate, endDate, true)));
                                     else
-                                    fragmentList.add(OpinionPollFragment.newInstance(
-                                            new OpinionPoll(id, question, stateCentralId, startDate, endDate, false)));
+                                        fragmentList.add(OpinionPollFragment.newInstance(
+                                                new OpinionPoll(id, question, stateCentralId, startDate, endDate, false)));
                                 }
                             }
                             Adapter adapter = new Adapter(getSupportFragmentManager());

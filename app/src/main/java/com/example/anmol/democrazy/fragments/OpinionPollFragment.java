@@ -19,7 +19,7 @@ import com.example.anmol.democrazy.opinion.OpinionPoll;
 public class OpinionPollFragment extends Fragment {
     private static final String POLL_KEY = "POLL_KEY";
     private static final String TAG = OpinionPollFragment.class.getSimpleName();
-    Button btn1, btn2, btn3,mShowButton;
+    Button btn1, btn2, btn3, mShowButton;
     OpinionPoll mOpinionPoll;
     private boolean isShowButton;
 
@@ -64,7 +64,7 @@ public class OpinionPollFragment extends Fragment {
         descTextView.setTypeface(null, Typeface.BOLD);
 
 
-        if(isShowButton) {
+        if (isShowButton) {
             mShowButton.setOnClickListener(mShowButtonListener);
             mShowButton.setVisibility(View.VISIBLE);
         }
@@ -78,6 +78,7 @@ public class OpinionPollFragment extends Fragment {
 
         }
     };
+
     private void checkValue(int value) {
         if (value == 1) {
             btn1.setPressed(true);
