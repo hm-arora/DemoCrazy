@@ -25,7 +25,7 @@ public class OpinionPollFragment extends Fragment {
     public static HashMap<String,String> hashMap=new HashMap<>();
 
     private static final String TAG = OpinionPollFragment.class.getSimpleName();
-    Button btn1, btn2, btn3,mShowButton;
+    Button btn1, btn2, btn3, mShowButton;
     OpinionPoll mOpinionPoll;
     private boolean isShowButton;
 
@@ -96,7 +96,7 @@ public class OpinionPollFragment extends Fragment {
         descTextView.setTypeface(null, Typeface.BOLD);
 
 
-        if(isShowButton) {
+        if (isShowButton) {
             mShowButton.setOnClickListener(mShowButtonListener);
             mShowButton.setVisibility(View.VISIBLE);
         }
@@ -114,7 +114,6 @@ public class OpinionPollFragment extends Fragment {
 
         }
     };
-
 
     // Cliking Poll
     void ClickingPoll(int i){
