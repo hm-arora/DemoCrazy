@@ -125,10 +125,9 @@ public class OTPVerification extends AppCompatActivity {
     }
 
 
-    //checking Details
+    // checking Details
     public void getDetails(){
-
-        //getUserDetails instance
+        // getUserDetails instance
         getUserDetails getUser=new getUserDetails(OTPVerification.this);
 
         getUser.getDetails(new getUserDetails.getDetailsOfUser() {

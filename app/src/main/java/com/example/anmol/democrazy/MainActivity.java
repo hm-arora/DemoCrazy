@@ -3,6 +3,8 @@ package com.example.anmol.democrazy;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -19,6 +21,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +33,7 @@ import com.example.anmol.democrazy.login.LogOut;
 import com.example.anmol.democrazy.login.LoginKey;
 import com.example.anmol.democrazy.login.getUserDetails;
 import com.example.anmol.democrazy.navigation.AboutUs;
+import com.example.anmol.democrazy.util.TextDrawable;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,8 +44,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1;
-    FrameLayout frameLayout;
 
+    private LinearLayout linearLayout;
     private DrawerLayout drawer;
     private RecyclerView rv;
     private RecyclerView.LayoutManager layoutManager;
@@ -79,20 +84,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Header of Navigation View
         View navHeader = navigationView.getHeaderView(0);
 
-        frameLayout = (FrameLayout) navHeader.findViewById(R.id.FrameNav);
 
-        //Header TextView
-        final TextView login_text = (TextView) navHeader.findViewById(R.id.Login_text);
-
+        // Header Implementations
+        linearLayout = (LinearLayout) navHeader.findViewById(R.id.header);
+        final TextView email_id = (TextView) navHeader.findViewById(R.id.email_id);
+        final TextView full_name = (TextView) navHeader.findViewById(R.id.full_name);
+        final ImageView imageView = (ImageView) navHeader.findViewById(R.id.image);
+        linearLayout.setVisibility(View.GONE);
         ////////////// GETTING USER DETAILS  ///////////////////
         LoginKey l = new LoginKey(MainActivity.this);
         String key = l.getLoginKey();
         if (key != "") {
 
             menu.findItem(R.id.LoginActivity).setTitle("LogOut");
-
-            frameLayout.setVisibility(View.VISIBLE);
-
+            linearLayout.setVisibility(View.VISIBLE);
             //getting details
             getUserDetails g = new getUserDetails(MainActivity.this);
 
@@ -101,33 +106,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 public void result(boolean status, JSONObject jsonObject) throws JSONException {
 
                     //status -true := getting details Successfully
-                    if (status){
-                        String email=jsonObject.getJSONObject("msg").getString("email");
-
+                    if (status) {
+                        String email = jsonObject.getJSONObject("msg").getString("email");
+                        String fullName = jsonObject.getJSONObject("msg").getString("fullName");
                         //getting JsonArray of states
-                        JSONArray jsonArray=jsonObject.getJSONObject("msg").getJSONArray("BOStates");
+                        JSONArray jsonArray = jsonObject.getJSONObject("msg").getJSONArray("BOStates");
 
                         //setting jsonArray in pref file
-                        UserStates userStates=new UserStates(MainActivity.this,jsonArray);
+                        UserStates userStates = new UserStates(MainActivity.this, jsonArray);
                         userStates.setUserState();
 
                         //Setting text in login text
-                        login_text.setText(email);
+
+                        TextDrawable myDrawable = TextDrawable.builder().beginConfig()
+                                .textColor(Color.WHITE)
+                                .useFont(Typeface.DEFAULT)
+                                .toUpperCase()
+                                .endConfig()
+                                .buildRound(fullName.substring(0, 1), Color.parseColor("#3D3D3D"));
+                        email_id.setText(email);
+                        full_name.setText(fullName);
+                        imageView.setImageDrawable(myDrawable);
 
                         //saving Phone No
-                        SavePhoneNo savePhoneNo=new SavePhoneNo(MainActivity.this,jsonObject.getJSONObject("msg").getString("phone"));
+                        SavePhoneNo savePhoneNo = new SavePhoneNo(MainActivity.this, jsonObject.getJSONObject("msg").getString("phone"));
                         savePhoneNo.setPhoneNo();
                     }
                 }
             });
         }
 
-            layoutManager = new LinearLayoutManager(MainActivity.this);
-            adapter = new RecyclerAdapterMain(MainActivity.this);
-            // rv.addItemDecoration(new OverlappingDecoration());
-            rv.setLayoutManager(layoutManager);
-            rv.setAdapter(adapter);
-        }
+        layoutManager = new LinearLayoutManager(MainActivity.this);
+        adapter = new RecyclerAdapterMain(MainActivity.this);
+        // rv.addItemDecoration(new OverlappingDecoration());
+        rv.setLayoutManager(layoutManager);
+        rv.setAdapter(adapter);
+    }
 
     private void Permission() {
         // Here, thisActivity is the current activity
@@ -220,7 +234,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             LoginKey l = new LoginKey(MainActivity.this);
 
             // If login key found
-            if (!( l.getLoginKey().equals("")) ) {
+            if (!(l.getLoginKey().equals(""))) {
 
                 LogOut logOut = new LogOut(MainActivity.this);
                 logOut.logoutUser(new LogOut.LogOutInter() {
@@ -230,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         if (status) {
                             // changing UI
                             item.setTitle("login");
-                            frameLayout.setVisibility(View.GONE);
+                            linearLayout.setVisibility(View.GONE);
                             // Deleting Cookie
                             LoginKey l = new LoginKey(MainActivity.this, "");
                             l.setLoginKey();

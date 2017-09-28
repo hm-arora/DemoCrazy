@@ -39,11 +39,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class OpinionPollActivity extends AppCompatActivity {
+public class OpinionPollActivity extends AppCompatActivity implements OpinionPollFragment.OnSubmitListener {
     private static final int PAGES = 20;
     private static final String TAG = OpinionPollActivity.class.getSimpleName();
     private String URL = "http://139.59.86.83:4000/login/secure/opinionPolls/getNew?count=";
-    private ArrayList<OpinionPoll> listPolls;
     ProgressBar progressBar;
     VerticalPager pager;
 
@@ -69,9 +68,12 @@ public class OpinionPollActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Used to fetch polls
+     */
     public void getPolls() {
+        // show progressBar
         progressBar.setVisibility(View.VISIBLE);
-        listPolls = new ArrayList<>();
         URL += "5";
         Log.e(TAG, "getPolls: " + URL);
         RequestQueue rq = Volley.newRequestQueue(OpinionPollActivity.this);
@@ -94,10 +96,11 @@ public class OpinionPollActivity extends AppCompatActivity {
                                     String startDate = object.getString("date_start");
                                     String endDate = object.getString("date_end");
 
-                                    // add fragments to fragmentList
+                                    // if it is last page then add Submit button at the end
                                     if (i == jsonArray.length() - 1)
                                         fragmentList.add(OpinionPollFragment.newInstance(
                                                 new OpinionPoll(id, question, stateCentralId, startDate, endDate, true)));
+                                        // else just show the same fragment with yes,no and don't know message
                                     else
                                         fragmentList.add(OpinionPollFragment.newInstance(
                                                 new OpinionPoll(id, question, stateCentralId, startDate, endDate, false)));
@@ -107,6 +110,8 @@ public class OpinionPollActivity extends AppCompatActivity {
                             adapter.addFragment(fragmentList);
                             pager.setAdapter(adapter);
                             pager.setOffscreenPageLimit(0);
+
+                            // Alter the behaviour of progressBar
                             progressBar.setVisibility(View.GONE);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -118,6 +123,8 @@ public class OpinionPollActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressBar.setVisibility(View.GONE);
+
+                        // Used to get error response using NetworkResponse
                         NetworkResponse response = error.networkResponse;
                         String json = new String(response.data);
                         Log.e(TAG, "onErrorResponse: " + json);
@@ -138,6 +145,11 @@ public class OpinionPollActivity extends AppCompatActivity {
         };
 
         rq.add(stringRequest);
+    }
+
+    @Override
+    public void onSubmitButtonListener(String object) {
+        Log.e(TAG, "onSubmitButtonListener: " + object);
     }
 
     private static class Adapter extends FragmentPagerAdapter {

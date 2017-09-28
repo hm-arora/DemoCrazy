@@ -17,11 +17,11 @@
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
-        android:layout_width="280dp"
+        android:layout_width="@dimen/nav_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="false"
-        app:headerLayout="@layout/nav_header_main"
+        app:headerLayout="@layout/navheader"
         app:menu="@menu/activity_main_drawer" />
 
 

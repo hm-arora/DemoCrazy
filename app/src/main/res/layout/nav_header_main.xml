@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <FrameLayout
-        android:visibility="gone"
         android:id="@+id/FrameNav"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="60dp"
+        android:visibility="visible">
+
         <ImageView
-            android:background="@color/colorPrimaryDark"
             android:id="@+id/imageViewNav"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark" />
+
         <RelativeLayout
             android:id="@+id/RelativeLayoutnav"
             android:layout_width="match_parent"
@@ -20,19 +22,20 @@
 
             <TextView
                 android:id="@+id/Login_text"
-                android:layout_alignParentBottom="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Login"
-                android:textSize="20dp"
-                android:textColor="#fff"
-                android:textStyle="bold"
+                android:layout_alignParentBottom="true"
                 android:layout_marginBottom="20dp"
-                android:layout_marginLeft="20dp"/>
-
+                android:layout_marginLeft="20dp"
+                android:text="Login"
+                android:textColor="#fff"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
 
         </RelativeLayout>
     </FrameLayout>
+
+
 
 </RelativeLayout>
