@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/divideone"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@drawable/divider"></FrameLayout>
+
+    <TextView
+        android:id="@+id/txcontact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contacts"
+        android:layout_below="@id/divideone"
+        android:textColor="#fff"
+        android:textSize="40sp"
+        android:paddingBottom="20dp"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="20dp"/>
+
+
+    <FrameLayout
+        android:id="@+id/dividetwo"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/txcontact"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@drawable/divider"></FrameLayout>
+
+    <RelativeLayout
+        android:layout_below="@id/txcontact"
+        android:paddingTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <TextView
+                    android:id="@+id/androidcontacts"
+                    android:textStyle="bold"
+                    android:text="Android Developers"
+                    android:textColor="#fff"
+                    android:textSize="25sp"
+                    android:paddingBottom="20dp"
+                    android:paddingLeft="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+                <TextView
+                    android:id="@+id/androidcon"
+                    android:textStyle="bold"
+                    android:text="1.anmoldua97@gmail.com \n \n 2.Himasnhuarora315@gmail.com"
+                    android:textSize="20sp"
+                    android:paddingTop="20sp"
+                    android:textColor="#fff"
+                    android:layout_below="@id/androidcontacts"
+                    android:paddingLeft="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+                <TextView
+                    android:id="@+id/Webcontacts"
+                    android:textStyle="bold"
+                    android:text="Backend Developer"
+                    android:textSize="25sp"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="30dp"
+                    android:layout_below="@id/androidcon"
+                    android:textColor="#fff"
+                    android:paddingLeft="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+                <TextView
+                    android:id="@+id/webcon"
+                    android:textStyle="bold"
+                    android:text="1.bansubhai@gmail.com"
+                    android:textSize="20sp"
+                    android:textColor="#fff"
+                    android:paddingTop="20sp"
+                    android:layout_below="@id/Webcontacts"
+                    android:paddingLeft="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+
+                <TextView
+                    android:id="@+id/ContentMark"
+                    android:textStyle="bold"
+                    android:text="Content Writer"
+                    android:textSize="25sp"
+                    android:textColor="#fff"
+                    android:paddingTop="30dp"
+                    android:paddingBottom="10dp"
+                    android:layout_below="@id/webcon"
+                    android:paddingLeft="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+                <TextView
+                    android:textStyle="bold"
+                    android:text="1.rahulsharma03897@gmail.com"
+                    android:textSize="20sp"
+                    android:textColor="#fff"
+                    android:paddingTop="20sp"
+                    android:layout_below="@id/ContentMark"
+                    android:paddingLeft="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

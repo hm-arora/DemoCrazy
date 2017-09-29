@@ -46,6 +46,8 @@
 
         <activity android:name=".BillDetailsActivity" />
 
+        <activity android:name=".ContactsActivity" />
+
         <receiver android:name=".sms.smsReceiver">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />

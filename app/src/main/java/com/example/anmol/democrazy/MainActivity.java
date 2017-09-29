@@ -1,11 +1,13 @@
 package com.example.anmol.democrazy;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -302,6 +304,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }
 
+        // FeedBack (Sending To Gmail)
+        else if (id==R.id.FeedBack){
+            sendGmail();
+        }
+
+        else if (id==R.id.ContactUs){
+            Intent i=new Intent(MainActivity.this,ContactsActivity.class);
+            startActivity(i);
+        }
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -347,6 +360,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             colors.recycle();
         }
         return String.format("#%06X", (0xFFFFFF & returnColor));
+    }
+
+
+    // Sending Gmail
+    public void sendGmail() {
+
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        String TO[]={"BansuBhai@gmail.com"};
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.setType("text/plain");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "FeedBack(DemoCrazy)");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Please Give Us Feedback");
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(MainActivity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 }
