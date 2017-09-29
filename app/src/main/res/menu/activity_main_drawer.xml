@@ -1,36 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/ContactUs"
-            android:title="Contact Us" />
+            android:icon="@drawable/contactsicon"
+            android:title="Contact Us"/>
         <item
             android:id="@+id/AboutUs"
+
             android:title="About Us" />
         <item
             android:id="@+id/RateandReview"
-
+            android:icon="@drawable/rate"
             android:title="Rate and Review" />
-
 
         <item
             android:id="@+id/ShareApp"
-
+            android:icon="@drawable/share"
             android:title="ShareApp" />
 
         <item
             android:id="@+id/FeedBack"
-
+            android:icon="@drawable/feedback"
             android:title="FeedBack" />
 
         <item
             android:id="@+id/Settings"
-
+            android:icon="@drawable/settings"
             android:title="Settings" />
 
         <item
             android:id="@+id/LoginActivity"
+            android:icon="@drawable/loginicon"
             android:title="Login" />
 
     </group>
