@@ -2,11 +2,13 @@ package com.example.anmol.democrazy.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,18 +21,21 @@ import com.example.anmol.democrazy.R;
 import com.example.anmol.democrazy.opinion.OpinionPoll;
 
 import java.util.HashMap;
+import java.util.Map;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 public class OpinionPollFragment extends Fragment {
     private static final String POLL_KEY = "POLL_KEY";
 
     public interface OnSubmitListener {
-        void onSubmitButtonListener(String object);
+        void onSubmitButtonListener(Map<String, Integer> object);
     }
 
     OnSubmitListener onSubmitListener;
     // Persisting the value of Poll
-    public static HashMap<String, String> hashMap = new HashMap<>();
+    public static HashMap<String, Integer> hashMap = new HashMap<>();
 
     private static final String TAG = OpinionPollFragment.class.getSimpleName();
     Button btn1, btn2, btn3, mShowButton;
@@ -65,7 +70,7 @@ public class OpinionPollFragment extends Fragment {
             onSubmitListener = (OnSubmitListener) a;
         } catch (ClassCastException e) {
             throw new ClassCastException(a.toString()
-                    + " must implement OnHeadlineSelectedListener");
+                    + " must implement OnSubmitListener");
         }
     }
 
@@ -77,7 +82,7 @@ public class OpinionPollFragment extends Fragment {
         mOpinionPoll = (OpinionPoll) getArguments().getSerializable(POLL_KEY);
         id = mOpinionPoll.getID();
         // Put by default don't know as answer
-        hashMap.put(id, "2");
+        hashMap.put(id, 2);
         String question = mOpinionPoll.getQuestion();
         String stateCentralId = mOpinionPoll.getStateCentralID();
         String startDate = mOpinionPoll.getStartDate();
@@ -100,8 +105,8 @@ public class OpinionPollFragment extends Fragment {
         if (isShowButton) {
             mShowButton.setOnClickListener(mShowButtonListener);
             mShowButton.setVisibility(View.VISIBLE);
+            mShowButton.setSelected(true);
         }
-
 
 
         return view;
@@ -112,20 +117,55 @@ public class OpinionPollFragment extends Fragment {
     View.OnClickListener mShowButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            onSubmitListener.onSubmitButtonListener(hashMap.toString());
+
+            SweetAlertDialog pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE);
+            pDialog.setTitleText("Are you sure?")
+                    .setContentText("Won't be able to change later!")
+                    .setConfirmText("Yes,Submit it!")
+                    .showCancelButton(true)
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            onSubmitListener.onSubmitButtonListener(hashMap);
+                            hashMap.clear();
+                            sDialog.cancel();
+                        }
+                    })
+                    .show();
+//            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                    switch (which) {
+//                        case DialogInterface.BUTTON_POSITIVE:
+//                            //Yes button clicked
+//                            onSubmitListener.onSubmitButtonListener(hashMap);
+//                            hashMap.clear();
+//                            break;
+//
+//                        case DialogInterface.BUTTON_NEGATIVE:
+//                            //No button clicked
+//                            break;
+//                    }
+//                }
+//            };
+//
+//            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//            builder.setTitle("Submit ? ").setMessage("Are you sure ?").setPositiveButton("Yes", dialogClickListener)
+//                    .setNegativeButton("No", dialogClickListener).show();
         }
     };
 
 
+    // Use to for showing submit button on the last poll
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(mShowButton != null) {
-            if(isVisibleToUser && isShowButton) {
+        if (mShowButton != null) {
+            if (isVisibleToUser && isShowButton) {
                 mShowButton.setVisibility(View.VISIBLE);
                 mShowButton.setSelected(true);
             }
-            if(!isVisibleToUser  && isShowButton)
+            if (!isVisibleToUser && isShowButton)
                 mShowButton.setVisibility(View.GONE);
         }
         Log.e(TAG, "setUserVisibleHint: " + isVisibleToUser + id);
@@ -144,7 +184,7 @@ public class OpinionPollFragment extends Fragment {
                 btn3.setTextColor(Color.BLACK);
                 btn2.setSelected(false);
                 btn3.setSelected(false);
-                hashMap.put(id, "1");
+                hashMap.put(id, 1);
                 break;
             // No case
             case 2:
@@ -154,7 +194,7 @@ public class OpinionPollFragment extends Fragment {
                 btn2.setSelected(true);
                 btn1.setSelected(false);
                 btn3.setSelected(false);
-                hashMap.put(id, "0");
+                hashMap.put(id, 0);
                 break;
 
             // Don't Know case
@@ -165,7 +205,7 @@ public class OpinionPollFragment extends Fragment {
                 btn3.setSelected(true);
                 btn1.setSelected(false);
                 btn2.setSelected(false);
-                hashMap.put(id, "2");
+                hashMap.put(id, 2);
                 break;
         }
 

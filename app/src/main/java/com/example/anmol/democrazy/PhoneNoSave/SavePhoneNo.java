@@ -20,7 +20,7 @@ public class SavePhoneNo {
     public SavePhoneNo(Context ctx, String phone) {
 
         this.ctx = ctx;
-        this.phone=phone;
+        this.phone = phone;
 
     }
 
@@ -31,13 +31,14 @@ public class SavePhoneNo {
 
         SharedPreferences sharedPref = ctx.getSharedPreferences(String.valueOf(R.string.Phone_No_states_data_file), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(String.valueOf(R.string.PhoneNoPrefKey),phone);
+        editor.putString(String.valueOf(R.string.PhoneNoPrefKey), phone);
         editor.commit();
 
     }
 
     /**
      * Used to get Phone no
+     *
      * @return Phone No
      */
     public String getPhoneNo() {

@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class updateUserStates  {
+public class updateUserStates {
 
     RequestQueue rq;
     Context ctx;
@@ -32,34 +32,34 @@ public class updateUserStates  {
     private static final String URL = "http://139.59.86.83:4000/login/secure/billsOrdinances/updateStates";
 
     // Constructor : - Type
-    public updateUserStates(Context ctx){
-        this.ctx=ctx;
+    public updateUserStates(Context ctx) {
+        this.ctx = ctx;
     }
 
-    public void updateStates(){
+    public void updateStates() {
 
-        rq= Volley.newRequestQueue(ctx);
+        rq = Volley.newRequestQueue(ctx);
 
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
 
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
 
                         try {
-                            JSONObject jsonObject=new JSONObject(response);
+                            JSONObject jsonObject = new JSONObject(response);
 
                             System.out.println(jsonObject);
 
-                            boolean status=jsonObject.getBoolean("status");
+                            boolean status = jsonObject.getBoolean("status");
                             // if status true then update success
-                            if (status){
+                            if (status) {
 
-                                Toast.makeText(ctx,"Successfully saved",Toast.LENGTH_LONG).show();
+                                Toast.makeText(ctx, "Successfully saved", Toast.LENGTH_LONG).show();
                                 //Redirecting to BillActivity class
-                                Intent i=new Intent(ctx, BillActivity.class);
+                                Intent i = new Intent(ctx, BillActivity.class);
                                 ctx.startActivity(i);
-                                ((Activity)ctx).finish();
+                                ((Activity) ctx).finish();
 
                             }
 
@@ -75,19 +75,19 @@ public class updateUserStates  {
 
                     }
                 }
-        ){
+        ) {
 
             // Passing Params
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
-                Map<String,String> map = new HashMap<>();
-                SavePhoneNo savePhoneNo=new SavePhoneNo(ctx);
-                String phone=savePhoneNo.getPhoneNo();
-                map.put("phone",phone);
-                UserStates userStates=new UserStates(ctx);
-                String s=userStates.getUserStates();
-                map.put("SCIds",s);
+                Map<String, String> map = new HashMap<>();
+                SavePhoneNo savePhoneNo = new SavePhoneNo(ctx);
+                String phone = savePhoneNo.getPhoneNo();
+                map.put("phone", phone);
+                UserStates userStates = new UserStates(ctx);
+                String s = userStates.getUserStates();
+                map.put("SCIds", s);
                 return map;
             }
 
@@ -95,9 +95,9 @@ public class updateUserStates  {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
 
-                Map<String,String> map = new HashMap<>();
+                Map<String, String> map = new HashMap<>();
                 LoginKey loginKey = new LoginKey(ctx);
-                map.put("Cookie",loginKey.getLoginKey());
+                map.put("Cookie", loginKey.getLoginKey());
                 return map;
             }
         };

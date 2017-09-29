@@ -1,5 +1,6 @@
 package com.example.anmol.democrazy;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -24,6 +25,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.anmol.democrazy.PhoneNoSave.SavePhoneNo;
 import com.example.anmol.democrazy.fragments.OpinionPollFragment;
 import com.example.anmol.democrazy.login.LoginKey;
 import com.example.anmol.democrazy.opinion.OpinionPoll;
@@ -38,6 +40,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class OpinionPollActivity extends AppCompatActivity implements OpinionPollFragment.OnSubmitListener {
     private static final int PAGES = 20;
@@ -88,6 +92,14 @@ public class OpinionPollActivity extends AppCompatActivity implements OpinionPol
                             String msg = jsonObject.getString(getString(R.string.status));
                             if (msg.equals("true")) {
                                 JSONArray jsonArray = jsonObject.getJSONArray("msg");
+
+                                // If length of array is 0 then finish the activity
+                                if (jsonArray.length() == 0) {
+
+                                    Intent intent = new Intent(OpinionPollActivity.this, MainActivity.class);
+                                    intent.putExtra("POLLS", true);
+                                    startActivity(intent);
+                                }
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject object = jsonArray.getJSONObject(i);
                                     String id = object.getString("id");
@@ -129,6 +141,7 @@ public class OpinionPollActivity extends AppCompatActivity implements OpinionPol
                         String json = new String(response.data);
                         Log.e(TAG, "onErrorResponse: " + json);
                         Toast.makeText(OpinionPollActivity.this, " Error ", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 }) {
 
@@ -148,8 +161,84 @@ public class OpinionPollActivity extends AppCompatActivity implements OpinionPol
     }
 
     @Override
-    public void onSubmitButtonListener(String object) {
-        Log.e(TAG, "onSubmitButtonListener: " + object);
+    public void onSubmitButtonListener(Map<String, Integer> object) {
+        JSONObject jsonObject = new JSONObject(object);
+        submitPolls(jsonObject.toString());
+    }
+
+
+    void submitPolls(final String voteObject) {
+        String SUBMIT_URL = "http://139.59.86.83:4000/login/secure/opinionPolls/submitPoll";
+        RequestQueue rq = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, SUBMIT_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.e(TAG, "onResponse: " + response);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean status = jsonObject.getBoolean(getString(R.string.status));
+                            if (status) {
+                                new SweetAlertDialog(OpinionPollActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+                                        .setTitleText("Polls has been submitted")
+                                        .setContentText("Do you want to fill more polls")
+                                        .setConfirmText("Yes")
+                                        .setCancelText("No")
+                                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                sweetAlertDialog.dismissWithAnimation();
+                                                finish();
+                                            }
+                                        })
+                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(SweetAlertDialog sDialog) {
+                                                sDialog.dismissWithAnimation();
+                                                Intent intent = getIntent();
+                                                finish();
+                                                startActivity(intent);
+                                            }
+                                        })
+                                        .show();
+                            }
+                            String msg = jsonObject.getString(getString(R.string.msg));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(OpinionPollActivity.this, " Error ", Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                SavePhoneNo savePhoneNo = new SavePhoneNo(OpinionPollActivity.this);
+                String phoneNumber = savePhoneNo.getPhoneNo();
+                Log.e(TAG, "phone: " + phoneNumber + "  votes : " + voteObject);
+                map.put("phone", phoneNumber);
+                map.put("votes", voteObject);
+                return new JSONObject(map).toString().getBytes();
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                LoginKey loginKey = new LoginKey(OpinionPollActivity.this);
+                String key = loginKey.getLoginKey();
+                Log.e(TAG, "Post getParams: " + key);
+                map.put("Cookie", key);
+                map.put("Content-Type", "application/json");
+                return map;
+            }
+        };
+
+        rq.add(stringRequest);
     }
 
     private static class Adapter extends FragmentPagerAdapter {

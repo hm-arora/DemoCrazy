@@ -19,12 +19,12 @@
         android:id="@+id/nav_view"
         android:layout_width="@dimen/nav_drawer_width"
         android:background="#F5F5F5"
-        app:itemTextColor="#000"
-        app:itemIconTint="#000"
+        app:itemTextColor="@color/black"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="false"
         app:headerLayout="@layout/navheader"
+        app:itemIconTint="@color/black"
         app:menu="@menu/activity_main_drawer" />
 
 
