@@ -23,14 +23,14 @@
             android:id="@+id/full_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Himanshu Arora"
+            android:text="Name of User"
             android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/email_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Himanshuarora315@gmail.com"
+            android:text="Email id of user"
             android:textColor="@color/white" />
     </LinearLayout>
 

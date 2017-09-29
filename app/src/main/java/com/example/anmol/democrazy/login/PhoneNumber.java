@@ -35,7 +35,6 @@ public class PhoneNumber {
     }
 
     public void sendNumber(final phNoCallback callback) {
-
         RequestQueue rq = Volley.newRequestQueue(ctx);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
                 new Response.Listener<String>() {
@@ -57,7 +56,7 @@ public class PhoneNumber {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(ctx," Error ",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ctx, " Error ", Toast.LENGTH_SHORT).show();
                     }
                 }) {
             @Override
