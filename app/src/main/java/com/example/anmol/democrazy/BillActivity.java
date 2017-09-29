@@ -31,27 +31,39 @@ public class BillActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
+    static BillActivity billActivity;
+
+    String US;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bills_main);
 
+        // Setting static bill Activity instance
+        billActivity=this;
+
         // Initiate views
         initViews();
         // Set Toolbar
         setToolbar();
+
+
+        System.out.println("ON CREATE _________________________ Called");
+        //gettingUserStates
+        gettingUserStates();
         // Set ViewPager
         setupViewPager(viewPager);
-
         tabLayout.setupWithViewPager(viewPager);
+
     }
 
     private void setToolbar() {
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("BillActivity");
+            getSupportActionBar().setTitle("Bills Data");
         } else
             throw new NullPointerException("Toolbar not initialized ");
     }
@@ -63,6 +75,28 @@ public class BillActivity extends AppCompatActivity {
 
     }
 
+
+    // getting User States
+    private void gettingUserStates(){
+
+        //Firstly I am Checking Login Key is prsesnt or not
+        LoginKey loginKey=new LoginKey(BillActivity.this);
+
+        if (loginKey.getLoginKey()!=""){
+            //Getting User States as there is login key that implies there must be user states
+            UserStates userStates=new UserStates(BillActivity.this);
+            US=userStates.getUserStates();
+        }
+
+        // If No Login Key is present then show them centeral Bills
+        //Showing Temporary User States
+        else{
+            TemporaryUserStates temporaryUserStates=new TemporaryUserStates(BillActivity.this);
+            US=temporaryUserStates.getTempUserStates();
+        }
+    }
+
+
     /**
      * used to set up ViewPager
      * @param viewPager ViewPagers's object
@@ -70,28 +104,11 @@ public class BillActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        //Firstly I am Checking Login Key is prsesnt or not
-        LoginKey loginKey=new LoginKey(BillActivity.this);
-        if (loginKey.getLoginKey()!=""){
+        adapter.addFragment(new BillsLaid(BillActivity.this,US), "Bills Laid");
+        adapter.addFragment(new BillsPassed(BillActivity.this,US), "Bills Passed");
+        adapter.addFragment(new OrdinancesElacted(BillActivity.this,US), "Ordinances Enacted");
+        adapter.addFragment(new OrdinancesEllapsed(BillActivity.this,US), "Ordinances Lapsed");
 
-            //Getting User States as there is login key that implies there must be user states
-            UserStates userStates=new UserStates(BillActivity.this);
-            String userstates=userStates.getUserStates();
-            adapter.addFragment(new BillsLaid(BillActivity.this,userstates), "Bills Laid");
-            adapter.addFragment(new BillsPassed(BillActivity.this,userstates), "Bills Passed");
-            adapter.addFragment(new OrdinancesElacted(BillActivity.this,userstates), "Ordinances Enacted");
-            adapter.addFragment(new OrdinancesEllapsed(BillActivity.this,userstates), "Ordinances Lapsed");
-        }
-        // If No Login Key is present then show them centeral Bills
-        //Showing Temporary User States
-        else{
-            TemporaryUserStates temporaryUserStates=new TemporaryUserStates(BillActivity.this);
-            String tempuserstates=temporaryUserStates.getTempUserStates();
-            adapter.addFragment(new BillsLaid(BillActivity.this,tempuserstates), "Bills Laid");
-            adapter.addFragment(new BillsPassed(BillActivity.this,tempuserstates), "Bills Passed");
-            adapter.addFragment(new OrdinancesElacted(BillActivity.this,tempuserstates), "Ordinances Enacted");
-            adapter.addFragment(new OrdinancesEllapsed(BillActivity.this,tempuserstates), "Ordinances Lapsed");
-        }
         viewPager.setAdapter(adapter);
     }
 
@@ -157,4 +174,10 @@ public class BillActivity extends AppCompatActivity {
 
         return true;
     }
+
+    // Getting Instance of BillActivity
+    public static BillActivity getInstance(){
+        return  billActivity ;
+    }
+
 }

@@ -22,7 +22,7 @@ import com.squareup.picasso.Picasso;
 
 public class RecyclerAdapterMain extends RecyclerView.Adapter<RecyclerAdapterMain.ViewHolder> {
     private Context ctx;
-    String s[] = {"BillActivity", "Financial Inclusions", "Opinion Polls"};
+    String s[] = {"Bills Data", "Financial Inclusions", "Opinion Polls"};
     String url[] = {"http://www.fdrindia.org/wp-content/uploads/2015/07/Parliament-of-India.png",
             "http://media.gettyimages.com/videos/indian-rupee-currency-bills-banknote-falling-video-id451311393?s=256x256"
             , "http://www.differencebetween.info/sites/default/files/images/5/exit-polls.jpg"};

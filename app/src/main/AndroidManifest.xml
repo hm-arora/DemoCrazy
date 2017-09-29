@@ -23,13 +23,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".BillActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".LoginActivity" />
+            android:screenOrientation="portrait" />
+        <activity android:name=".LoginActivity"
+            android:launchMode="singleInstance"/>
         <activity android:name=".navigation.AboutUs" />
-        <activity android:name=".OTPVerification" />
+        <activity android:name=".OTPVerification"
+            android:launchMode="singleInstance"/>
         <activity android:name=".OpinionPollActivity" />
-        <activity android:name=".UserDetails" />
-        <activity android:name=".StateSet" />
+        <activity android:name=".UserDetails"
+            android:launchMode="singleInstance"/>
+        <activity android:name=".StateSet"
+            android:launchMode="singleInstance"/>
         <activity android:name=".BillDetailsActivity"/>
 
         <receiver android:name=".sms.smsReceiver">

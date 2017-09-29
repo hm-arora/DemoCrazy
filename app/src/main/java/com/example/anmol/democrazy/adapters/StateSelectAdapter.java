@@ -133,9 +133,14 @@ public class StateSelectAdapter extends RecyclerView.Adapter<StateSelectAdapter.
                     e.printStackTrace();
                 }
 
+                BillActivity.getInstance().finish();
+
                 //Redirecting To Bill Activity
                 Intent i=new Intent(ctx, BillActivity.class);
                 ctx.startActivity(i);
+
+
+
             }
         });
     }

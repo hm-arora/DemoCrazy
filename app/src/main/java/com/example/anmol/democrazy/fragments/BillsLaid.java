@@ -27,7 +27,7 @@ public class BillsLaid extends Fragment {
     private Context ctx;
     private String userstates;
 
-    //If no User States are there ==== User is not logeed in
+    //If no User States are there ==== User is not logged in
     public BillsLaid(Context ctx){
 
         this.ctx=ctx;
