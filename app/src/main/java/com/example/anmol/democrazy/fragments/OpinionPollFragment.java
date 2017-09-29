@@ -2,17 +2,14 @@ package com.example.anmol.democrazy.fragments;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -117,7 +114,7 @@ public class OpinionPollFragment extends Fragment {
         if (isShowButton) {
             mShowButton.setOnClickListener(mShowButtonListener);
             mShowButton.setVisibility(View.VISIBLE);
-            mShowButton.setSelected(true);
+            mShowButton.setPressed(true);
         }
 
 
@@ -175,7 +172,7 @@ public class OpinionPollFragment extends Fragment {
         if (mShowButton != null) {
             if (isVisibleToUser && isShowButton) {
                 mShowButton.setVisibility(View.VISIBLE);
-                mShowButton.setSelected(true);
+                mShowButton.setPressed(true);
             }
             if (!isVisibleToUser && isShowButton)
                 mShowButton.setVisibility(View.GONE);
@@ -195,11 +192,11 @@ public class OpinionPollFragment extends Fragment {
                 btn1.setTextColor(Color.WHITE);
                 btn1.setBackgroundColor(green_color);
                 btn2.setSelected(false);
-                btn2.setBackgroundResource(R.drawable.button_style);
+                btn2.setBackgroundResource(R.drawable.button_style_blue);
                 btn2.setTextColor(Color.BLACK);
                 btn3.setSelected(false);
                 btn3.setTextColor(Color.BLACK);
-                btn3.setBackgroundResource(R.drawable.button_style);
+                btn3.setBackgroundResource(R.drawable.button_style_blue);
 
                 hashMap.put(id, 1);
                 break;
@@ -211,10 +208,10 @@ public class OpinionPollFragment extends Fragment {
                 btn2.setBackgroundColor(red_color);
                 btn1.setSelected(false);
                 btn1.setTextColor(Color.BLACK);
-                btn1.setBackgroundResource(R.drawable.button_style);
+                btn1.setBackgroundResource(R.drawable.button_style_blue);
                 btn3.setSelected(false);
                 btn3.setTextColor(Color.BLACK);
-                btn3.setBackgroundResource(R.drawable.button_style);
+                btn3.setBackgroundResource(R.drawable.button_style_blue);
                 hashMap.put(id, 0);
                 break;
 
@@ -227,10 +224,10 @@ public class OpinionPollFragment extends Fragment {
                 btn3.setBackgroundColor(blue_color);
                 btn1.setSelected(false);
                 btn1.setTextColor(Color.BLACK);
-                btn1.setBackgroundResource(R.drawable.button_style);
+                btn1.setBackgroundResource(R.drawable.button_style_blue);
                 btn2.setSelected(false);
                 btn2.setTextColor(Color.BLACK);
-                btn2.setBackgroundResource(R.drawable.button_style);
+                btn2.setBackgroundResource(R.drawable.button_style_blue);
                 hashMap.put(id, 2);
                 break;
         }
