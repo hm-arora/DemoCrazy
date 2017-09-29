@@ -2,16 +2,14 @@ package com.example.anmol.democrazy.fragments;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -28,18 +26,26 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class OpinionPollFragment extends Fragment {
     private static final String POLL_KEY = "POLL_KEY";
+    private static final String PAGE_NUMBER = "PAGE";
 
     public interface OnSubmitListener {
         void onSubmitButtonListener(Map<String, Integer> object);
     }
 
+
+    public interface OnButtonListener {
+        void onAnyButtonListener(int pos);
+    }
+
     OnSubmitListener onSubmitListener;
+    OnButtonListener onButtonListener;
     // Persisting the value of Poll
     public static HashMap<String, Integer> hashMap = new HashMap<>();
 
     private static final String TAG = OpinionPollFragment.class.getSimpleName();
     Button btn1, btn2, btn3, mShowButton;
     OpinionPoll mOpinionPoll;
+    int page_number;
     private boolean isShowButton;
 
     // Opinion Poll Activity
@@ -51,12 +57,13 @@ public class OpinionPollFragment extends Fragment {
      * @param object add to object list
      * @return OpinionPollFragment object
      */
-    public static OpinionPollFragment newInstance(OpinionPoll object) {
+    public static OpinionPollFragment newInstance(OpinionPoll object, int page_number) {
         OpinionPollFragment opinionPollFragment = new OpinionPollFragment();
         Bundle args = new Bundle();
         String question = object.getQuestion();
         Log.d(TAG, question + " ");
         args.putSerializable(POLL_KEY, object);
+        args.putInt(PAGE_NUMBER, page_number);
         opinionPollFragment.setArguments(args);
         return opinionPollFragment;
     }
@@ -67,6 +74,7 @@ public class OpinionPollFragment extends Fragment {
         Activity a;
         a = (Activity) context;
         try {
+            onButtonListener = (OnButtonListener) a;
             onSubmitListener = (OnSubmitListener) a;
         } catch (ClassCastException e) {
             throw new ClassCastException(a.toString()
@@ -80,6 +88,7 @@ public class OpinionPollFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.opinion_poll_fragment, container, false);
         mOpinionPoll = (OpinionPoll) getArguments().getSerializable(POLL_KEY);
+        page_number = getArguments().getInt(PAGE_NUMBER);
         id = mOpinionPoll.getID();
         // Put by default don't know as answer
         hashMap.put(id, 2);
@@ -105,7 +114,7 @@ public class OpinionPollFragment extends Fragment {
         if (isShowButton) {
             mShowButton.setOnClickListener(mShowButtonListener);
             mShowButton.setVisibility(View.VISIBLE);
-            mShowButton.setSelected(true);
+            mShowButton.setPressed(true);
         }
 
 
@@ -163,7 +172,7 @@ public class OpinionPollFragment extends Fragment {
         if (mShowButton != null) {
             if (isVisibleToUser && isShowButton) {
                 mShowButton.setVisibility(View.VISIBLE);
-                mShowButton.setSelected(true);
+                mShowButton.setPressed(true);
             }
             if (!isVisibleToUser && isShowButton)
                 mShowButton.setVisibility(View.GONE);
@@ -178,36 +187,52 @@ public class OpinionPollFragment extends Fragment {
         switch (i) {
             // yes case
             case 1:
+                int green_color = ContextCompat.getColor(getActivity(), R.color.light_green_700);
                 btn1.setSelected(true);
                 btn1.setTextColor(Color.WHITE);
-                btn2.setTextColor(Color.BLACK);
-                btn3.setTextColor(Color.BLACK);
+                btn1.setBackgroundColor(green_color);
                 btn2.setSelected(false);
+                btn2.setBackgroundResource(R.drawable.button_style_blue);
+                btn2.setTextColor(Color.BLACK);
                 btn3.setSelected(false);
+                btn3.setTextColor(Color.BLACK);
+                btn3.setBackgroundResource(R.drawable.button_style_blue);
+
                 hashMap.put(id, 1);
                 break;
             // No case
             case 2:
-                btn2.setTextColor(Color.WHITE);
-                btn1.setTextColor(Color.BLACK);
-                btn3.setTextColor(Color.BLACK);
+                int red_color = ContextCompat.getColor(getActivity(), R.color.red_400);
                 btn2.setSelected(true);
+                btn2.setTextColor(Color.WHITE);
+                btn2.setBackgroundColor(red_color);
                 btn1.setSelected(false);
+                btn1.setTextColor(Color.BLACK);
+                btn1.setBackgroundResource(R.drawable.button_style_blue);
                 btn3.setSelected(false);
+                btn3.setTextColor(Color.BLACK);
+                btn3.setBackgroundResource(R.drawable.button_style_blue);
                 hashMap.put(id, 0);
                 break;
 
             // Don't Know case
             case 3:
-                btn3.setTextColor(Color.WHITE);
-                btn1.setTextColor(Color.BLACK);
-                btn2.setTextColor(Color.BLACK);
+
+                int blue_color = Color.parseColor("#3885F9");
                 btn3.setSelected(true);
+                btn3.setTextColor(Color.WHITE);
+                btn3.setBackgroundColor(blue_color);
                 btn1.setSelected(false);
+                btn1.setTextColor(Color.BLACK);
+                btn1.setBackgroundResource(R.drawable.button_style_blue);
                 btn2.setSelected(false);
+                btn2.setTextColor(Color.BLACK);
+                btn2.setBackgroundResource(R.drawable.button_style_blue);
                 hashMap.put(id, 2);
                 break;
         }
+
+        onButtonListener.onAnyButtonListener(page_number);
 
     }
 

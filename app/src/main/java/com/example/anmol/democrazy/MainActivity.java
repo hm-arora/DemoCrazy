@@ -52,13 +52,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1;
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    private LinearLayout linearLayout;
     private DrawerLayout drawer;
     private RecyclerView rv;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
     private Menu menu;
-
+    TextView email_id, full_name;
+    ImageView imageView;
     private int itemToResize;
     private int TotalItemsInView = 0;
 
@@ -108,18 +108,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         // Header Implementations
-        linearLayout = (LinearLayout) navHeader.findViewById(R.id.header);
-        final TextView email_id = (TextView) navHeader.findViewById(R.id.email_id);
-        final TextView full_name = (TextView) navHeader.findViewById(R.id.full_name);
-        final ImageView imageView = (ImageView) navHeader.findViewById(R.id.image);
-        linearLayout.setVisibility(View.GONE);
+        email_id = (TextView) navHeader.findViewById(R.id.email_id);
+        full_name = (TextView) navHeader.findViewById(R.id.full_name);
+        imageView = (ImageView) navHeader.findViewById(R.id.image);
+
+        email_id.setVisibility(View.GONE);
+        full_name.setVisibility(View.GONE);
+        imageView.setVisibility(View.GONE);
         ////////////// GETTING USER DETAILS  ///////////////////
         LoginKey l = new LoginKey(MainActivity.this);
         String key = l.getLoginKey();
         if (key != "") {
 
+
+            email_id.setVisibility(View.VISIBLE);
+            full_name.setVisibility(View.VISIBLE);
+            imageView.setVisibility(View.VISIBLE);
             menu.findItem(R.id.LoginActivity).setTitle("LogOut");
-            linearLayout.setVisibility(View.VISIBLE);
             //getting details
             getUserDetails g = new getUserDetails(MainActivity.this);
 
@@ -272,7 +277,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 //calling ConfirmLogout Method
                 confirmLogOut(item);
-
             } else {
                 Intent i = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(i);
@@ -292,12 +296,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         // FeedBack (Sending To Gmail)
-        else if (id==R.id.FeedBack){
+        else if (id == R.id.FeedBack) {
             sendGmail();
-        }
-
-        else if (id==R.id.ContactUs){
-            Intent i=new Intent(MainActivity.this,ContactsActivity.class);
+        } else if (id == R.id.ContactUs) {
+            Intent i = new Intent(MainActivity.this, ContactsActivity.class);
             startActivity(i);
         }
 
@@ -354,7 +356,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void sendGmail() {
 
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
-        String TO[]={"BansuBhai@gmail.com"};
+        String TO[] = {"BansuBhai@gmail.com"};
         emailIntent.setData(Uri.parse("mailto:"));
         emailIntent.setType("text/plain");
         emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
@@ -396,7 +398,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 if (status) {
                                     // changing UI
                                     item.setTitle("login");
-                                    linearLayout.setVisibility(View.GONE);
+
+
+                                    email_id.setVisibility(View.GONE);
+                                    full_name.setVisibility(View.GONE);
+                                    imageView.setVisibility(View.GONE);
                                     // Deleting Cookie
                                     LoginKey l = new LoginKey(MainActivity.this, "");
                                     l.setLoginKey();
