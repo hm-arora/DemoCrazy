@@ -3,6 +3,7 @@ package com.example.anmol.democrazy;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.design.widget.NavigationView;
@@ -17,6 +18,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1;
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     private LinearLayout linearLayout;
     private DrawerLayout drawer;
@@ -118,12 +121,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                         //Setting text in login text
 
+
+                        String color = getRandomMaterialColor("400");
+                        Log.e(TAG, "result: " + color);
                         TextDrawable myDrawable = TextDrawable.builder().beginConfig()
                                 .textColor(Color.WHITE)
                                 .useFont(Typeface.DEFAULT)
                                 .toUpperCase()
                                 .endConfig()
-                                .buildRound(fullName.substring(0, 1), Color.parseColor("#3D3D3D"));
+                                .buildRound(fullName.substring(0, 1), Color.parseColor(color));
                         email_id.setText(email);
                         full_name.setText(fullName);
                         imageView.setImageDrawable(myDrawable);
@@ -312,5 +318,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    public String getRandomMaterialColor(String typeColor) {
+        int returnColor = Color.GRAY;
+        int arrayId = getResources().getIdentifier("colors_" + typeColor, "array", getPackageName());
+
+        if (arrayId != 0) {
+            TypedArray colors = getResources().obtainTypedArray(arrayId);
+            int index = (int) (Math.random() * colors.length());
+            returnColor = colors.getColor(index, Color.GRAY);
+            colors.recycle();
+        }
+        return String.format("#%06X", (0xFFFFFF & returnColor));
+    }
 
 }
