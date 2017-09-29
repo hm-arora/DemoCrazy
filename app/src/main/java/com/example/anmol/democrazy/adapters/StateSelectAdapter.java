@@ -62,6 +62,20 @@ public class StateSelectAdapter extends RecyclerView.Adapter<StateSelectAdapter.
             ch= (CheckBox) itemView.findViewById(R.id.CheckBoxStates);
             tx= (TextView) itemView.findViewById(R.id.TextViewStates);
 
+            LoginKey loginKey=new LoginKey(ctx);
+
+            String l=loginKey.getLoginKey();
+
+            // if login is null or user is not logged in
+            if (l.equals("")){
+                saveChanges.setVisibility(View.GONE);
+                skip.setVisibility(View.VISIBLE);
+            }
+            else{
+                saveChanges.setVisibility(View.VISIBLE);
+                skip.setVisibility(View.VISIBLE);
+            }
+
             // Handling Skip Click Button
             onClickSkip();
 
@@ -125,21 +139,44 @@ public class StateSelectAdapter extends RecyclerView.Adapter<StateSelectAdapter.
                     jsonArray.put(id.get(i));
                 }
 
-                //Setting Temporary User State
-                try {
-                    TemporaryUserStates temporaryUserStates=new TemporaryUserStates(ctx,jsonArray);
-                    temporaryUserStates.setTempUserState();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                LoginKey l=new LoginKey(ctx);
+
+                String loginKey=l.getLoginKey();
+
+                if (loginKey.equals("")){
+
+                    //Setting Temporary User State
+                    try {
+                        TemporaryUserStates temporaryUserStates=new TemporaryUserStates(ctx,jsonArray);
+                        temporaryUserStates.setTempUserState();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    BillActivity.getInstance().finish();
+
+                    //Redirecting To Bill Activity
+                    Intent i=new Intent(ctx, BillActivity.class);
+                    ctx.startActivity(i);
+
                 }
 
-                BillActivity.getInstance().finish();
+                // Setting User States
+                else{
+                    BillActivity.getInstance().finish();
+                    try {
+                        // Setting User States
+                        UserStates userStates=new UserStates(ctx,jsonArray);
+                        userStates.setUserState();
 
-                //Redirecting To Bill Activity
-                Intent i=new Intent(ctx, BillActivity.class);
-                ctx.startActivity(i);
+                        //Redirecting To Bill Activity
+                        Intent i=new Intent(ctx, BillActivity.class);
+                        ctx.startActivity(i);
 
-
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
 
             }
         });
@@ -166,15 +203,18 @@ public class StateSelectAdapter extends RecyclerView.Adapter<StateSelectAdapter.
                     Toast.makeText(ctx,"You have to Login First for save Changes",Toast.LENGTH_LONG).show();
                     Intent i=new Intent(ctx, LoginActivity.class);
                     ctx.startActivity(i);
-                    //Finishing Activity
-                    ((Activity)ctx).finish();
                 }
                 //if login key is not empty
                 else{
                     try {
+
+                        BillActivity.getInstance().finish();
+
+                        // Setting User States
                         UserStates userStates=new UserStates(ctx,jsonArray);
                         userStates.setUserState();
-                        //Updating User States
+
+                        //Updating User States on server
                         updateUserStates updateUserStates=new updateUserStates(ctx);
                         updateUserStates.updateStates();
                         // updateUserStates
