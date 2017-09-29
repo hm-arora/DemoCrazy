@@ -42,8 +42,8 @@
             android:name=".UserDetails"
             android:launchMode="singleInstance" />
         <activity
-            android:name=".StateSet"
-            android:launchMode="singleInstance" />
+            android:name=".StateSet"/>
+
         <activity android:name=".BillDetailsActivity" />
 
         <receiver android:name=".sms.smsReceiver">

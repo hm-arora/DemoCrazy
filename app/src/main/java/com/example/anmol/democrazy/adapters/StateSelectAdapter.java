@@ -159,6 +159,8 @@ public class StateSelectAdapter extends RecyclerView.Adapter<StateSelectAdapter.
                     Intent i=new Intent(ctx, BillActivity.class);
                     ctx.startActivity(i);
 
+                    ((Activity)ctx).finish();
+
                 }
 
                 // Setting User States
@@ -172,6 +174,8 @@ public class StateSelectAdapter extends RecyclerView.Adapter<StateSelectAdapter.
                         //Redirecting To Bill Activity
                         Intent i=new Intent(ctx, BillActivity.class);
                         ctx.startActivity(i);
+
+                        ((Activity)ctx).finish();
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -203,6 +207,7 @@ public class StateSelectAdapter extends RecyclerView.Adapter<StateSelectAdapter.
                     Toast.makeText(ctx,"You have to Login First for save Changes",Toast.LENGTH_LONG).show();
                     Intent i=new Intent(ctx, LoginActivity.class);
                     ctx.startActivity(i);
+                    ((Activity)ctx).finish();
                 }
                 //if login key is not empty
                 else{
@@ -218,6 +223,9 @@ public class StateSelectAdapter extends RecyclerView.Adapter<StateSelectAdapter.
                         updateUserStates updateUserStates=new updateUserStates(ctx);
                         updateUserStates.updateStates();
                         // updateUserStates
+
+                        ((Activity)ctx).finish();
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

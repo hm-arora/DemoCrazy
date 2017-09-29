@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:layout_height="match_parent"
+<RelativeLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:background="#fff"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <ScrollView
         android:layout_width="match_parent"
@@ -12,47 +12,67 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/BillName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Taxation Ammendement act(customs)2017"
-                android:textStyle="bold"
-                android:textSize="30sp"
-                android:textColor="#000"
-                android:background="@drawable/back"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
+            <android.support.v7.widget.CardView
+                android:id="@+id/cone"
+                android:elevation="10dp"
+                app:cardBackgroundColor="#616161"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:gravity="center_horizontal"
-                ></TextView>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:background="@drawable/back"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/BillName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Taxation Ammendement act(customs)2017"
+                        android:textStyle="bold"
+                        android:textSize="30sp"
+                        android:textColor="#fff"
+                        android:paddingTop="20dp"
+                        android:paddingBottom="20dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:gravity="center_horizontal"
+                        ></TextView>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
 
             <TextView
                 android:id="@+id/BillDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2017-03-27"
-                android:layout_below="@id/BillName"
+                android:layout_below="@id/cone"
                 android:layout_alignParentRight="true"
                 android:paddingRight="10dp"
                 android:paddingTop="10dp"
                 android:textSize="15dp"
-                android:textColor="#000"/>
+                android:textColor="#fff"/>
 
             <TextView
                 android:id="@+id/Synop"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/backone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/BillDate"
                 android:text="Synopsis"
                 android:layout_centerHorizontal="true"
-                android:paddingTop="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:textSize="35dp"
-                android:textColor="#000"
+                android:textColor="#fff"
                 />
 
 
@@ -62,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="20dp"
-                android:textColor="#000"
+                android:textColor="#fff"
                 android:textStyle="italic"
                 android:paddingBottom="10dp"
                 android:layout_marginLeft="20dp"

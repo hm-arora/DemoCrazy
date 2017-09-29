@@ -99,9 +99,9 @@ public class BillDetailsActivity extends AppCompatActivity {
                         Cons.setVisibility(View.GONE);
                         ConsContent.setVisibility(View.GONE);
                         //setting Text of Pros and Cons
-                        SpannableString spannableString=new SpannableString("Pros & Cons");
-                        spannableString.setSpan(new UnderlineSpan(),0,spannableString.length(),0);
-                        Pros.setText(spannableString);
+                    //    SpannableString spannableString=new SpannableString("Pros & Cons");
+                    //    spannableString.setSpan(new UnderlineSpan(),0,spannableString.length(),0);
+                        Pros.setText("Pros & Cons");
                         ProsContent.setText(prosContent);
 
                     }
@@ -111,13 +111,13 @@ public class BillDetailsActivity extends AppCompatActivity {
                         Cons.setVisibility(View.VISIBLE);
                         ConsContent.setVisibility(View.VISIBLE);
                         //setting Text of Pros and Cons
-                        SpannableString spannableString=new SpannableString("Pros");
-                        spannableString.setSpan(new UnderlineSpan(),0,spannableString.length(),0);
-                        Pros.setText(spannableString);
+                   //     SpannableString spannableString=new SpannableString("Pros");
+                    //    spannableString.setSpan(new UnderlineSpan(),0,spannableString.length(),0);
+                        Pros.setText("Pros");
                         ProsContent.setText(prosContent);
-                        SpannableString spannableString1=new SpannableString("Cons");
-                        spannableString.setSpan(new UnderlineSpan(),0,spannableString.length(),0);
-                        Cons.setText(spannableString1);
+                   //     SpannableString spannableString1=new SpannableString("Cons");
+                  //      spannableString.setSpan(new UnderlineSpan(),0,spannableString.length(),0);
+                        Cons.setText("Cons");
                         ConsContent.setText(consContent);
                     }
 
@@ -132,7 +132,7 @@ public class BillDetailsActivity extends AppCompatActivity {
 
                     NewspaperLink.setMovementMethod(LinkMovementMethod.getInstance());
                     NewspaperLink.setText(Html.fromHtml(s1,0));
-                    NewspaperLink.setLinkTextColor(Color.BLUE);
+                    NewspaperLink.setLinkTextColor(Color.WHITE);
 
                 }
             }

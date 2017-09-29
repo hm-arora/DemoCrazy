@@ -2,6 +2,7 @@ package com.example.anmol.democrazy.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,10 @@ import com.example.anmol.democrazy.LoginActivity;
 import com.example.anmol.democrazy.OpinionPollActivity;
 import com.example.anmol.democrazy.R;
 import com.example.anmol.democrazy.login.LoginKey;
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
+import com.github.johnpersano.supertoasts.library.SuperToast;
+import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 import com.squareup.picasso.Picasso;
 
 public class RecyclerAdapterMain extends RecyclerView.Adapter<RecyclerAdapterMain.ViewHolder> {
@@ -75,7 +80,10 @@ public class RecyclerAdapterMain extends RecyclerView.Adapter<RecyclerAdapterMai
                             break;
                         case 1:
 
-                            Toast.makeText(ctx,"Coming Soon",Toast.LENGTH_LONG).show();
+                            SuperActivityToast.create(ctx).setText("Coming Soon").setDuration(2000)
+                                    .setColor(Color.MAGENTA) .setFrame(Style.FRAME_LOLLIPOP)
+                                    .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_PURPLE))
+                                    .setAnimations(Style.ANIMATIONS_POP).show();
 
                             break;
                         case 2:

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="@color/colorPrimary"
     android:id="@+id/one_rel"
     android:layout_below="@id/SynopContents">
 
@@ -26,11 +26,16 @@
         android:id="@+id/ProsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/backone"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
         android:layout_below="@id/ActualBillLink"
         android:text="Pros"
+        android:layout_marginTop="20dp"
         android:textSize="35dp"
-        android:paddingTop="20dp"
-        android:textColor="#000"
+        android:paddingTop="10dp"
+        android:textColor="#fff"
         android:layout_centerHorizontal="true"/>
 
     <TextView
@@ -38,11 +43,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="fill_horizontal"
-        android:paddingTop="20dp"
+        android:paddingTop="30dp"
         android:textStyle="italic"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:textColor="#000"
+        android:textColor="#fff"
         android:textSize="18dp"
         android:layout_below="@id/ProsText"
         android:text="To provide a level playing field to the domestic industry, Customs Tariff Act, 1975 is amended to provide for levy of Integrated Goods and Service Tax (IGST) and Goods and Services Tax Compensation Cess on imported goods. \n\n National Calamity Contingent Duty will be levied only on tobacco products and crude oil.\n\n Petroleum products such as motor spirit, high speed diesel, aviation turbine fuel, and tobacco products will be outside the scope of GST and Central Excise duty will be levied on the same."/>
@@ -50,14 +55,19 @@
 
     <TextView
         android:id="@+id/ConsText"
+        android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ProsTextCont"
         android:text="Cons"
+        android:background="@drawable/backone"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp"
         android:visibility="gone"
         android:textSize="35dp"
-        android:paddingTop="20dp"
-        android:textColor="#000"
+        android:paddingTop="10dp"
+        android:textColor="#fff"
         android:layout_centerHorizontal="true"/>
 
     <TextView
@@ -70,7 +80,7 @@
         android:textStyle="italic"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:textColor="#000"
+        android:textColor="#fff"
         android:textSize="18dp"
         android:layout_below="@id/ConsText"
         android:text="To provide a level playing field to the domestic industry, Customs Tariff Act, 1975 is amended to provide for levy of Integrated Goods and Service Tax (IGST) and Goods and Services Tax Compensation Cess on imported goods. \n\n National Calamity Contingent Duty will be levied only on tobacco products and crude oil.\n\n Petroleum products such as motor spirit, high speed diesel, aviation turbine fuel, and tobacco products will be outside the scope of GST and Central Excise duty will be levied on the same."/>

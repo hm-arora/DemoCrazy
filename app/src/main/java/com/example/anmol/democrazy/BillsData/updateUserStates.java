@@ -3,6 +3,7 @@ package com.example.anmol.democrazy.BillsData;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -15,6 +16,9 @@ import com.android.volley.toolbox.Volley;
 import com.example.anmol.democrazy.BillActivity;
 import com.example.anmol.democrazy.PhoneNoSave.SavePhoneNo;
 import com.example.anmol.democrazy.login.LoginKey;
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
+import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 
 
 import org.json.JSONException;
@@ -55,7 +59,12 @@ public class updateUserStates {
                             // if status true then update success
                             if (status) {
 
-                                Toast.makeText(ctx, "Successfully saved", Toast.LENGTH_LONG).show();
+
+                                SuperActivityToast.create(ctx).setText("Successfully Saved").setDuration(2000)
+                                        .setColor(Color.MAGENTA) .setFrame(Style.FRAME_LOLLIPOP)
+                                        .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_PURPLE))
+                                        .setAnimations(Style.ANIMATIONS_POP).show();
+
                                 //Redirecting to BillActivity class
                                 Intent i = new Intent(ctx, BillActivity.class);
                                 ctx.startActivity(i);
