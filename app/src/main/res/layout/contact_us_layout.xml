@@ -61,7 +61,7 @@
                 <TextView
                     android:id="@+id/androidcon"
                     android:textStyle="bold"
-                    android:text="1.anmoldua97@gmail.com \n \n 2.Himasnhuarora315@gmail.com"
+                    android:text="1.anmoldua97@gmail.com \n \n 2.Himanshuarora315@gmail.com"
                     android:textSize="20sp"
                     android:paddingTop="20sp"
                     android:textColor="#fff"
