@@ -43,7 +43,7 @@ import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class OpinionPollActivity extends AppCompatActivity implements OpinionPollFragment.OnSubmitListener {
+public class OpinionPollActivity extends AppCompatActivity implements OpinionPollFragment.OnSubmitListener, OpinionPollFragment.OnButtonListener {
     private static final int PAGES = 20;
     private static final String TAG = OpinionPollActivity.class.getSimpleName();
     private String URL = "http://139.59.86.83:4000/login/secure/opinionPolls/getNew?count=";
@@ -111,18 +111,17 @@ public class OpinionPollActivity extends AppCompatActivity implements OpinionPol
                                     // if it is last page then add Submit button at the end
                                     if (i == jsonArray.length() - 1)
                                         fragmentList.add(OpinionPollFragment.newInstance(
-                                                new OpinionPoll(id, question, stateCentralId, startDate, endDate, true)));
+                                                new OpinionPoll(id, question, stateCentralId, startDate, endDate, true), i));
                                         // else just show the same fragment with yes,no and don't know message
                                     else
                                         fragmentList.add(OpinionPollFragment.newInstance(
-                                                new OpinionPoll(id, question, stateCentralId, startDate, endDate, false)));
+                                                new OpinionPoll(id, question, stateCentralId, startDate, endDate, false), i));
                                 }
                             }
                             Adapter adapter = new Adapter(getSupportFragmentManager());
                             adapter.addFragment(fragmentList);
                             pager.setAdapter(adapter);
                             pager.setOffscreenPageLimit(0);
-
                             // Alter the behaviour of progressBar
                             progressBar.setVisibility(View.GONE);
                         } catch (JSONException e) {
@@ -164,6 +163,13 @@ public class OpinionPollActivity extends AppCompatActivity implements OpinionPol
     public void onSubmitButtonListener(Map<String, Integer> object) {
         JSONObject jsonObject = new JSONObject(object);
         submitPolls(jsonObject.toString());
+    }
+
+    @Override
+    public void onAnyButtonListener(int pos) {
+        pager.setScrollDurationFactor(10);
+        pager.setCurrentItem(pos + 1, true);
+        pager.setScrollDurationFactor(2);
     }
 
 
@@ -240,6 +246,7 @@ public class OpinionPollActivity extends AppCompatActivity implements OpinionPol
 
         rq.add(stringRequest);
     }
+
 
     private static class Adapter extends FragmentPagerAdapter {
         private List<Fragment> mFragments = new ArrayList<>();
