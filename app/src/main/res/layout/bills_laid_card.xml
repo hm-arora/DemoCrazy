@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
-    android:layout_height="150dp"
+    android:layout_height="120dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:elevation="2dp"
-    android:layout_marginRight="3dp"
-    android:layout_marginLeft="3dp"
+    android:elevation="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
     android:layout_width="match_parent"
     app:cardBackgroundColor="#FAFAFA"
-    android:layout_marginTop="5dp"
+    android:layout_marginTop="10dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
@@ -18,10 +18,10 @@
             android:id="@+id/Name_of_Bill"
             android:text="Name of Bill"
             android:textColor="#000"
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:gravity="center_horizontal"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"/>

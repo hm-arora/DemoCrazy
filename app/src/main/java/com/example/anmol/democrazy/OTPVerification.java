@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,9 +17,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.anmol.democrazy.login.OTP;
 import com.example.anmol.democrazy.login.getUserDetails;
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
+import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +36,10 @@ public class OTPVerification extends AppCompatActivity {
     String phoneNumber;
 
     Button btn;
+
+    private TextView PhoneNumberCon;
+    // Phone Number Otp Verification content
+    String content;
 
     Button loginBtn;
 
@@ -45,6 +54,11 @@ public class OTPVerification extends AppCompatActivity {
 
         phoneNumber = getIntent().getExtras().getString(getString(R.string.Phone_number));
         OtpEditText = (EditText) findViewById(R.id.OtpEditText);
+        PhoneNumberCon= (TextView) findViewById(R.id.OtpPassWordContent);
+
+        content="One Time Password(OTP) has been sent to your mobile ******"+getIntent().getExtras().getString(getString(R.string.Phone_number)).substring(6,10)+" ,please enter the same here to login";
+
+        PhoneNumberCon.setText(content);
 
         btn= (Button) findViewById(R.id.Login_OTP);
 
@@ -93,6 +107,19 @@ public class OTPVerification extends AppCompatActivity {
     //Clicking Butt
     public void sendButt(String otp){
 
+        if (otp.equals("")){
+
+            SuperActivityToast.create(OTPVerification.this).setText("Please Put the OTP").setDuration(2000)
+                    .setColor(Color.MAGENTA) .setFrame(Style.FRAME_LOLLIPOP)
+                    .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_DEEP_ORANGE))
+                    .setAnimations(Style.ANIMATIONS_POP).show();
+
+
+        }
+        else{
+            sendOTP(otp);
+            sendMessage(otp);
+        }
 
 
     }
