@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ActualBillLink"
         android:text="Pros"
-        android:textSize="30dp"
+        android:textSize="35dp"
         android:paddingTop="20dp"
         android:textColor="#000"
         android:layout_centerHorizontal="true"/>
@@ -43,7 +43,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:textColor="#000"
-        android:textSize="15dp"
+        android:textSize="18dp"
         android:layout_below="@id/ProsText"
         android:text="To provide a level playing field to the domestic industry, Customs Tariff Act, 1975 is amended to provide for levy of Integrated Goods and Service Tax (IGST) and Goods and Services Tax Compensation Cess on imported goods. \n\n National Calamity Contingent Duty will be levied only on tobacco products and crude oil.\n\n Petroleum products such as motor spirit, high speed diesel, aviation turbine fuel, and tobacco products will be outside the scope of GST and Central Excise duty will be levied on the same."/>
 
@@ -55,7 +55,7 @@
         android:layout_below="@id/ProsTextCont"
         android:text="Cons"
         android:visibility="gone"
-        android:textSize="30dp"
+        android:textSize="35dp"
         android:paddingTop="20dp"
         android:textColor="#000"
         android:layout_centerHorizontal="true"/>
@@ -71,7 +71,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:textColor="#000"
-        android:textSize="15dp"
+        android:textSize="18dp"
         android:layout_below="@id/ConsText"
         android:text="To provide a level playing field to the domestic industry, Customs Tariff Act, 1975 is amended to provide for levy of Integrated Goods and Service Tax (IGST) and Goods and Services Tax Compensation Cess on imported goods. \n\n National Calamity Contingent Duty will be levied only on tobacco products and crude oil.\n\n Petroleum products such as motor spirit, high speed diesel, aviation turbine fuel, and tobacco products will be outside the scope of GST and Central Excise duty will be levied on the same."/>
 

@@ -192,7 +192,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void setToolbar() {
         if (toolbar != null)
-            setSupportActionBar(toolbar);
+            //setSupportActionBar(toolbar);
+            toolbar.setTitle("");
     }
 
     private void initViews() {

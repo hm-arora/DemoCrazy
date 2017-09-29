@@ -12,13 +12,30 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary" />
+            android:layout_height="100dp"
+            android:background="#424242">
+
+            <ImageView
+                android:id="@+id/DemocrazyToolbarlogo"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/logo"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DemoCrazy"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:paddingLeft="20dp"/>
+
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginTop="100dp"
         android:id="@+id/RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

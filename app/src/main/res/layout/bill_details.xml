@@ -51,7 +51,7 @@
                 android:text="Synopsis"
                 android:layout_centerHorizontal="true"
                 android:paddingTop="20dp"
-                android:textSize="30dp"
+                android:textSize="35dp"
                 android:textColor="#000"
                 />
 
@@ -67,7 +67,7 @@
                 android:paddingBottom="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:textSize="15dp"
+                android:textSize="18dp"
                 android:layout_centerHorizontal="true"
                 android:gravity="center_horizontal"
                 android:text="The Bill seeks to amend the Customs Act 1962, the Customs Tariff Act 1975, the Central Excise Act 1944, the Finance Act, 2001 and the Finance Act, 2005 and to repeal certain enactments.\n The Customs Act is proposed to be amended to include warehouse in the definition of customs area  to ensure that an importer would not be required to pay the proposed integrated goods and services tax at the time of removal of goods from a customs station to a warehouse.\n \n The Customs Tariff Act, 1975 is proposed to be amended to provide for levy of integrated goods and services tax and goods and services tax compensation cess on imported goods so as to provide a level playing field to the domestic industry vis-a-vis imported goods.\n \n This Bill also seeks to abolish certain cesses or surcharges which are levied or collected as duty of excise or service tax under various Acts.\n\n

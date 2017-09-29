@@ -74,8 +74,9 @@ public class RecyclerAdapterMain extends RecyclerView.Adapter<RecyclerAdapterMai
                             ctx.startActivity(i);
                             break;
                         case 1:
-                            i = new Intent(ctx, FinancialInclusionsActivity.class);
-                            ctx.startActivity(i);
+
+                            Toast.makeText(ctx,"Coming Soon",Toast.LENGTH_LONG).show();
+
                             break;
                         case 2:
                             LoginKey loginKey = new LoginKey(ctx);
