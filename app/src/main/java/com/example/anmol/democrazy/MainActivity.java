@@ -270,21 +270,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             // If login key found
             if (!(l.getLoginKey().equals(""))) {
 
-                LogOut logOut = new LogOut(MainActivity.this);
-                logOut.logoutUser(new LogOut.LogOutInter() {
-                    @Override
-                    public void result(boolean status) {
-                        System.out.println("status : " + status);
-                        if (status) {
-                            // changing UI
-                            item.setTitle("login");
-                            linearLayout.setVisibility(View.GONE);
-                            // Deleting Cookie
-                            LoginKey l = new LoginKey(MainActivity.this, "");
-                            l.setLoginKey();
-                        }
-                    }
-                });
+                //calling ConfirmLogout Method
+                confirmLogOut(item);
 
             } else {
                 Intent i = new Intent(MainActivity.this, LoginActivity.class);
@@ -379,6 +366,48 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(MainActivity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+
+    // Confirming LogOut
+    public void confirmLogOut(final MenuItem item){
+
+        new SweetAlertDialog(MainActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText("Sure Want To LogOut ? ")
+                .setConfirmText("Yes")
+                .setCancelText("No")
+                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismissWithAnimation();
+                    }
+                })
+                // Confirm
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+
+                        LogOut logOut = new LogOut(MainActivity.this);
+                        logOut.logoutUser(new LogOut.LogOutInter() {
+                            @Override
+                            public void result(boolean status) {
+                                System.out.println("status : " + status);
+                                if (status) {
+                                    // changing UI
+                                    item.setTitle("login");
+                                    linearLayout.setVisibility(View.GONE);
+                                    // Deleting Cookie
+                                    LoginKey l = new LoginKey(MainActivity.this, "");
+                                    l.setLoginKey();
+                                }
+                            }
+                        });
+
+                        sDialog.dismissWithAnimation();
+                    }
+                })
+                .show();
 
     }
 

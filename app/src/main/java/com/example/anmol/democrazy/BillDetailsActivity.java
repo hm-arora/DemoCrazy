@@ -2,6 +2,7 @@ package com.example.anmol.democrazy;
 
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -18,20 +19,37 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.webkit.URLUtil;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.anmol.democrazy.BillsData.BillDetails;
+import com.example.anmol.democrazy.BillsData.sendPoll;
+import com.example.anmol.democrazy.login.LoginKey;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 
 public class BillDetailsActivity extends AppCompatActivity {
 
 
     TextView BillName,BillDate,Synop,SynopContent,Pros,ProsContent,Cons,ConsContent,NewspaperLink;
+
+    // For QuotionPoll
+    TextView QuotionPoll;
+
+    //Like
+    RelativeLayout yes;
+
+    //Dislike;
+    RelativeLayout no;
+
+    //WholePole
+    RelativeLayout wholepol;
 
     Button ActualBillLinkButt;
 
@@ -42,6 +60,10 @@ public class BillDetailsActivity extends AppCompatActivity {
     String consContent;
     String newspaperlink;
     String ActualBillLink;
+    String quotion="";
+    //int PollStatus;
+    int id;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,9 +81,13 @@ public class BillDetailsActivity extends AppCompatActivity {
         Cons= (TextView) findViewById(R.id.ConsText);
         ConsContent= (TextView) findViewById(R.id.ConsTextCont);
         NewspaperLink= (TextView) findViewById(R.id.NewspaperLink);
+        QuotionPoll= (TextView) findViewById(R.id.QuotionPoll);
+        yes= (RelativeLayout) findViewById(R.id.Yes);
+        no= (RelativeLayout) findViewById(R.id.No);
+        wholepol= (RelativeLayout) findViewById(R.id.WholePoll);
 
         //getting id of bill
-        int id=getIntent().getExtras().getInt("id");
+        id=getIntent().getExtras().getInt("id");
 
         //getting Bill Details
         BillDetails billDetails=new BillDetails(BillDetailsActivity.this,id);
@@ -75,7 +101,7 @@ public class BillDetailsActivity extends AppCompatActivity {
                 spannable.setSpan(new UnderlineSpan(),0,spannable.length(),0);
                 Synop.setText(spannable);
 
-                System.out.println(jsonObject);
+                System.out.println("Bill Details : " + jsonObject);
                 boolean status=jsonObject.getBoolean("status");
                 //checking status - true
                 if (status){
@@ -89,6 +115,8 @@ public class BillDetailsActivity extends AppCompatActivity {
                     newspaperlink=jsonObject1.getString("newspaper_articles_links");
 
                     ActualBillLink=jsonObject1.getString("actual_bill_link");
+
+
 
                     BillName.setText(billName);
                     BillDate.setText(billDate);
@@ -134,6 +162,37 @@ public class BillDetailsActivity extends AppCompatActivity {
                     NewspaperLink.setText(Html.fromHtml(s1,0));
                     NewspaperLink.setLinkTextColor(Color.WHITE);
 
+
+                    LoginKey l=new LoginKey(BillDetailsActivity.this);
+                    String loginKey=l.getLoginKey();
+
+                    // If user is logged in means question will be there
+                    if (loginKey!="" && getIntent().getExtras().getInt("whichAdap")!=4){
+
+                        // Setting Visibilty Visible
+                        wholepol.setVisibility(View.VISIBLE);
+
+                        // Getting Question
+                        quotion=jsonObject1.getString("question");
+                        System.out.println("Quotion : " + quotion);
+                        QuotionPoll.setText(quotion);
+
+                        //Checking if pollstatus exist
+                        // If Exist
+                        if (jsonObject1.has("pollStatus")){
+                            ContainPollStatus();
+                        }
+                        //if not exist
+                        else{
+                            NotContainPollStatus();
+                        }
+                    }
+
+                    //if user is not logged in
+                    else{
+                        wholepol.setVisibility(View.GONE);
+                    }
+
                 }
             }
         });
@@ -169,5 +228,54 @@ public class BillDetailsActivity extends AppCompatActivity {
         DownloadManager manager = (DownloadManager)getSystemService(Context.DOWNLOAD_SERVICE);
         manager.enqueue(request);
 
+    }
+
+    // Containg Poll Status
+    private void ContainPollStatus(){
+
+        // Making Whole Pole Grey
+        wholepol.setBackgroundColor(Color.GRAY);
+        wholepol.setAlpha(0.3f);
+        //Making Like and dislike Buttons Not Functionable
+        no.setEnabled(false);
+        yes.setEnabled(false);
+    }
+
+    // Not Containing Poll Status then user can send the poll
+    private void NotContainPollStatus(){
+
+        //clicking yes
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendPollValue(1);
+            }
+        });
+
+        //clicking no
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendPollValue(0);
+            }
+        });
+    }
+
+    // Sending poll
+    private void sendPollValue(int vote){
+
+        sendPoll s=new sendPoll(BillDetailsActivity.this,id,vote);
+        s.sendingVote(new sendPoll.callBack() {
+            @Override
+            public void getResult(JSONObject jsonObject) throws JSONException {
+                boolean status=jsonObject.getBoolean("status");
+                //status - true
+                if (status){
+                    new SweetAlertDialog(BillDetailsActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("Successfully Polled")
+                            .show();
+                }
+            }
+        });
     }
 }

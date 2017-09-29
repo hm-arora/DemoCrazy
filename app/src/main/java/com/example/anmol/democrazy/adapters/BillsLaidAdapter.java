@@ -22,12 +22,15 @@ public class BillsLaidAdapter extends RecyclerView.Adapter<BillsLaidAdapter.View
     private List<String> centeralName;
     private List<String> date;
 
-    public BillsLaidAdapter(Context ctx, List<Integer> id, List<String> name, List<String> centeralName, List<String> date) {
+    private int i;
+
+    public BillsLaidAdapter(Context ctx, List<Integer> id, List<String> name, List<String> centeralName, List<String> date,int i) {
         this.id=id;
         this.ctx=ctx;
         this.name=name;
         this.centeralName=centeralName;
         this.date=date;
+        this.i=i;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -47,9 +50,10 @@ public class BillsLaidAdapter extends RecyclerView.Adapter<BillsLaidAdapter.View
                 public void onClick(View view) {
 
                     int pos=getAdapterPosition();
-                    Intent i=new Intent(ctx, BillDetailsActivity.class);
-                    i.putExtra("id",id.get(pos));
-                    ctx.startActivity(i);
+                    Intent in=new Intent(ctx, BillDetailsActivity.class);
+                    in.putExtra("id",id.get(pos));
+                    in.putExtra("whichAdap",i);
+                    ctx.startActivity(in);
 
                 }
             });

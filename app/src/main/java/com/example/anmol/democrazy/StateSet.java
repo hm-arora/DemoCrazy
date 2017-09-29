@@ -80,7 +80,11 @@ public class StateSet extends AppCompatActivity{
         rv.setLayoutManager(layoutManager);
         rv.setAdapter(adapter);
 
+    }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        StateSet.this.finish();
     }
 }

@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import com.example.anmol.democrazy.BillsData.TemporaryUserStates;
 import com.example.anmol.democrazy.BillsData.UserStates;
 import com.example.anmol.democrazy.BillsData.getAllStates;
+import com.example.anmol.democrazy.BillsData.statesData;
 import com.example.anmol.democrazy.fragments.BillsLaid;
 import com.example.anmol.democrazy.fragments.BillsPassed;
 import com.example.anmol.democrazy.fragments.OrdinancesElacted;
@@ -161,11 +162,19 @@ public class BillActivity extends AppCompatActivity {
             // Handling click location
             case R.id.AllStates:
 
-                //getting all states from server
-                getAllStates getAllStates=new getAllStates(BillActivity.this);
-                getAllStates.getData();
-                Intent i=new Intent(BillActivity.this,StateSet.class);
-                startActivity(i);
+                statesData st=new statesData(BillActivity.this);
+                String s=st.getStates();
+                if (s.equals("")){
+                    //getting all states from server
+                    getAllStates getAllStates=new getAllStates(BillActivity.this);
+                    getAllStates.getData();
+                    Intent i=new Intent(BillActivity.this,StateSet.class);
+                    startActivity(i);
+                }
+                else{
+                    Intent i=new Intent(BillActivity.this,StateSet.class);
+                    startActivity(i);
+                }
 
                 break;
             default:

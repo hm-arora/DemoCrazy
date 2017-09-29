@@ -92,7 +92,7 @@ public class OrdinancesElacted extends Fragment {
                     tx.setVisibility(View.GONE);
                     rv.setVisibility(View.VISIBLE);
                     RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(ctx);
-                    RecyclerView.Adapter adapter=new BillsLaidAdapter(ctx,id,Name,centeralName,date);
+                    RecyclerView.Adapter adapter=new BillsLaidAdapter(ctx,id,Name,centeralName,date,3);
                     rv.setLayoutManager(layoutManager);
                     rv.setAdapter(adapter);
                 }

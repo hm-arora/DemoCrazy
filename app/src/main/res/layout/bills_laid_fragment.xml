@@ -11,7 +11,7 @@
 
         <TextView
             android:id="@+id/NoData"
-            android:text="No data"
+            android:text="Nothing to Show"
             android:visibility="gone"
             android:textSize="40dp"
             android:layout_centerInParent="true"
