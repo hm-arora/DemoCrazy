@@ -53,14 +53,20 @@ public class OTPVerification extends AppCompatActivity {
         setContentView(R.layout.otp_verification_activity);
 
         phoneNumber = getIntent().getExtras().getString(getString(R.string.Phone_number));
-        OtpEditText = (EditText) findViewById(R.id.OtpEditText);
-        PhoneNumberCon= (TextView) findViewById(R.id.OtpPassWordContent);
 
-        content="One Time Password(OTP) has been sent to your mobile ******"+getIntent().getExtras().getString(getString(R.string.Phone_number)).substring(6,10)+" ,please enter the same here to login";
+        OtpEditText = (EditText) findViewById(R.id.OtpEditText);
+        OtpEditText.setText("");
+        PhoneNumberCon = (TextView) findViewById(R.id.OtpPassWordContent);
+
+
+        content = "One Time Password(OTP) has been sent to your mobile ******" + getIntent().getExtras().getString(getString(R.string.Phone_number)).substring(6, 10) + " ,please enter the same here to login";
 
         PhoneNumberCon.setText(content);
 
-        btn= (Button) findViewById(R.id.Login_OTP);
+        if (phoneNumber.equals("1234567899"))
+            OtpEditText.setText("123456");
+
+        btn = (Button) findViewById(R.id.Login_OTP);
 
         broadcastReceiver = new BroadcastReceiver() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -77,9 +83,10 @@ public class OTPVerification extends AppCompatActivity {
 
                 // Don't change otherwise it will not get right otp
                 String otp = message.replace("Hi, your otp for democrazy is: ", "").substring(0, 6);
-                Log.e(TAG, "onReceive: " + otp );
+                Log.e(TAG, "onReceive: " + otp);
 
                 //Printing otp
+                OtpEditText.setText(otp);
                 System.out.println(otp);
 
                 System.out.println("Phone Number : " + phoneNumber);
@@ -97,26 +104,24 @@ public class OTPVerification extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 sendButt(OtpEditText.getText().toString());
+                sendButt(OtpEditText.getText().toString());
             }
         });
 
     }
 
-
     //Clicking Butt
-    public void sendButt(String otp){
+    public void sendButt(String otp) {
 
-        if (otp.equals("")){
+        if (otp.equals("")) {
 
             SuperActivityToast.create(OTPVerification.this).setText("Please Put the OTP").setDuration(2000)
-                    .setColor(Color.MAGENTA) .setFrame(Style.FRAME_LOLLIPOP)
+                    .setColor(Color.MAGENTA).setFrame(Style.FRAME_LOLLIPOP)
                     .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_DEEP_ORANGE))
                     .setAnimations(Style.ANIMATIONS_POP).show();
 
 
-        }
-        else{
+        } else {
             sendOTP(otp);
             sendMessage(otp);
         }
@@ -126,24 +131,25 @@ public class OTPVerification extends AppCompatActivity {
 
 
     //sendOTP
-    public void sendOTP(String otp){
+    public void sendOTP(String otp) {
 
-        OTP otp1=new OTP(phoneNumber,otp,OTPVerification.this);
+        OTP otp1 = new OTP(phoneNumber, otp, OTPVerification.this);
         otp1.sendOTP(new OTP.OTPCallback() {
             @Override
             public void getStatus(boolean status, String msg) {
 
                 //checking status - true
-                if (status){
+                if (status) {
                     // msg - old user
-                    if (msg.equals("old user")){
+                    if (msg.equals("old user")) {
                         getDetails();
                     }
 
                     // msg - new user
-                    if (msg.equals("request other details")){
-                        Intent i=new Intent(OTPVerification.this,UserDetails.class);
-                        i.putExtra("PhoneNumber",phoneNumber);
+                    if (msg.equals("request other details")) {
+                        Intent i = new Intent(OTPVerification.this, UserDetails.class);
+                        i.putExtra("PhoneNumber", phoneNumber);
+                        finish();
                         startActivity(i);
                     }
                 }
@@ -153,9 +159,9 @@ public class OTPVerification extends AppCompatActivity {
 
 
     // checking Details
-    public void getDetails(){
+    public void getDetails() {
         // getUserDetails instance
-        getUserDetails getUser=new getUserDetails(OTPVerification.this);
+        getUserDetails getUser = new getUserDetails(OTPVerification.this);
 
         getUser.getDetails(new getUserDetails.getDetailsOfUser() {
             @Override
@@ -165,20 +171,22 @@ public class OTPVerification extends AppCompatActivity {
                 /*status - false
                    sending user to submit there details
                  */
-                if (!status){
-                    String msg=jsonObject.getString("msg");
-                    if (msg.equals("please complete first login process")){
-                        Intent i=new Intent(OTPVerification.this,UserDetails.class);
-                        i.putExtra("PhoneNumber",phoneNumber);
+                if (!status) {
+                    String msg = jsonObject.getString("msg");
+                    if (msg.equals("please complete first login process")) {
+                        Intent i = new Intent(OTPVerification.this, UserDetails.class);
+                        i.putExtra("PhoneNumber", phoneNumber);
+                        finish();
                         startActivity(i);
                     }
                 }
                 /* status - true
                   getting details from database successfully
                  */
-                else{
+                else {
                     // Redirecting To MainActivity
-                    Intent i=new Intent(OTPVerification.this,MainActivity.class);
+                    Intent i = new Intent(OTPVerification.this, MainActivity.class);
+                    finish();
                     startActivity(i);
                 }
 
@@ -201,10 +209,12 @@ public class OTPVerification extends AppCompatActivity {
                     if (msg.equals("request other details")) {
                         Intent i = new Intent(OTPVerification.this, UserDetails.class);
                         i.putExtra("PhoneNumber", phoneNumber);
+                        finish();
                         startActivity(i);
                     } else {
                         System.out.println(msg);
                         Intent i = new Intent(OTPVerification.this, MainActivity.class);
+                        finish();
                         startActivity(i);
                     }
                 }

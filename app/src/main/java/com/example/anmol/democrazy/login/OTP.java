@@ -68,8 +68,8 @@ public class OTP {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
-                System.out.println("Phone No. : "+phoneNumber);
-                System.out.println("otp : "+OTPNum);
+                System.out.println("Phone No. : " + phoneNumber);
+                System.out.println("otp : " + OTPNum);
                 map.put("phone", phoneNumber);
                 map.put("otp", OTPNum);
                 return map;
@@ -81,7 +81,7 @@ public class OTP {
                 System.out.println(response.headers);
                 // To get cookie from headers
                 String key = response.headers.get("Set-Cookie");
-                Log.e(TAG, "parseNetworkResponse: " + key );
+                Log.e(TAG, "parseNetworkResponse: " + key);
                 LoginKey loginKey = new LoginKey(ctx, key);
                 loginKey.setLoginKey();
 

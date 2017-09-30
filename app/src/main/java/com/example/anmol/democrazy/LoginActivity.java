@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.example.anmol.democrazy.login.PhoneNumber;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -27,6 +29,17 @@ public class LoginActivity extends AppCompatActivity {
         // initViews
         initViews();
 
+        new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("1234567899")
+                .setContentText("use above number for demo purpose ")
+                .setConfirmText("Ok")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                    }
+                })
+                .show();
         // Add Listener to button
         submitButton.setOnClickListener(submitListener);
     }
@@ -34,13 +47,15 @@ public class LoginActivity extends AppCompatActivity {
     public void initViews() {
         editText = (EditText) findViewById(R.id.PhoneNumber);
         submitButton = (Button) findViewById(R.id.SubmitPhoneNumber);
+        String text = editText.getText().toString();
+        Log.e(TAG, "initViews: " + text);
+        editText.setText("");
     }
 
     View.OnClickListener submitListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             final String number = editText.getText().toString();
-
             Log.d(TAG, "submitListener : phoneNumber :  " + number);
 
             final PhoneNumber phoneNumber = new PhoneNumber(number, LoginActivity.this);
@@ -51,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (status && msg.equals(getString(R.string.Message_queued))) {
                         Intent i = new Intent(LoginActivity.this, OTPVerification.class);
                         i.putExtra(getString(R.string.Phone_number), number);
+                        finish();
                         startActivity(i);
                     }
                 }

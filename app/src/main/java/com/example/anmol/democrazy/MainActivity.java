@@ -180,11 +180,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.READ_SMS) + ContextCompat.checkSelfPermission(MainActivity.this,
-                Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
+                Manifest.permission.RECEIVE_SMS) + ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
                     Manifest.permission.READ_SMS) || ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
-                    Manifest.permission.RECEIVE_SMS)) {
+                    Manifest.permission.RECEIVE_SMS) || ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
                 Snackbar.make(findViewById(android.R.id.content),
                         "Please Grant Permissions to read OTP from messages",
@@ -206,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // No explanation needed, we can request the permission.
 
                 ActivityCompat.requestPermissions(MainActivity.this,
-                        new String[]{Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS},
+                        new String[]{Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         MY_PERMISSIONS_REQUEST_READ_CONTACTS);
 
                 // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
@@ -322,7 +323,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (grantResults.length > 0) {
                     boolean read_sms = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     boolean recieve_sms = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-                    if (!read_sms && !recieve_sms) {
+                    boolean storage = grantResults[2] == PackageManager.PERMISSION_GRANTED;
+                    if (!read_sms && !recieve_sms && !storage) {
                         Snackbar.make(findViewById(android.R.id.content),
                                 "Please Grant Permissions to read OTP from messages",
                                 Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
@@ -330,7 +332,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     @Override
                                     public void onClick(View v) {
                                         ActivityCompat.requestPermissions(MainActivity.this,
-                                                new String[]{Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS},
+                                                new String[]{Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                                                 MY_PERMISSIONS_REQUEST_READ_CONTACTS);
                                     }
                                 }).show();
@@ -394,8 +396,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // Confirming LogOut
     public void confirmLogOut(final MenuItem item) {
 
-        new SweetAlertDialog(MainActivity.this, SweetAlertDialog.SUCCESS_TYPE)
-                .setTitleText("Sure Want To LogOut ? ")
+        new SweetAlertDialog(MainActivity.this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Sure Want To Logout ? ")
                 .setConfirmText("Yes")
                 .setCancelText("No")
                 .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
