@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -42,6 +43,8 @@ import com.example.anmol.democrazy.util.TextDrawable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -355,25 +358,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // Sending Gmail
     public void sendGmail() {
 
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-        String TO[] = {"BansuBhai@gmail.com"};
-        emailIntent.setData(Uri.parse("mailto:"));
-        emailIntent.setType("text/plain");
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "FeedBack(DemoCrazy)");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "Please Give Us Feedback");
+//        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        String TO[] = {"bansal.pawan96@gmail.com"};
+//        emailIntent.setData(Uri.parse("mailto:"));
+//        emailIntent.setType("text/plain");
+//        emailIntent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
+//        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+//        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "FeedBack(DemoCrazy)");
+//        emailIntent.putExtra(Intent.EXTRA_TEXT, "Please Give Us Feedback");
 
-        try {
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(MainActivity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
-        }
+//        try {
+//            startActivity(emailIntent);
+//        } catch (android.content.ActivityNotFoundException ex) {
+//            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+//            Toast.makeText(MainActivity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
+//        }
+
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
+        emailIntent.setType("text/plain");
+        final PackageManager pm = getPackageManager();
+        final List<ResolveInfo> matches = pm.queryIntentActivities(emailIntent, 0);
+        ResolveInfo best = null;
+        for (final ResolveInfo info : matches)
+            if (info.activityInfo.packageName.endsWith(".gm") || info.activityInfo.name.toLowerCase().contains("gmail"))
+                best = info;
+        if (best != null)
+            emailIntent.setClassName(best.activityInfo.packageName, best.activityInfo.name);
+        startActivity(emailIntent);
 
     }
 
 
     // Confirming LogOut
-    public void confirmLogOut(final MenuItem item){
+    public void confirmLogOut(final MenuItem item) {
 
         new SweetAlertDialog(MainActivity.this, SweetAlertDialog.SUCCESS_TYPE)
                 .setTitleText("Sure Want To LogOut ? ")
